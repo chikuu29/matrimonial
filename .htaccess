@@ -1,0 +1,31 @@
+RewriteEngine On
+
+RewriteRule ^.env - [F,L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(css|js|images|fonts|sass|base|layout)/(.*)$ public/$1/$2/$3 [L,NC]
+Options -Indexes
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+	Header set Access-Control-Allow-Origin "*"	
+	Header always edit Set-Cookie ^(.*)$ $1;SameSite=None;Secure
+	Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+	Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+</IfModule>
+
+php_value session.cookie_httponly 1
+php_value session.cookie_secure  1
+php_value use_only_cookies 1
+php_value upload_max_filesize 100M
+php_value post_max_size 3000M
