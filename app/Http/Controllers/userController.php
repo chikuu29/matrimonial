@@ -8,15 +8,6 @@ class userController extends Controller
 {
     public function addUserData(Request $res){
         
-        //   $getdata = $res->all();
-        //   dd($getdata);
-        //   if($res->isMethod('get')){
-        //     $user_arr = array(
-        //         "status"=> false,
-        //         "success"=> false,
-        //         "message"=> "are u nubHakker",
-        //     );
-        //   }
         $data = json_decode(file_get_contents("php://input"));
         
         
@@ -27,7 +18,7 @@ class userController extends Controller
         $email = !isset($data->email) ? '' : $data->email;
         $phoneno = !isset($data->phoneno) ? '': $data->phoneno;
         $password = !isset($data->password) ? '' : md5($data->password);
-        $status  = !isset($data->status) ? '' : $data->status ;
+        $status  = !isset($data->status) ? '' : $data->status;
 
         if($name == '' || $email == '' || $phoneno == '' || $password == '' || $status == '' ){
             $user_arr = array(
