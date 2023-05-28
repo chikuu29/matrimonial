@@ -1,0 +1,6 @@
+[2023-05-28 16:09:32] local.ERROR: Class "Illuminate\Mail\MailServiceProvider" not found {"exception":"[object] (Error(code: 0): Class \"Illuminate\\Mail\\MailServiceProvider\" not found at D:\\xampp\\htdocs\\matrimonial\\vendor\\laravel\\lumen-framework\\src\\Application.php:250)
+[stacktrace]
+#0 D:\\xampp\\htdocs\\matrimonial\\bootstrap\\app.php(106): Laravel\\Lumen\\Application->register('Illuminate\\\\Mail...')
+#1 D:\\xampp\\htdocs\\matrimonial\\public\\index.php(14): require('D:\\\\xampp\\\\htdocs...')
+#2 {main}
+"} 

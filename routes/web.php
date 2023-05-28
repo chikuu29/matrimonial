@@ -21,6 +21,11 @@ header('Access-Control-Allow-Origin: *');
 //     exit(0);
 // }
 $router->post("/adminLogin","loginController@adminLogin");
+$router->post("/addUserData","loginController@addUserData");
+
+
+
+
 
 
 

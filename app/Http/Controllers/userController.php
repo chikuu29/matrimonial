@@ -18,7 +18,10 @@ class userController extends Controller
         //     );
         //   }
         $data = json_decode(file_get_contents("php://input"));
-        dd($data);
+        
+        
+        //dd($data);
+        $forwhich =  !isset($data->forwhich) ?'' : $data->forwhich;
         $name =  !isset($data->name) ?'' : $data->name; // :'';
         $UserId = 'PATRABIBAHA'.substr($name,0,3).rand(1000,9999);
         $email = !isset($data->email) ? '' : $data->email;
