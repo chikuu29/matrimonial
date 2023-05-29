@@ -1,7 +1,7 @@
 <?php
 // header('X-Frame-Options: *');
 // header('Access-Control-Allow-Origin: *');
-
+// header("Access-Control-Allow-Headers:http://localhost:4200/");
  //@var \Laravel\Lumen\Routing\Router $router;
 
 
@@ -22,7 +22,10 @@
 //     exit(0);
 // }
 $router->post("/adminLogin","loginController@adminLogin");
-$router->post("/addUserData","userController@addUserData");
+$router->post("/addUserDataFirstApi","userController@addUserDataFirstApi");
+$router->post("/addUserDataSecondApi","userController@addUserDataSecondApi");
+$router->post("/socialMediaLink","addItemControler@socialMediaLink");
+$router->post("/getsocialMediaLink","addItemControler@getsocialMediaLink");
 
 
 
