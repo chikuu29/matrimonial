@@ -1,6 +1,7 @@
 <?php
-header('X-Frame-Options: *');
-header('Access-Control-Allow-Origin: *');
+// header('X-Frame-Options: *');
+// header('Access-Control-Allow-Origin: *');
+
  //@var \Laravel\Lumen\Routing\Router $router;
 
 
@@ -21,7 +22,7 @@ header('Access-Control-Allow-Origin: *');
 //     exit(0);
 // }
 $router->post("/adminLogin","loginController@adminLogin");
-$router->post("/addUserData","loginController@addUserData");
+$router->post("/addUserData","userController@addUserData");
 
 
 

@@ -4,3 +4,23 @@
 #1 D:\\xampp\\htdocs\\matrimonial\\public\\index.php(14): require('D:\\\\xampp\\\\htdocs...')
 #2 {main}
 "} 
+[2023-05-28 17:24:07] local.ERROR: Undefined array key "HTTP_ORIGIN" {"exception":"[object] (ErrorException(code: 0): Undefined array key \"HTTP_ORIGIN\" at D:\\xampp\\htdocs\\matrimonial\\routes\\web.php:2)
+[stacktrace]
+#0 D:\\xampp\\htdocs\\matrimonial\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RegistersExceptionHandlers.php(47): Laravel\\Lumen\\Application->handleError(2, 'Undefined array...', 'D:\\\\xampp\\\\htdocs...', 2)
+#1 D:\\xampp\\htdocs\\matrimonial\\routes\\web.php(2): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}(2, 'Undefined array...', 'D:\\\\xampp\\\\htdocs...', 2)
+#2 D:\\xampp\\htdocs\\matrimonial\\bootstrap\\app.php(126): require('D:\\\\xampp\\\\htdocs...')
+#3 D:\\xampp\\htdocs\\matrimonial\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#4 D:\\xampp\\htdocs\\matrimonial\\bootstrap\\app.php(123): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#5 D:\\xampp\\htdocs\\matrimonial\\artisan(18): require('D:\\\\xampp\\\\htdocs...')
+#6 {main}
+"} 
+[2023-05-28 17:24:27] local.ERROR: Undefined array key "REQUEST_METHOD" {"exception":"[object] (ErrorException(code: 0): Undefined array key \"REQUEST_METHOD\" at D:\\xampp\\htdocs\\matrimonial\\routes\\web.php:36)
+[stacktrace]
+#0 D:\\xampp\\htdocs\\matrimonial\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RegistersExceptionHandlers.php(47): Laravel\\Lumen\\Application->handleError(2, 'Undefined array...', 'D:\\\\xampp\\\\htdocs...', 36)
+#1 D:\\xampp\\htdocs\\matrimonial\\routes\\web.php(36): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}(2, 'Undefined array...', 'D:\\\\xampp\\\\htdocs...', 36)
+#2 D:\\xampp\\htdocs\\matrimonial\\bootstrap\\app.php(126): require('D:\\\\xampp\\\\htdocs...')
+#3 D:\\xampp\\htdocs\\matrimonial\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#4 D:\\xampp\\htdocs\\matrimonial\\bootstrap\\app.php(123): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#5 D:\\xampp\\htdocs\\matrimonial\\artisan(18): require('D:\\\\xampp\\\\htdocs...')
+#6 {main}
+"} 
