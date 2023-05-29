@@ -13,7 +13,7 @@ class userController extends Controller
         
         
         //dd($data);
-        $forwhich =  !isset($data->forwhich) ?'' : $data->forwhich;
+        $forwhich =  !isset($data->forwhich) ?'' : $data->profiletype;
         $UserId = 'PATRABIBAHA'.substr($name,0,3).rand(1000,9999);
         $email = !isset($data->email) ? '' : $data->email;
         $phoneno = !isset($data->phoneno) ? '': $data->phoneno;
@@ -66,7 +66,7 @@ class userController extends Controller
         //dd($data);
         $name =  !isset($data->name) ?'' : $data->name; // :'';
         $dob = !isset($data->dob) ?'' : $data->dob;
-        if($name == '' || $email == '' || $phoneno == '' || $password == '' || $status == '' ){
+        if($name == '' || $dob == '' ){
             $user_arr = array(
                 "status"=> false,
                 "success"=> false,
