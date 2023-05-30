@@ -98,10 +98,11 @@ class addItemControler extends Controller
 
     public function country(){
         $data = json_decode(file_get_contents("php://input"));
-        $country = !(isset($data->country)) ? '' : $data->country;
+        
         $status  = !(isset($data->status)) ? '' : $data->status;
 
         if($status == 21){
+            $country = !(isset($data->country)) ? '' : $data->country;
             $countryinsert = DB::table('country_table')->insert([
                 'country_name' => $country,
             ]);
@@ -111,7 +112,30 @@ class addItemControler extends Controller
                     "success"=> true,
                     "message"=> "Data Inserted Successfully !",
                 );
+            }else{
+                $user_arr = array(
+                    "status"=> false,
+                    "success"=> false,
+                    "message"=> "Data not Inserted !",
+                );
             }
         }
+        if($status == 211){
+            $countryalldata = DB::table('country_table')->get();
+            if(count($countryalldata) > 0){
+                $user_arr = array(
+                    "status"=> true,
+                    "success"=> true,
+                    "message"=>$countryalldata ,
+                );
+            }else{
+                $user_arr = array(
+                    "status"=> false,
+                    "success"=> false,
+                    "message"=> [],
+                );
+            }
+        }
+        return json_encode($user_arr);
     }
 }

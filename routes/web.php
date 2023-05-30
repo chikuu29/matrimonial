@@ -26,6 +26,7 @@ $router->post("/addUserDataFirstApi","userController@addUserDataFirstApi");
 $router->post("/addUserDataSecondApi","userController@addUserDataSecondApi");
 $router->post("/socialMediaLink","addItemControler@socialMediaLink");
 $router->post("/getsocialMediaLink","addItemControler@getsocialMediaLink");
+$router->post("/country","addItemControler@country");
 
 
 
