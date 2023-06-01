@@ -18,7 +18,9 @@ class userController extends Controller
         $email = !isset($data->email) ? '' : $data->email;
         $phoneno = !isset($data->phoneno) ? '': $data->phoneno;
         $password = !isset($data->password) ? '' : md5($data->password);
+        $gender = !isset($data->gender) ? '' : $data->gender;
         $status  = !isset($data->status) ? '' : $data->status;
+        
 
         if($name == '' || $email == '' || $phoneno == '' || $password == '' || $status == '' ){
             $user_arr = array(
@@ -29,16 +31,22 @@ class userController extends Controller
         }
 
         if($status == 1){
-            $user = DB::table('user')->insert([
+            $user = DB::table('user_info')->insert([
                 'UserId'=>$UserId,
                 'email'=>$email,
-                'password'=>$password,
+                //'password'=>$password,
                 'phoneno'=>$phoneno,
                 'status' =>1,
                 'deleted' => 1,
             ]);
+            $authuser = DB::table('auth_user')->insert([
+                'userId'=>$UserId,
+                'email'=>$email,
+                'password'=>$password,
+                'phone_no'=> $phoneno
+            ]);
              
-            if($user > 0){
+            if($user > 0 && $authuser > 0 ){
                 $user_arr = array(
                     "status"=> true,
                     "success"=> true,
@@ -75,12 +83,16 @@ class userController extends Controller
         }
 
         if($status == 1){
-            $user = DB::table('user')->insert([
+            $user = DB::table('user_info')->insert([
                 'name' => $name,
                 'dob'=>$dob,
             ]);
+            $authuser = DB::table('auth_user')->insert([
+                'name'=> $phoneno
+            ]);
+
              
-            if($user > 0){
+            if($user > 0 && $authuser>0 ){
                 $user_arr = array(
                     "status"=> true,
                     "success"=> true,
