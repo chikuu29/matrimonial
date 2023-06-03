@@ -10,46 +10,43 @@ class userController extends Controller
     public function addUserDataFirstApi(Request $res){
         
         $data = json_decode(file_get_contents("php://input"));
-        
-        
-        //dd($data);
-        $forwhich =  !isset($data->forwhich) ?'' : $data->profiletype;
-        $UserId = 'PATRABIBAHA'.substr($name,0,3).rand(1000,9999);
+        $profiletype =  !isset($data->profiletype) ? 'myself' : $data->profiletype;
+        $userId = 'PATRABIBAHA'.rand(1000,9999);
         $email = !isset($data->email) ? '' : $data->email;
-        $phoneno = !isset($data->phoneno) ? '': $data->phoneno;
+        $phone = !isset($data->phone) ? '': $data->phone;
         $password = !isset($data->password) ? '' : md5($data->password);
         $gender = !isset($data->gender) ? '' : $data->gender;
-        $status  = !isset($data->status) ? '' : $data->status;
-        
-
-        if($name == '' || $email == '' || $phoneno == '' || $password == '' || $status == '' ){
+        // $status  = !isset($data->status) ? '' : $data->status;
+        if(empty($profiletype) || empty($email)  || empty($phone) || empty($password) || empty($gender)){
             $user_arr = array(
                 "status"=> false,
                 "success"=> false,
-                "message"=> "enter a valid data",
+                "message"=> "Please Fill All Data",
             );
         }
-
-        if($status == 1){
+          $getAuthUserCount = DB::table('auth_user')
+          ->where('auth_email', $email)
+          ->where('auth_phone_no', $phone)
+          ->count();
+        if($getAuthUserCount == 0){
             $user = DB::table('user_info')->insert([
-                'UserId'=>$UserId,
-                'email'=>$email,
-                //'password'=>$password,
-                'phoneno'=>$phoneno,
+                'user_id'=>$userId,
+                'user_gender'=>$gender,
                 'status' =>1,
                 'deleted' => 1,
             ]);
             $authuser = DB::table('auth_user')->insert([
-                'userId'=>$UserId,
-                'email'=>$email,
-                'password'=>$password,
-                'phone_no'=> $phoneno
+                'auth_ID'=>$userId,
+                'auth_email'=>$email,
+                'auth_password'=>$password,
+                'auth_phone_no'=> $phone
             ]);
-             
+        
             if($user > 0 && $authuser > 0 ){
                 $user_arr = array(
                     "status"=> true,
                     "success"=> true,
+                    "profileID"=>$userId,
                     "message"=> "Data Inserted Successfully !",
                 );
             }else{
@@ -59,8 +56,13 @@ class userController extends Controller
                     "message"=> "Data not Inserted Successfully !",
                 );
             }
+        }else{
+            $user_arr = array(
+                "status"=> false,
+                "success"=> false,
+                "message"=> "Enter Email and Phone no already exist!",
+            );
         }
-
         return json_encode($user_arr);
 
 
@@ -82,7 +84,7 @@ class userController extends Controller
             );
         }
 
-        if($status == 1){
+        // if($status == 1){
             $user = DB::table('user_info')->insert([
                 'name' => $name,
                 'dob'=>$dob,
@@ -105,7 +107,7 @@ class userController extends Controller
                     "message"=> "Data not Inserted Successfully !",
                 );
             }
-        }
+        // }
 
         return json_encode($user_arr);
 
