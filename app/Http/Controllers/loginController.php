@@ -62,4 +62,58 @@ class loginController extends Controller
 
         return json_encode($user_arr);
     }
+
+    public function userLogin(){
+        $data = json_decode(file_get_contents("php://input"));
+
+        $userID = $data->userID;
+        $password = $data->password;
+
+        try {
+
+
+            $logindata = DB::table('auth_user')->where('auth_email', $userID)->get(['auth_email','auth_password','name','auth_ID']);
+            if (count($logindata) > 0) {
+                if ($password == $logindata[0]->Password) {
+
+                    $user_arr = array(
+                        "status" => true,
+                        "success" => true,
+                        "id" => $logindata[0]->UserId,
+                        "name" => $logindata[0]->name,
+                        "message" => "Login Successfully !",
+                    );
+
+                } else {
+                    $user_arr = array(
+                        "status" => false,
+                        "success" => false,
+                        "id" => '',
+                        "name" => '',
+                        "message" => "Password not match !",
+                    );
+                }
+            } else {
+
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "id" => '',
+                    "name" => '',
+                    "message" => "User Id not match !",
+                );
+            }
+        } catch (Exception $e) {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "id" => '',
+                "name" => '',
+                "message" => "Something Wrong Happened!",
+            );
+
+        }
+
+        return json_encode($user_arr);
+    }
 }
