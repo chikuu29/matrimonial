@@ -31,6 +31,7 @@ $router->post("/state","addItemControler@state");
 $router->post("/fetch","dynamic_Crud_controller@fetch");
 $router->post("/save","dynamic_Crud_controller@save");
 $router->post("/insertData","dynamic_Crud_controller@insertData");
+$router->post("/userLogin","loginController@userLogin");
 
 
 
