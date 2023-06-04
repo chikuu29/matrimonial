@@ -18,7 +18,7 @@ class loginController extends Controller
         try {
 
 
-            $logindata = DB::table('Admin')->where('UserId', $user)->get();
+            $logindata = DB::table('admin')->where('UserId', $user)->get();
             if (count($logindata) > 0) {
                 if ($password == $logindata[0]->Password) {
 
