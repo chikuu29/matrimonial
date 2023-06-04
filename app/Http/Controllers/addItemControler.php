@@ -98,7 +98,6 @@ class addItemControler extends Controller
 
     public function country(){
         $data = json_decode(file_get_contents("php://input"));
-        
         $status  = !(isset($data->status)) ? '' : $data->status;
 
         if($status == 21){
@@ -137,5 +136,49 @@ class addItemControler extends Controller
             }
         }
         return json_encode($user_arr);
+    }
+    public function state(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status  = !(isset($data->status)) ? '' : $data->status;
+
+        if($status == 21){
+            $countryid = !(isset($data->countryid)) ? '' : $data->countryid;
+            $state    = !(isset($data->state)) ? '': $data->state;
+            $stateinsert = DB::table('state_table')->insert([
+                'country_id' => $countryid,
+                'state_name'=>$state
+            ]);
+            if($stateinsert > 0){
+                $user_arr = array(
+                    "status"=> true,
+                    "success"=> true,
+                    "message"=> "Data Inserted Successfully !",
+                );
+            }else{
+                $user_arr = array(
+                    "status"=> false,
+                    "success"=> false,
+                    "message"=> "Data not Inserted !",
+                );
+            }
+        }
+        if($status == 211){
+            $stateinsert = DB::table('state_table')->get();
+            if(count($stateinsert) > 0){
+                $user_arr = array(
+                    "status"=> true,
+                    "success"=> true,
+                    "message"=>$stateinsert ,
+                );
+            }else{
+                $user_arr = array(
+                    "status"=> false,
+                    "success"=> false,
+                    "message"=> [],
+                );
+            }
+        }
+        return json_encode($user_arr);
+
     }
 }

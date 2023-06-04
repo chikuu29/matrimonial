@@ -27,6 +27,13 @@ $router->post("/addUserDataSecondApi","userController@addUserDataSecondApi");
 $router->post("/socialMediaLink","addItemControler@socialMediaLink");
 $router->post("/getsocialMediaLink","addItemControler@getsocialMediaLink");
 $router->post("/country","addItemControler@country");
+$router->post("/state","addItemControler@state");
+$router->post("/fetch","dynamic_Crud_controller@fetch");
+$router->post("/save","dynamic_Crud_controller@save");
+$router->post("/insertData","dynamic_Crud_controller@insertData");
+
+
+
 
 
 
