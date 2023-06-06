@@ -89,7 +89,7 @@ class loginController extends Controller
                         "status" => true,
                         "success" => true,
                         "profile_id"=>$logindata[0]->auth_ID,
-                        "profile_name"=>$logindata[0]->name,
+                        "profile_name"=>$logindata[0]->auth_name,
                         "profile_email"=>$logindata[0]->auth_email,
                         "profile_phone"=>$logindata[0]->auth_phone_no
                     );
