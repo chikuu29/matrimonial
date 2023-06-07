@@ -31,7 +31,7 @@ class dynamic_Crud_controller extends Controller
             );
         } else {
 
-            if (empty($projection)) {
+            if (empty($whereConditions)) {
                 $fatchdata = DB::table($table)->get($projection);
             } else {
                 $fatchdata = DB::table($table)->where($whereConditions)->get($projection);
@@ -58,66 +58,57 @@ class dynamic_Crud_controller extends Controller
 
     }
 
-    // public function save()
-    // {
-    //     $data = json_decode(file_get_contents("php://input"));
-    //     $inserteddata = isset($data->inserteddata) ? $data->inserteddata : [];
-    //     $table = isset($data->table) ? $data->table : '' ;
-    //    // dd(gettype($inserteddata));
-    //     if ($inserteddata == '' || $table == '') {
-    //         $user_arr = array(
-    //             "status" => false,
-    //             "success" => false,
-    //             "message" => "You Provid Empty data",
-    //         );
-    //     }
-    //     if ($inserteddata != '') {
-    //         $query = DB::table($table)->insert($inserteddata)->toSql();
-    //         dd($query);
-    //         if ($query > 0) {
-    //             $user_arr = array(
-    //                 "status" => true,
-    //                 "success" => true,
-    //                 "message" => "Data Inserted Successfully !",
-    //             );
-    //         } else {
-    //             $user_arr = array(
-    //                 "status" => false,
-    //                 "success" => false,
-    //                 "message" => "Data not Inserted Successfully !",
-    //             );
-    //         }
-    //     } else {
-    //         $user_arr = array(
-    //             "status" => false,
-    //             "success" => false,
-    //             "message" => "pramiters Are Empity",
-    //         );
-    //     }
-    //     return json_encode($user_arr);
-
-
-    // }
-
-    public function insertData(Request $request)
+    public function save()
     {
-        dd($request->all());
-        $table = $request->input('table');
-        $insertedData = $request->input('insertedData');
+        // {
+        //     "inserteddata":{"country_name":"PAKISTAN"},
+        //     "table":"country_table"
+        //     }
+        $data = json_decode(file_get_contents("php://input"),true);
+        $inserteddata = isset($data['inserteddata']) ? $data['inserteddata'] : [];
+        $table = isset($data['table']) ? $data['table'] : '' ;
+        if ($inserteddata == [] || $table == '') {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => "You Provid Empty data",
+            );
+        }
+        if ($inserteddata != '') {
+            $query = DB::table($table)->insert($inserteddata);
+            if ($query > 0) {
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => "Data Inserted Successfully !",
+                );
+            } else {
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => "Data not Inserted Successfully !",
+                );
+            }
+        } else {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => "pramiters Are Empity",
+            );
+        }
+        return json_encode($user_arr);
 
-        // Perform database insert operation using the $insertedData
-        DB::table($table)->insert($insertedData);
 
-        return response()->json(['message' => 'Data inserted successfully']);
     }
+
     public function update()
     {
-        $data = json_decode(file_get_contents('php:://input'));
-        $id = empty($data->id) ? '' : $data->id;
-        $table = empty($data->table) ? '' : $data->table;
-        $updeteddata = empty($data->updeteddata) ? '' : $table->updeteddata;
+        $data = json_decode(file_get_contents('php:://input'),true);
+        $id = empty($data['id']) ? '' : $data['id'];
+        $table = empty($data['table']) ? '' : $data['table'];
+        $updeteddata = empty($data['updeteddata']) ? [] : $table['updeteddata'];
 
-        if ($id == '' || $table == '' || $updeteddata == '') {
+        if ($id == '' || $table == '' || $updeteddata == []) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
