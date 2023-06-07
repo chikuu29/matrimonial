@@ -75,14 +75,13 @@ class loginController extends Controller
                 "success" => false,
                 "id" => '',
                 "name" => '',
-                "message" => "Enter proper Data",
+                "message" => "Please Enter Your Credentials",
             );
         }
 
         try {
 
             $logindata = DB::table('auth_user')->orwhere('auth_ID', $user)->orWhere('auth_email',$user)->orWhere('auth_phone_no',$user)->get();
-           // dd($logindata);
             if (count($logindata) > 0) {
                 if (md5($password) == $logindata[0]->auth_password) {
 
@@ -98,8 +97,6 @@ class loginController extends Controller
                     $user_arr = array(
                         "status" => false,
                         "success" => false,
-                        "id" => '',
-                        "name" => '',
                         "message" => "Password not match !",
                     );
                 }
