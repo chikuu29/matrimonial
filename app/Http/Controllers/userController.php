@@ -35,6 +35,7 @@ class userController extends Controller
             $user = DB::table('user_info')->insert([
                 'user_id' => $userId,
                 'user_gender' => $gender,
+                'user_email'=>$email,
                 'status' => 1,
                 'deleted' => 1,
             ]);
@@ -43,6 +44,8 @@ class userController extends Controller
                 'auth_email' => $email,
                 'auth_password' => $password,
                 'auth_phone_no' => $phone
+                
+                
             ]);
 
             if ($user > 0 && $authuser > 0) {
