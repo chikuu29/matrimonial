@@ -19,6 +19,11 @@ class userController extends Controller
         $phone = !isset($data->phone) ? '' : $data->phone;
         $password = !isset($data->password) ? '' : md5($data->password);
         $gender = !isset($data->gender) ? '' : $data->gender;
+
+        $fname =  !isset($data->fname) ? '' : $data->fname; // :'';
+        $lname =  !isset($data->lname) ? '' : $data->lname; // :'';
+        $dob = !isset($data->dob) ? '' : $data->dob;
+        // $profileID = !isset($data->profileID) ? '' : $data->profileID;
         // $status  = !isset($data->status) ? '' : $data->status;
         if (empty($profiletype) || empty($email)  || empty($phone) || empty($password) || empty($gender)) {
             $user_arr = array(
@@ -34,8 +39,12 @@ class userController extends Controller
         if ($getAuthUserCount == 0) {
             $user = DB::table('user_info')->insert([
                 'user_id' => $userId,
+                'user_profileType'=>$profiletype,
                 'user_gender' => $gender,
                 'user_email'=>$email,
+                'user_fname' => $fname,
+                'user_lname' => $lname,
+                'user_dob' => $dob,
                 'status' => 1,
                 'deleted' => 1,
             ]);
@@ -43,8 +52,8 @@ class userController extends Controller
                 'auth_ID' => $userId,
                 'auth_email' => $email,
                 'auth_password' => $password,
-                'auth_phone_no' => $phone
-                
+                'auth_phone_no' => $phone,
+                'auth_name' => $fname . " " . $lname
                 
             ]);
 
