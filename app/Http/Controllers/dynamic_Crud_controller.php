@@ -14,13 +14,13 @@ class dynamic_Crud_controller extends Controller
         //     "projection":["*"],
         //     "whereConditions":[
         //         ["country_name", "INDIA"]
-        
+
         //     ]
         // } fetch data parametr formate 
         $data = json_decode(file_get_contents("php://input"));
-        $whereConditions = isset($data->whereConditions) ? $data->whereConditions : [] ;
-        $table = isset($data->table) ? $data->table : '' ;
-        $projection = isset($data->projection) ? $data->projection : []; 
+        $whereConditions = isset($data->whereConditions) ? $data->whereConditions : [];
+        $table = isset($data->table) ? $data->table : '';
+        $projection = isset($data->projection) ? $data->projection : [];
 
         if (empty($table)) {
             $user_arr = array(
@@ -38,12 +38,12 @@ class dynamic_Crud_controller extends Controller
             }
 
             //if (count($fatchdata) > 0) {
-                $user_arr = array(
-                    "status" => true,
-                    "success" => true,
-                    "message" => 'Total Fetch Data ' . count($fatchdata),
-                    "data" => $fatchdata
-                );
+            $user_arr = array(
+                "status" => true,
+                "success" => true,
+                "message" => 'Total Fetch Data ' . count($fatchdata),
+                "data" => $fatchdata
+            );
             //} 
             // else {
             //     $user_arr = array(
@@ -55,7 +55,6 @@ class dynamic_Crud_controller extends Controller
             // }
         }
         return json_encode($user_arr);
-
     }
 
     public function save()
@@ -64,9 +63,9 @@ class dynamic_Crud_controller extends Controller
         //     "inserteddata":{"country_name":"PAKISTAN"},
         //     "table":"country_table"
         //     }
-        $data = json_decode(file_get_contents("php://input"),true);
+        $data = json_decode(file_get_contents("php://input"), true);
         $inserteddata = isset($data['inserteddata']) ? $data['inserteddata'] : [];
-        $table = isset($data['table']) ? $data['table'] : '' ;
+        $table = isset($data['table']) ? $data['table'] : '';
         if ($inserteddata == [] || $table == '') {
             $user_arr = array(
                 "status" => false,
@@ -97,38 +96,46 @@ class dynamic_Crud_controller extends Controller
             );
         }
         return json_encode($user_arr);
-
-
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        $data = json_decode(file_get_contents('php:://input'),true);
-        $id = empty($data['id']) ? '' : $data['id'];
-        $table = empty($data['table']) ? '' : $data['table'];
-        $updeteddata = empty($data['updeteddata']) ? [] : $table['updeteddata'];
+        // {
+        //     "table":"country_table",
+        //     "data":[],
+        //     "whereConditions":[
+        //         ["country_name", "INDIA"]
 
-        if ($id == '' || $table == '' || $updeteddata == []) {
+        //     ]
+        // } Upadte data parametr formate 
+        // $requestedData = json_decode(file_get_contents("php://input"));
+        $requestedData = $request->all();
+        $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';;
+        $data = $requestedData['data'];
+        if (count($whereConditions) ==0 || $table == '') {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
                 "message" => 'You Provid Empty data',
             );
         } else {
-            $query = DB::table($table)->where('Id', $id)->update([
-                $updeteddata
-            ]);
-            if ($query > 0) {
+            
+            $updateQuery = DB::table($table)->where($whereConditions)->update(
+                $data
+            );
+            if ($updateQuery > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
-                    "message" => 'Data Updted Successfully! ',
+                    "message" => 'Update Successfully! ',
                 );
             } else {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
-                    "message" => 'Data Not Updted Successfully! ',
+                    "error"=>$updateQuery,
+                    "message" => 'No Data Updated',
                 );
             }
         }
@@ -165,6 +172,5 @@ class dynamic_Crud_controller extends Controller
         }
 
         return json_encode($user_arr);
-
     }
 }

@@ -1,6 +1,4 @@
 <?php
-// header('X-Frame-Options: *');
-// header('Access-Control-Allow-Origin: *');
 // header("Access-Control-Allow-Headers:http://localhost:4200/");
  //@var \Laravel\Lumen\Routing\Router $router;
 
@@ -30,6 +28,7 @@ $router->post("/country","addItemControler@country");
 $router->post("/state","addItemControler@state");
 $router->post("/fetch","dynamic_Crud_controller@fetch");
 $router->post("/save","dynamic_Crud_controller@save");
+$router->post("/update","dynamic_Crud_controller@update");
 $router->post("/insertData","dynamic_Crud_controller@insertData");
 $router->post("/auth","loginController@userLogin");
 
