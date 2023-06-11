@@ -57,44 +57,40 @@ class dynamic_Crud_controller extends Controller
         return json_encode($user_arr);
     }
 
-    public function save()
+    public function save(Request $request)
     {
         // {
-        //     "inserteddata":{"country_name":"PAKISTAN"},
-        //     "table":"country_table"
-        //     }
-        $data = json_decode(file_get_contents("php://input"), true);
-        $inserteddata = isset($data['inserteddata']) ? $data['inserteddata'] : [];
-        $table = isset($data['table']) ? $data['table'] : '';
-        if ($inserteddata == [] || $table == '') {
+        //     "table":"country_table",
+        //     "data":[],
+        // } save data parametr format
+
+        $requestedData = $request->all();
+        // $data = json_decode(file_get_contents("php://input"), true);
+        $data =  $requestedData['data'];
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';
+        if (empty($data)) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => "You Provid Empty data",
+                "message" => "No Data Updated",
             );
         }
-        if ($inserteddata != '') {
-            $query = DB::table($table)->insert($inserteddata);
-            if ($query > 0) {
-                $user_arr = array(
-                    "status" => true,
-                    "success" => true,
-                    "message" => "Data Inserted Successfully !",
-                );
-            } else {
-                $user_arr = array(
-                    "status" => false,
-                    "success" => false,
-                    "message" => "Data not Inserted Successfully !",
-                );
-            }
+
+        $saveQuery = DB::table($table)->insert($data);
+        if ($saveQuery > 0) {
+            $user_arr = array(
+                "status" => true,
+                "success" => true,
+                "message" => "Save Successfully !",
+            );
         } else {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => "pramiters Are Empity",
+                "message" => "No Data Save",
             );
         }
+
         return json_encode($user_arr);
     }
 
@@ -113,14 +109,14 @@ class dynamic_Crud_controller extends Controller
         $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';;
         $data = $requestedData['data'];
-        if (count($whereConditions) ==0 || $table == '') {
+        if (count($whereConditions) == 0 || $table == '') {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
                 "message" => 'You Provid Empty data',
             );
         } else {
-            
+
             $updateQuery = DB::table($table)->where($whereConditions)->update(
                 $data
             );
@@ -134,7 +130,7 @@ class dynamic_Crud_controller extends Controller
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
-                    "error"=>$updateQuery,
+                    "error" => $updateQuery,
                     "message" => 'No Data Updated',
                 );
             }
