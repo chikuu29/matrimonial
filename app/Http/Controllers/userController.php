@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -124,5 +125,34 @@ class userController extends Controller
             );
         }
         return json_encode($user_arr);
+    }
+
+    public function fatchAllaDataByUserId(Request $res){
+        $data = $res->all();
+        $userid = isset($data['userid']) ? $data['userid'] : '';
+
+        try{
+            $user_info=DB::table('user_info')->where('user_id',$userid)->first();
+            $user_education_occupations=DB::table('user_education_occupations')->where('user_ID',$userid)->first();
+            $user_religion=DB::table('user_religion')->where('user_ID',$userid)->first();            
+            $user_arr = array(
+                "status" => true,
+                "success" => true,
+                "user_info" => $user_info != null ? $user_info : [],
+                "user_education_occupations"=>$user_education_occupations != null ? $user_education_occupations : [],
+                "user_religion" => $user_religion != null ? $user_religion : (object)[],
+            );
+
+
+        }catch(Exception $e){
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => "Error".$e
+            );
+        }
+
+        return json_encode($user_arr);
+
     }
 }
