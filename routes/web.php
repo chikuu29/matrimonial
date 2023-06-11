@@ -32,6 +32,8 @@ $router->post("/update","dynamic_Crud_controller@update");
 $router->post("/insertData","dynamic_Crud_controller@insertData");
 $router->post("/auth","loginController@userLogin");
 $router->post("/getprofile","userController@fatchAllaDataByUserId");
+$router->post("/zodiacs","addItemControler@zodiacs");
+
 
 
 
