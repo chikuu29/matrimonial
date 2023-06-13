@@ -295,4 +295,43 @@ class addItemControler extends Controller
         }
         return json_encode($user_arr);
     }
+    public function nakshatra(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 23){
+            $allzodiacsdata = DB::table('nakshatra')->get();
+            if(count($allzodiacsdata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $allzodiacsdata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }
+        if($status == 24){
+            $nakshatraname = !(isset($data->rasi)) ? '' : $data->rasi;
+            $allzodiacsdata = DB::table('nakshatra')->where('nakshatra_name','like','%'.$nakshatraname.'%')->get();
+            if(count($allzodiacsdata) > 0 ){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $allzodiacsdata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }
+        return json_encode($user_arr);
+ 
+    }
 }
