@@ -14,19 +14,19 @@ class userController extends Controller
     {
 
         $data = json_decode(file_get_contents("php://input"));
-        $profiletype =  !isset($data->profiletype) ? 'myself' : $data->profiletype;
+        $profiletype = !isset($data->profiletype) ? 'myself' : $data->profiletype;
         $userId = 'PATRABIBAHA' . rand(1000, 9999);
         $email = !isset($data->email) ? '' : $data->email;
         $phone = !isset($data->phone) ? '' : $data->phone;
         $password = !isset($data->password) ? '' : md5($data->password);
         $gender = !isset($data->gender) ? '' : $data->gender;
 
-        $fname =  !isset($data->fname) ? '' : $data->fname; // :'';
-        $lname =  !isset($data->lname) ? '' : $data->lname; // :'';
+        $fname = !isset($data->fname) ? '' : $data->fname; // :'';
+        $lname = !isset($data->lname) ? '' : $data->lname; // :'';
         $dob = !isset($data->dob) ? '' : $data->dob;
         // $profileID = !isset($data->profileID) ? '' : $data->profileID;
         // $status  = !isset($data->status) ? '' : $data->status;
-        if (empty($profiletype) || empty($email)  || empty($phone) || empty($password) || empty($gender)) {
+        if (empty($profiletype) || empty($email) || empty($phone) || empty($password) || empty($gender)) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
@@ -40,9 +40,9 @@ class userController extends Controller
         if ($getAuthUserCount == 0) {
             $user = DB::table('user_info')->insert([
                 'user_id' => $userId,
-                'user_profileType'=>$profiletype,
+                'user_profileType' => $profiletype,
                 'user_gender' => $gender,
-                'user_email'=>$email,
+                'user_email' => $email,
                 'user_fname' => $fname,
                 'user_lname' => $lname,
                 'user_dob' => $dob,
@@ -55,7 +55,7 @@ class userController extends Controller
                 'auth_password' => $password,
                 'auth_phone_no' => $phone,
                 'auth_name' => $fname . " " . $lname
-                
+
             ]);
 
             if ($user > 0 && $authuser > 0) {
@@ -87,8 +87,8 @@ class userController extends Controller
 
         $data = json_decode(file_get_contents("php://input"));
 
-        $fname =  !isset($data->fname) ? '' : $data->fname; // :'';
-        $lname =  !isset($data->lname) ? '' : $data->lname; // :'';
+        $fname = !isset($data->fname) ? '' : $data->fname; // :'';
+        $lname = !isset($data->lname) ? '' : $data->lname; // :'';
         $dob = !isset($data->dob) ? '' : $data->dob;
         $profileID = !isset($data->profileID) ? '' : $data->profileID;
 
@@ -127,32 +127,86 @@ class userController extends Controller
         return json_encode($user_arr);
     }
 
-    public function fatchAllaDataByUserId(Request $res){
+    public function fatchAllaDataByUserId(Request $res)
+    {
         $data = $res->all();
         $userid = isset($data['userid']) ? $data['userid'] : '';
 
-        try{
-            $user_info=DB::table('user_info')->where('user_id',$userid)->first();
-            $user_education_occupations=DB::table('user_education_occupations')->where('user_ID',$userid)->first();
-            $user_religion=DB::table('user_religion')->where('user_ID',$userid)->first();            
+        try {
+            $user_info = DB::table('user_info')->where('user_id', $userid)->first();
+            $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $userid)->first();
+            $user_religion = DB::table('user_religion')->where('user_ID', $userid)->first();
             $user_arr = array(
                 "status" => true,
                 "success" => true,
                 "user_info" => $user_info != null ? $user_info : [],
-                "user_education_occupations"=>$user_education_occupations != null ? $user_education_occupations : [],
-                "user_religion" => $user_religion != null ? $user_religion : (object)[],
+                "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
+                "user_religion" => $user_religion != null ? $user_religion : (object) [],
             );
 
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => "Error".$e
+                "message" => "Error" . $e
             );
         }
 
         return json_encode($user_arr);
 
     }
+
+    // public function uplode(Request $res){
+
+    public function uploadImage(Request $request)
+    {
+
+        $alldata = $request->all();
+        $id = 'PATRABIBAHA3890'; //$alldata['id'];
+        if ($request->hasFile('uploadfile')) {
+            $file = $request->file('uploadfile');
+            $imagedata = $_FILES['uploadfile']['name'];
+            $temp = $_FILES['uploadfile']['tmp_name'];
+            $datainarryform = array();
+            for ($i = 0; $i < count($imagedata); $i++) {
+                $imgstoreindatabase[$i] = $i . time() . '.' . $_FILES['uploadfile']['name'][$i];
+                $a[$i] = str_replace($_FILES['uploadfile']['name'][$i], 'jpg', $imgstoreindatabase[$i]);
+                $c = move_uploaded_file($temp[$i], storage_path() . '/' . $a[$i]);
+                array_push($datainarryform, $a[$i]);
+            }
+            $d = implode(',', $datainarryform);
+           // try {
+                $user_info = DB::table('user_info')->where('user_id', $id)->update([
+                    'user_profile_image' => $d
+                ]);
+                $profile_image_table = DB::table('profile_image_table')->insert([
+                    'user_info_id' => $id,
+                    'profile_image_tablecol' => $d
+                ]);
+                if ($user_info > 0 && $profile_image_table > 0) {
+                    $user_arr = array(
+                        "status" => true,
+                        "success" => true,
+                    );
+                } else {
+                    $user_arr = array(
+                        "status" => false,
+                        "success" => false,
+                    );
+                }
+            // } catch (Exception $e) {
+            //     $user_arr = array(
+            //         "status" => false,
+            //         "success" => false,
+            //     );
+            //}
+            return json_encode($user_arr);
+        }
+
+
+    }
+
+
+    // }
 }
