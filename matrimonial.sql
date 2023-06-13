@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2023 at 11:21 AM
+-- Generation Time: Jun 12, 2023 at 08:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,7 +67,8 @@ INSERT INTO `auth_user` (`id`, `auth_ID`, `auth_name`, `auth_email`, `auth_passw
 (11, 'PATRABIBAHA3890', 'SURYANARAYAN BISWAL', 'cchiku1999@gmail.com', 'f0fae8521e960af4007352314448dd77', '2023-06-06 17:11:10', NULL, NULL, '8327783629'),
 (12, 'PATRABIBAHA1489', 'Test Demo', 'chikuchiku3942@gmail.com', 'f0fae8521e960af4007352314448dd77', '2023-06-09 01:44:31', NULL, NULL, '8327783629'),
 (13, 'PATRABIBAHA9477', 'njsdk ,fdnf', 'demo@123', 'f0fae8521e960af4007352314448dd77', '2023-06-09 01:49:34', NULL, NULL, '8327783629'),
-(14, 'PATRABIBAHA2827', 'snjsn  ndnd', 'test@gmail.com', 'f0fae8521e960af4007352314448dd77', '2023-06-09 01:54:17', NULL, NULL, '9583903645');
+(14, 'PATRABIBAHA2827', 'snjsn  ndnd', 'test@gmail.com', 'f0fae8521e960af4007352314448dd77', '2023-06-09 01:54:17', NULL, NULL, '9583903645'),
+(15, 'PATRABIBAHA8449', 'dd dd', 'chikuchiku3942@gmail.com', '098f6bcd4621d373cade4e832627b4f6', '2023-06-12 17:57:17', NULL, NULL, '1234567891');
 
 -- --------------------------------------------------------
 
@@ -155,6 +156,44 @@ CREATE TABLE `sub_cast` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_about`
+--
+
+CREATE TABLE `user_about` (
+  `user_ID` varchar(100) NOT NULL,
+  `user_about` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_about`
+--
+
+INSERT INTO `user_about` (`user_ID`, `user_about`) VALUES
+('PATRABIBAHA3890', 'What an About Us page is really for · Communicate the story of your business and why you started it. · Describe the customers or the cause that ..What an About Us page is really for · Communicate the story of your business and why you started it. · Describe the customers or the cause that ..What an About Us page is really for · Communicate the stssory of your business and why you started it. · Describe the customers or the cause that ..');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_diet_hobbies`
+--
+
+CREATE TABLE `user_diet_hobbies` (
+  `user_ID` varchar(100) NOT NULL,
+  `user_drinking` varchar(50) DEFAULT NULL,
+  `user_smoking` varchar(50) DEFAULT NULL,
+  `user_diet` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_diet_hobbies`
+--
+
+INSERT INTO `user_diet_hobbies` (`user_ID`, `user_drinking`, `user_smoking`, `user_diet`) VALUES
+('PATRABIBAHA3890', 'Yes', 'Yes', 'Vegetarian');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_education_occupations`
 --
 
@@ -173,6 +212,34 @@ CREATE TABLE `user_education_occupations` (
 
 INSERT INTO `user_education_occupations` (`user_ID`, `user_highest_education`, `user_additional_education`, `user_anual_income`, `user_employed_In`, `user_occupation`) VALUES
 ('PATRABIBAHA3890', 'Bachelor of Technology (B.Tech)', 'Bachelor of Technology (B.Tech)', 600000, 'Private', 'Software Engineer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_family`
+--
+
+CREATE TABLE `user_family` (
+  `user_ID` varchar(100) NOT NULL,
+  `user_family_type` varchar(100) NOT NULL,
+  `user_family_value` varchar(100) NOT NULL,
+  `user_family_status` varchar(100) NOT NULL,
+  `user_father_occupation` varchar(100) NOT NULL,
+  `user_mothers_occupation` varchar(100) NOT NULL,
+  `user_no_of_unmarried_brother` int(11) NOT NULL,
+  `user_no_of_unmarried_sister` int(11) NOT NULL,
+  `user_no_of_married_sister` int(11) NOT NULL,
+  `user_no_of_married_brother` int(11) NOT NULL,
+  `user_father_name` varchar(100) NOT NULL,
+  `user_mother_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_family`
+--
+
+INSERT INTO `user_family` (`user_ID`, `user_family_type`, `user_family_value`, `user_family_status`, `user_father_occupation`, `user_mothers_occupation`, `user_no_of_unmarried_brother`, `user_no_of_unmarried_sister`, `user_no_of_married_sister`, `user_no_of_married_brother`, `user_father_name`, `user_mother_name`) VALUES
+('PATRABIBAHA3890', 'joint', 'Traditional', 'middle class', 'farmer', 'house wife', 1, 2, 1, 1, 'Father', 'Mother');
 
 -- --------------------------------------------------------
 
@@ -209,7 +276,50 @@ INSERT INTO `user_info` (`Id`, `user_profileType`, `user_id`, `user_fname`, `use
 (18, 'myself', 'PATRABIBAHA9477', 'njsdk', ',fdnf', 'demo@123', b'1', b'1', '2023-06-09 01:49:34', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
 (19, 'myself', 'PATRABIBAHA5059', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:53:34', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
 (20, 'myself', 'PATRABIBAHA2196', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:53:42', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
-(21, 'myself', 'PATRABIBAHA2827', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:54:17', NULL, b'0', '2023-13-06', 'male', NULL, 'Assamese', 'Single');
+(21, 'myself', 'PATRABIBAHA2827', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:54:17', NULL, b'0', '2023-13-06', 'male', NULL, 'Assamese', 'Single'),
+(22, 'myself', 'PATRABIBAHA8449', 'dd', 'dd', 'chikuchiku3942@gmail.com', b'1', b'1', '2023-06-12 17:57:17', NULL, b'0', '1999-10-9', 'male', NULL, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_locations`
+--
+
+CREATE TABLE `user_locations` (
+  `user_ID` varchar(100) NOT NULL,
+  `user_country` varchar(30) NOT NULL,
+  `user_state` varchar(30) NOT NULL,
+  `user_city` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_locations`
+--
+
+INSERT INTO `user_locations` (`user_ID`, `user_country`, `user_state`, `user_city`) VALUES
+('PATRABIBAHA3890', 'India', 'Odisha', 'Puri');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_physical_details`
+--
+
+CREATE TABLE `user_physical_details` (
+  `user_ID` varchar(100) NOT NULL,
+  `user_height` varchar(100) DEFAULT NULL,
+  `user_weight` varchar(100) DEFAULT NULL,
+  `user_body_type` varchar(100) DEFAULT NULL,
+  `user_complextion` varchar(100) DEFAULT NULL,
+  `user_physical_status` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_physical_details`
+--
+
+INSERT INTO `user_physical_details` (`user_ID`, `user_height`, `user_weight`, `user_body_type`, `user_complextion`, `user_physical_status`) VALUES
+('PATRABIBAHA3890', 'Below 4ft 6in - 137cm', '50', 'Slim', 'Wheatish', 'Normal');
 
 -- --------------------------------------------------------
 
@@ -229,7 +339,7 @@ CREATE TABLE `user_religion` (
 --
 
 INSERT INTO `user_religion` (`user_ID`, `user_religion`, `user_caste`, `user_subcaste`) VALUES
-('PATRABIBAHA3890', 'Hinduism', 'Hinduism', 'Islam');
+('PATRABIBAHA3890', 'Hinduism', 'Hinduism', 'Hinduism');
 
 --
 -- Indexes for dumped tables
@@ -278,9 +388,27 @@ ALTER TABLE `sub_cast`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Indexes for table `user_about`
+--
+ALTER TABLE `user_about`
+  ADD PRIMARY KEY (`user_ID`);
+
+--
+-- Indexes for table `user_diet_hobbies`
+--
+ALTER TABLE `user_diet_hobbies`
+  ADD PRIMARY KEY (`user_ID`);
+
+--
 -- Indexes for table `user_education_occupations`
 --
 ALTER TABLE `user_education_occupations`
+  ADD PRIMARY KEY (`user_ID`);
+
+--
+-- Indexes for table `user_family`
+--
+ALTER TABLE `user_family`
   ADD PRIMARY KEY (`user_ID`);
 
 --
@@ -288,6 +416,18 @@ ALTER TABLE `user_education_occupations`
 --
 ALTER TABLE `user_info`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `user_locations`
+--
+ALTER TABLE `user_locations`
+  ADD PRIMARY KEY (`user_ID`);
+
+--
+-- Indexes for table `user_physical_details`
+--
+ALTER TABLE `user_physical_details`
+  ADD PRIMARY KEY (`user_ID`);
 
 --
 -- Indexes for table `user_religion`
@@ -310,7 +450,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cast_table`
@@ -346,7 +486,7 @@ ALTER TABLE `sub_cast`
 -- AUTO_INCREMENT for table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
