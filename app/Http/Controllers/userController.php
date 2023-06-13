@@ -143,8 +143,6 @@ class userController extends Controller
                 "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
                 "user_religion" => $user_religion != null ? $user_religion : (object) [],
             );
-
-
         } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
@@ -154,16 +152,14 @@ class userController extends Controller
         }
 
         return json_encode($user_arr);
-
     }
-
-    // public function uplode(Request $res){
 
     public function uploadImage(Request $request)
     {
 
         $alldata = $request->all();
-        $id = 'PATRABIBAHA3890'; //$alldata['id'];
+        // print_r($alldata);
+        $id = $alldata['q']; 
         if ($request->hasFile('uploadfile')) {
             $file = $request->file('uploadfile');
             $imagedata = $_FILES['uploadfile']['name'];
@@ -176,37 +172,32 @@ class userController extends Controller
                 array_push($datainarryform, $a[$i]);
             }
             $d = implode(',', $datainarryform);
-           // try {
-                $user_info = DB::table('user_info')->where('user_id', $id)->update([
-                    'user_profile_image' => $d
-                ]);
-                $profile_image_table = DB::table('profile_image_table')->insert([
-                    'user_info_id' => $id,
-                    'profile_image_tablecol' => $d
-                ]);
-                if ($user_info > 0 && $profile_image_table > 0) {
-                    $user_arr = array(
-                        "status" => true,
-                        "success" => true,
-                    );
-                } else {
-                    $user_arr = array(
-                        "status" => false,
-                        "success" => false,
-                    );
-                }
-            // } catch (Exception $e) {
-            //     $user_arr = array(
-            //         "status" => false,
-            //         "success" => false,
-            //     );
-            //}
+
+            $user_info = DB::table('user_info')->where('user_id', $id)->update([
+                'user_profile_image' => $d
+            ]);
+            $profile_image_table = DB::table('user_profile_images')->insert([
+                'user_ID' => $id,
+                'user_feature_images' => $d,
+                'user_profile_images' => $d
+            ]);
+            if ($user_info > 0 && $profile_image_table > 0) {
+                $user_arr = array(
+                    "success" => true,
+                    "message" => "File Uploaded Successfully",
+                    "data"=>$d
+                );
+            } else {
+                $user_arr = array(
+                    "success" => false,
+                    "message" => "Unable to Store Data"
+    
+                );
+            }
+
             return json_encode($user_arr);
         }
-
-
     }
 
 
-    // }
 }

@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 // header("Access-Control-Allow-Headers:http://localhost:4200/");
  //@var \Laravel\Lumen\Routing\Router $router;
