@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2023 at 08:51 PM
+-- Generation Time: Jun 13, 2023 at 07:40 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -261,7 +261,7 @@ CREATE TABLE `user_info` (
   `completed` bit(1) DEFAULT b'0',
   `user_dob` varchar(100) DEFAULT NULL,
   `user_gender` varchar(45) DEFAULT NULL,
-  `user_profile_image` varchar(50) DEFAULT NULL,
+  `user_profile_image` varchar(1000) DEFAULT NULL,
   `user_mother_toungh` varchar(20) DEFAULT '',
   `user_marital_status` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -271,7 +271,7 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`Id`, `user_profileType`, `user_id`, `user_fname`, `user_lname`, `user_email`, `deleted`, `status`, `user_creation_date_time`, `updateon`, `completed`, `user_dob`, `user_gender`, `user_profile_image`, `user_mother_toungh`, `user_marital_status`) VALUES
-(15, 'myself', 'PATRABIBAHA3890', 'SURYANARAYAN', 'BISWAL', 'cchiku1999@gmail.com', b'1', b'1', '2023-06-06 17:11:10', '2023-06-08 17:46:46', b'0', '1999-08-09', 'male', NULL, 'Odia', 'Single'),
+(15, 'myself', 'PATRABIBAHA3890', 'SURYANARAYAN', 'BISWAL', 'cchiku1999@gmail.com', b'1', b'1', '2023-06-06 17:11:10', '2023-06-08 17:46:46', b'0', '1999-08-09', 'male', '01686677849.jpg', 'Odia', 'Single'),
 (17, 'myself', 'PATRABIBAHA1489', 'Test', 'Demo', 'chikuchiku3942@gmail.com', b'1', b'1', '2023-06-09 01:44:31', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
 (18, 'myself', 'PATRABIBAHA9477', 'njsdk', ',fdnf', 'demo@123', b'1', b'1', '2023-06-09 01:49:34', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
 (19, 'myself', 'PATRABIBAHA5059', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:53:34', NULL, b'0', '1999-8-9', 'male', NULL, '', ''),
@@ -320,6 +320,32 @@ CREATE TABLE `user_physical_details` (
 
 INSERT INTO `user_physical_details` (`user_ID`, `user_height`, `user_weight`, `user_body_type`, `user_complextion`, `user_physical_status`) VALUES
 ('PATRABIBAHA3890', 'Below 4ft 6in - 137cm', '50', 'Slim', 'Wheatish', 'Normal');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile_images`
+--
+
+CREATE TABLE `user_profile_images` (
+  `id` int(11) NOT NULL,
+  `user_ID` varchar(45) DEFAULT NULL,
+  `user_feature_images` varchar(1000) DEFAULT NULL,
+  `user_profile_images` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_profile_images`
+--
+
+INSERT INTO `user_profile_images` (`id`, `user_ID`, `user_feature_images`, `user_profile_images`) VALUES
+(2, 'PATRABIBAHA3890', '01686676154.jpg', '01686676154.jpg'),
+(3, 'PATRABIBAHA3890', '01686676875.jpg', '01686676875.jpg'),
+(4, 'PATRABIBAHA3890', '01686677177.jpg', '01686677177.jpg'),
+(5, 'PATRABIBAHA3890', '01686677236.jpg', '01686677236.jpg'),
+(6, 'PATRABIBAHA3890', '01686677254.jpg', '01686677254.jpg'),
+(7, 'PATRABIBAHA3890', '01686677502.jpg', '01686677502.jpg'),
+(8, 'PATRABIBAHA3890', '01686677849.jpg', '01686677849.jpg');
 
 -- --------------------------------------------------------
 
@@ -430,6 +456,12 @@ ALTER TABLE `user_physical_details`
   ADD PRIMARY KEY (`user_ID`);
 
 --
+-- Indexes for table `user_profile_images`
+--
+ALTER TABLE `user_profile_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_religion`
 --
 ALTER TABLE `user_religion`
@@ -487,6 +519,12 @@ ALTER TABLE `sub_cast`
 --
 ALTER TABLE `user_info`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `user_profile_images`
+--
+ALTER TABLE `user_profile_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

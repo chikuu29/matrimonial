@@ -136,12 +136,24 @@ class userController extends Controller
             $user_info = DB::table('user_info')->where('user_id', $userid)->first();
             $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $userid)->first();
             $user_religion = DB::table('user_religion')->where('user_ID', $userid)->first();
+            $user_about = DB::table('user_about')->where('user_ID', $userid)->first();
+            $user_diet_hobbies = DB::table('user_diet_hobbies')->where('user_ID', $userid)->first();
+            $user_family = DB::table('user_family')->where('user_ID', $userid)->first();
+            $user_locations = DB::table('user_locations')->where('user_ID', $userid)->first();
+            $user_physical_details = DB::table('user_physical_details')->where('user_ID', $userid)->first();
+            $user_profile_images = DB::table('user_profile_images')->where('user_ID', $userid)->get();
             $user_arr = array(
                 "status" => true,
                 "success" => true,
                 "user_info" => $user_info != null ? $user_info : [],
                 "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
                 "user_religion" => $user_religion != null ? $user_religion : (object) [],
+                "user_about" => $user_about != null ? $user_about : [],
+                "user_diet_hobbies" => $user_diet_hobbies != null ? $user_diet_hobbies : [],
+                "user_family" => $user_family != null ? $user_family : [],
+                "user_locations" => $user_locations != null ? $user_locations : [],
+                "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
+                "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
             );
         } catch (Exception $e) {
             $user_arr = array(
