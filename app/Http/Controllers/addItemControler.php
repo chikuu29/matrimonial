@@ -315,7 +315,7 @@ class addItemControler extends Controller
             }
         }
         if($status == 24){
-            $nakshatraname = !(isset($data->rasi)) ? '' : $data->rasi;
+            $nakshatraname = !(isset($data->nakhetra)) ? '' : $data->nakhetra;
             $allzodiacsdata = DB::table('nakshatra')->where('nakshatra_name','like','%'.$nakshatraname.'%')->get();
             if(count($allzodiacsdata) > 0 ){
                 $user_arr = array(
