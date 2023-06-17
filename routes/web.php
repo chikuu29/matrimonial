@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Origin: *');
 
 // header("Access-Control-Allow-Headers:http://localhost:4200/");
  //@var \Laravel\Lumen\Routing\Router $router;
@@ -33,6 +33,8 @@ $router->post("/zodiacs","addItemControler@zodiacs");
 $router->post("/nakshatra","addItemControler@nakshatra");
 $router->post("/upload","userController@uploadImage");
 $router->post("/annual_income","addItemControler@annual_income");
+$router->post("/memberpaln","memberController@memberpaln");
+$router->post("/getAllData","memberController@getAllData");
 
 
 
