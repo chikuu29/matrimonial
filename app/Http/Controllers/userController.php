@@ -135,6 +135,7 @@ class userController extends Controller
         try {
             $user_info = DB::table('user_info')->where('user_id', $userid)->first();
             $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $userid)->first();
+            //dd($user_education_occupations);
             $user_religion = DB::table('user_religion')->where('user_ID', $userid)->first();
             $user_about = DB::table('user_about')->where('user_ID', $userid)->first();
             $user_diet_hobbies = DB::table('user_diet_hobbies')->where('user_ID', $userid)->first();
@@ -142,19 +143,42 @@ class userController extends Controller
             $user_locations = DB::table('user_locations')->where('user_ID', $userid)->first();
             $user_physical_details = DB::table('user_physical_details')->where('user_ID', $userid)->first();
             $user_profile_images = DB::table('user_profile_images')->where('user_ID', $userid)->get();
-            $user_arr = array(
-                "status" => true,
-                "success" => true,
-                "user_info" => $user_info != null ? $user_info : [],
-                "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
-                "user_religion" => $user_religion != null ? $user_religion : (object) [],
-                "user_about" => $user_about != null ? $user_about : [],
-                "user_diet_hobbies" => $user_diet_hobbies != null ? $user_diet_hobbies : [],
-                "user_family" => $user_family != null ? $user_family : [],
-                "user_locations" => $user_locations != null ? $user_locations : [],
-                "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
-                "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
-            );
+            //dd( @$user_profile_images[0]);
+            if(@$user_info->completed == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed  == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed  == 1 && @$user_physical_details->completed  == 1 && @$user_profile_images[0]->completed == 1){
+
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "user_info" => $user_info != null ? $user_info : [],
+                    "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
+                    "user_religion" => $user_religion != null ? $user_religion : (object) [],
+                    "user_about" => $user_about != null ? $user_about : [],
+                    "user_diet_hobbies" => $user_diet_hobbies != null ? $user_diet_hobbies : [],
+                    "user_family" => $user_family != null ? $user_family : [],
+                    "user_locations" => $user_locations != null ? $user_locations : [],
+                    "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
+                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
+                    "completed" => true,
+                );
+
+            }else{
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "user_info" => $user_info != null ? $user_info : [],
+                    "user_education_occupations" => $user_education_occupations != null ? $user_education_occupations : [],
+                    "user_religion" => $user_religion != null ? $user_religion : (object) [],
+                    "user_about" => $user_about != null ? $user_about : [],
+                    "user_diet_hobbies" => $user_diet_hobbies != null ? $user_diet_hobbies : [],
+                    "user_family" => $user_family != null ? $user_family : [],
+                    "user_locations" => $user_locations != null ? $user_locations : [],
+                    "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
+                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
+                    "completed" => false,
+                );
+            }
+
+           
         } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,

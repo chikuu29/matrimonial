@@ -105,7 +105,7 @@ class addItemControler extends Controller
 
         if ($status == 21) {
             $country = !(isset($data->country)) ? '' : $data->country;
-            $countryinsert = DB::table('country_table')->insert([
+            $countryinsert = DB::table('countries')->insert([
                 'country_name' => $country,
             ]);
             if ($countryinsert > 0) {
@@ -334,4 +334,104 @@ class addItemControler extends Controller
         return json_encode($user_arr);
  
     }
+    public function annual_income(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 23){
+            $annualincomedata = DB::table('annual_income')->get();
+            if(count($annualincomedata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $annualincomedata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }
+        if($status == 24){
+            $annualincome = !(isset($data->annualincome)) ? '' : $data->annualincome;
+            $annualincomedata = DB::table('annual_income')->where('annualincome','like','%'.$annualincome.'%')->get();
+            if(count($annualincomedata) > 0 ){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $annualincomedata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }
+        if($status == 25){
+              $annualincome = !(isset($data->annualincome)) ? '' : $data->annualincome;
+              $annualincomeinput = DB::table('annual_income')->insert([
+                'annualincome'=> $annualincome,
+              ]);
+              if($annualincomeinput > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Inserted Successfully!',
+                );
+              }else{
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Not Inserted!',
+                );
+              }
+
+        }
+        if($status == 26){
+            $annualincome = !(isset($data->annualincome)) ? '' : $data->annualincome;
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $annualincomeinput = DB::table('annual_income')->where('id',$id)->update([
+              'annualincome'=> $annualincome,
+            ]);
+            if($annualincomeinput > 0){
+              $user_arr = array(
+                  "status" => true,
+                  "success" => true,
+                  "message" => 'Data Updated Successfully!',
+              );
+            }else{
+              $user_arr = array(
+                  "status" => true,
+                  "success" => true,
+                  "message" => 'Data Not Updated!',
+              );
+            }
+
+        }
+        if($status == 27){
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $annualincomedata = DB::table('annual_income')->where('id',$id)->get();
+            if(count($annualincomedata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $annualincomedata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+            
+        }  
+        
+        return json_encode($user_arr);
+  
+    }
+    
 }

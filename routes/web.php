@@ -32,6 +32,8 @@ $router->post("/getprofile","userController@fatchAllaDataByUserId");
 $router->post("/zodiacs","addItemControler@zodiacs");
 $router->post("/nakshatra","addItemControler@nakshatra");
 $router->post("/upload","userController@uploadImage");
+$router->post("/annual_income","addItemControler@annual_income");
+
 
 
 
