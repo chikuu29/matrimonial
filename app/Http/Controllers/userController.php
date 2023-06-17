@@ -142,9 +142,10 @@ class userController extends Controller
             $user_family = DB::table('user_family')->where('user_ID', $userid)->first();
             $user_locations = DB::table('user_locations')->where('user_ID', $userid)->first();
             $user_physical_details = DB::table('user_physical_details')->where('user_ID', $userid)->first();
+            $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $userid)->first();
             $user_profile_images = DB::table('user_profile_images')->where('user_ID', $userid)->get();
             //dd( @$user_profile_images[0]);
-            if(@$user_info->completed == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed  == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed  == 1 && @$user_physical_details->completed  == 1 && @$user_profile_images[0]->completed == 1){
+            if(@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed  == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed  == 1 && @$user_physical_details->completed  == 1 && @$user_partnerpreference->completed  == 1 && @$user_profile_images[0]->completed == 1){
 
                 $user_arr = array(
                     "status" => true,
@@ -158,7 +159,8 @@ class userController extends Controller
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
-                    "completed" => true,
+                    "user_partnerpreference"=>$user_partnerpreference != null ? $user_partnerpreference : [],
+                    "user_profile_status" => "Completed",
                 );
 
             }else{
@@ -173,8 +175,9 @@ class userController extends Controller
                     "user_family" => $user_family != null ? $user_family : [],
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
+                    "user_partnerpreference"=>$user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
-                    "completed" => false,
+                    "user_profile_status" => "Not Completed",
                 );
             }
 
@@ -213,6 +216,7 @@ class userController extends Controller
                 'user_profile_image' => $d
             ]);
             $profile_image_table = DB::table('user_profile_images')->insert([
+                'completed'=>1,
                 'user_ID' => $id,
                 'user_feature_images' => $d,
                 'user_profile_images' => $d
