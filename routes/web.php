@@ -35,6 +35,14 @@ $router->post("/upload","userController@uploadImage");
 $router->post("/annual_income","addItemControler@annual_income");
 $router->post("/memberpaln","memberController@memberpaln");
 $router->post("/getAllData","memberController@getAllData");
+$router->post("/city","addItemControler@city");
+$router->post("/privacypolicy","addItemControler@privacypolicy");
+$router->post("/contactus","addItemControler@contactus");
+$router->post("/termandcondition","addItemControler@termandcondition");
+$router->post("/aboutus","addItemControler@aboutus");
+
+
+
 
 
 

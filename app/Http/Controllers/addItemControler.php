@@ -433,5 +433,264 @@ class addItemControler extends Controller
         return json_encode($user_arr);
   
     }
+    public function city(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 25){
+            $citydata = DB::table('cities')->get();
+             if(count($citydata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $citydata,
+                );
+             }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+             }
+        }
+
+
+
+        return json_encode($user_arr);
+    }
+
+    public function privacypolicy(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 25){
+            $alldata = DB::table('privacy_policy')->get();
+            if(count($alldata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $alldata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }else if($status == 26){
+            $privacypolicy = !(isset($data->privacypolicy)) ? '' : $data->privacypolicy;
+            $datainserted = DB::table('privacy_policy')->insert([
+                 'privacy_policy_content' =>  $privacypolicy
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Insert Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Insert',
+                );
+            }
+        }else if($status == 27){
+            $privacypolicy = !(isset($data->privacypolicy)) ? '' : $data->privacypolicy;
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $datainserted = DB::table('privacy_policy')->where('id',$id)->update([
+                 'privacy_policy_content' =>  $privacypolicy
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Updated Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Updated !',
+                );
+            }
+        }
+        return json_encode($user_arr);
+    }
+    public function contactus(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 25){
+            $alldata = DB::table('contactus')->get();
+            if(count($alldata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $alldata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }else if($status == 26){
+            $contactus = !(isset($data->contactus)) ? '' : $data->contactus;
+            $datainserted = DB::table('contactus')->insert([
+                 'contact_us_content' =>  $contactus
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Insert Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Insert',
+                );
+            }
+        }else if($status == 27){
+            $contactus = !(isset($data->contactus)) ? '' : $data->contactus;
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $datainserted = DB::table('contactus')->where('id',$id)->update([
+                 'contact_us_content' =>  $contactus
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Updated Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Updated !',
+                );
+            }
+        }
+        return json_encode($user_arr);
+    }
+
+    public function termandcondition(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 25){
+            $alldata = DB::table('termand_condition')->get();
+            if(count($alldata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $alldata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }else if($status == 26){
+            $termandcondition = !(isset($data->termandcondition)) ? '' : $data->termandcondition;
+            $datainserted = DB::table('termand_condition')->insert([
+                 'termand_condition_content' =>  $termandcondition
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Insert Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Insert',
+                );
+            }
+        }else if($status == 27){
+            $termandcondition = !(isset($data->termandcondition)) ? '' : $data->termandcondition;
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $datainserted = DB::table('termand_condition')->where('id',$id)->update([
+                 'termand_condition_content' =>  $termandcondition
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Updated Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Updated !',
+                );
+            }
+        }
+        return json_encode($user_arr);
+    }
+
+    public function aboutus(){
+        $data = json_decode(file_get_contents("php://input"));
+        $status = !(isset($data->status)) ? '' : $data->status;
+        if($status == 25){
+            $alldata = DB::table('about_us')->get();
+            if(count($alldata) > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => $alldata,
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => [],
+                );
+            }
+        }else if($status == 26){
+            $aboutus = !(isset($data->aboutus)) ? '' : $data->aboutus;
+            $datainserted = DB::table('about_us')->insert([
+                 'about_us_content' =>  $aboutus
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Insert Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Insert',
+                );
+            }
+        }else if($status == 27){
+            $aboutus = !(isset($data->aboutus)) ? '' : $data->aboutus;
+            $id = !(isset($data->id)) ? '' : $data->id;
+            $datainserted = DB::table('about_us')->where('id',$id)->update([
+                 'about_us_content' =>  $aboutus
+            ]);
+            if($datainserted > 0){
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data Updated Successfully!',
+                );
+            }else{
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not Updated !',
+                );
+            }
+        }
+        return json_encode($user_arr);
+    }
     
 }
