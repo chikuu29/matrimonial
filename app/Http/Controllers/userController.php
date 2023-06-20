@@ -63,7 +63,7 @@ class userController extends Controller
                     "status" => true,
                     "success" => true,
                     "profileID" => $userId,
-                    "message" => "Data Inserted Successfully !",
+                    "message" => "Congratulation! Your Registration Done",
                 );
             } else {
                 $user_arr = array(
