@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2023 at 06:53 PM
+-- Generation Time: Jun 24, 2023 at 07:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48446,10 +48446,10 @@ INSERT INTO `nakshatra` (`id`, `nakshatra_name`, `created_date_time`, `status`, 
 
 CREATE TABLE `privacy_policy` (
   `id` int(11) NOT NULL,
-  `privacy_policy_content` varchar(1000) DEFAULT NULL,
+  `privacy_policy_content` text DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `deleted` bit(1) DEFAULT b'1',
-  `privacy_policy_created_time` timestamp NULL DEFAULT current_timestamp()
+  `privacy_policy_created_time` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48457,8 +48457,7 @@ CREATE TABLE `privacy_policy` (
 --
 
 INSERT INTO `privacy_policy` (`id`, `privacy_policy_content`, `status`, `deleted`, `privacy_policy_created_time`) VALUES
-(1, 'Creating a Privacy Policy for your application or website can take a lot of time. You could either spend tons of money on hiring a lawyer, or you could simply use our service and get a unique Privacy Policy fully customized for your website.', b'1', b'1', '2023-06-19 18:54:11'),
-(2, 'lipun', b'1', b'1', '2023-06-19 19:19:56');
+(1, '<h2>Effective Date: 23-06-2023</h2><p>At Waywala, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our e-commerce services (collectively referred to as the \"Services\"). By accessing or using our Services, you agree to the terms of this Privacy Policy.</p><h3>1. Information We Collect</h3><p>We may collect various types of personal information when you use our Services, including:</p><ul><li>Personal information you provide: When you voluntarily provide information to us, such as when you register for an account, make a purchase, subscribe to our newsletter, or contact our customer support, we may collect information such as your name, email address, postal address, phone number, and payment details.</li><li>Information collected automatically: We may automatically collect certain information when you use our Services. This may include your IP address, device type, operating system, browser type, referring website, pages you viewed, and the dates and times of your interactions.</li><li>Cookies and similar technologies: We may use cookies, web beacons, and other similar technologies to collect information about your browsing activities, preferences, and usage patterns. This helps us personalize your experience, analyze trends, and improve our Services.</li></ul><h3>2. Use of Information</h3><p>We use the collected information for various purposes, including:</p><ul><li>Providing and improving our Services: We use your information to deliver the requested products or services, respond to your inquiries, personalize your experience, and enhance the functionality and usability of our Services.</li><li>Communication: We may use your contact information to send you important updates, newsletters, marketing communications, and promotional offers. You can opt out of receiving these communications at any time.</li><li>Analytics and research: We may use the collected information to analyze user trends, track usage patterns, and conduct research to improve our Services and develop new features.</li><li>Legal obligations: We may process your personal information to comply with applicable laws, regulations, legal processes, or enforceable governmental requests.</li></ul><h3>3. Disclosure of Information</h3><p>We may share your personal information with third parties in the following circumstances:</p><ul><li>Service providers: We may engage trusted third-party service providers to perform certain functions on our behalf, such as payment processing, data analysis, customer support, and marketing activities. These service providers have access to personal information needed to perform their functions but are prohibited from using it for any other purpose.</li><li>Business transfers: If we are involved in a merger, acquisition, or sale of all or a portion of our assets, your personal information may be transferred as part of that transaction. We will notify you via email or prominent notice on our website of any change in ownership or uses of your personal information.</li><li>Legal requirements: We may disclose your personal information if required to do so by law or in response to Regenerate response Continue generating</li></ul><p><br></p>', b'1', b'1', '2023-06-24T05:16:33.454Z');
 
 -- --------------------------------------------------------
 
@@ -48475,6 +48474,13 @@ CREATE TABLE `social_media_links` (
   `youtub_link` varchar(100) DEFAULT NULL,
   `updatedon` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `social_media_links`
+--
+
+INSERT INTO `social_media_links` (`id`, `facebook_link`, `whatsapp_no`, `twitter_link`, `linkedin_link`, `youtub_link`, `updatedon`) VALUES
+(1, 'demo', 'demo', 'demo', 'demo', 'demosss', NULL);
 
 -- --------------------------------------------------------
 
@@ -52611,10 +52617,10 @@ CREATE TABLE `sub_cast` (
 
 CREATE TABLE `termand_condition` (
   `id` int(11) NOT NULL,
-  `termand_condition_content` varchar(1000) DEFAULT NULL,
+  `termand_condition_content` text DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `deleted` bit(1) DEFAULT b'1',
-  `termand_condition_date_time` timestamp NULL DEFAULT current_timestamp()
+  `termand_condition_date_time` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -52622,8 +52628,8 @@ CREATE TABLE `termand_condition` (
 --
 
 INSERT INTO `termand_condition` (`id`, `termand_condition_content`, `status`, `deleted`, `termand_condition_date_time`) VALUES
-(1, 'yasfcuyagsdgsdgvuwaehgfyvdsjvgsduyusdvgsdvsd ksdvcksdjcdghuysdchsdbvhsdvsdhvjsdgu', b'1', b'1', '2023-06-20 08:42:06'),
-(2, 'gadcadGCsdvdsvsduyvgsdvgbsdvigvuivlipun fdahvahd', b'1', b'1', '2023-06-20 08:44:43');
+(1, 'yasfcuyagsdgsdgvuwaehgfyvdsjvgsduyusdvgsdvsd ksdvcksdjcdghuysdchsdbvhsdvsdhvjsdgu', b'1', b'1', '2023-06-24T05:24:13.676Z'),
+(2, 'gadcadGCsdvdsvsduyvgsdvgbsdvigvuivlipun fdahvahd', b'1', b'1', '2023-06-20 14:14:43');
 
 -- --------------------------------------------------------
 
@@ -53164,7 +53170,7 @@ ALTER TABLE `privacy_policy`
 -- AUTO_INCREMENT for table `social_media_links`
 --
 ALTER TABLE `social_media_links`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `states`
