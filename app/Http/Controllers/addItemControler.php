@@ -32,15 +32,11 @@ class addItemControler extends Controller
                 //'updatedon' => date();
 
             ]);
-
-
-            //dd($social_media_links);
-
             if ($social_media_links > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
-                    "message" => "Data Inserted Successfully !",
+                    "message" => "Updated Successfully !",
                 );
             } else {
                 $user_arr = array(
