@@ -75,7 +75,7 @@ class dynamic_Crud_controller extends Controller
                 "message" => "No Data Updated",
             );
         }
-
+       
         $saveQuery = DB::table($table)->insert($data);
         if ($saveQuery > 0) {
             $user_arr = array(
@@ -116,7 +116,8 @@ class dynamic_Crud_controller extends Controller
                 "message" => 'You Provid Empty data',
             );
         } else {
-
+            // print_r($data);
+            // return;
             $updateQuery = DB::table($table)->where($whereConditions)->update(
                 $data
             );

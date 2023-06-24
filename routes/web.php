@@ -40,6 +40,9 @@ $router->post("/privacypolicy","addItemControler@privacypolicy");
 $router->post("/contactus","addItemControler@contactus");
 $router->post("/termandcondition","addItemControler@termandcondition");
 $router->post("/aboutus","addItemControler@aboutus");
+$router->post("/userActivation","userController@userActivation");
+$router->post("/profileValidation","userController@profileValidation");
+
 
 
 

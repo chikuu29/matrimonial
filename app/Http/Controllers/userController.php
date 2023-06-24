@@ -145,7 +145,7 @@ class userController extends Controller
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $userid)->first();
             $user_profile_images = DB::table('user_profile_images')->where('user_ID', $userid)->get();
             //dd( @$user_profile_images[0]);
-            if(@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed  == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed  == 1 && @$user_physical_details->completed  == 1 && @$user_partnerpreference->completed  == 1 && @$user_profile_images[0]->completed == 1){
+            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1 && @$user_partnerpreference->completed == 1 && @$user_profile_images[0]->completed == 1) {
 
                 $user_arr = array(
                     "status" => true,
@@ -159,11 +159,11 @@ class userController extends Controller
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
-                    "user_partnerpreference"=>$user_partnerpreference != null ? $user_partnerpreference : [],
+                    "user_partnerpreference" => $user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_status" => "Completed",
                 );
 
-            }else{
+            } else {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
@@ -175,13 +175,13 @@ class userController extends Controller
                     "user_family" => $user_family != null ? $user_family : [],
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
-                    "user_partnerpreference"=>$user_partnerpreference != null ? $user_partnerpreference : [],
+                    "user_partnerpreference" => $user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
                     "user_profile_status" => "Not Completed",
                 );
             }
 
-           
+
         } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
@@ -198,7 +198,7 @@ class userController extends Controller
 
         $alldata = $request->all();
         // print_r($alldata);
-        $id = $alldata['q']; 
+        $id = $alldata['q'];
         if ($request->hasFile('uploadfile')) {
             $file = $request->file('uploadfile');
             $imagedata = $_FILES['uploadfile']['name'];
@@ -212,31 +212,106 @@ class userController extends Controller
             }
             $d = implode(',', $datainarryform);
 
-            $user_info = DB::table('user_info')->where('user_id', $id)->update([
-                'user_profile_image' => $d
-            ]);
+            // $user_info = DB::table('user_info')->where('user_id', $id)->update([
+            //     'user_profile_image' => $d
+            // ]);
             $profile_image_table = DB::table('user_profile_images')->insert([
-                'completed'=>1,
+                'completed' => 1,
                 'user_ID' => $id,
                 'user_feature_images' => $d,
                 'user_profile_images' => $d
             ]);
-            if ($user_info > 0 && $profile_image_table > 0) {
+            // $user_info > 0 &&
+            if ($profile_image_table > 0) {
                 $user_arr = array(
                     "success" => true,
                     "message" => "File Uploaded Successfully",
-                    "data"=>$d
+                    "data" => $d
                 );
             } else {
                 $user_arr = array(
                     "success" => false,
                     "message" => "Unable to Store Data"
-    
+
                 );
             }
 
             return json_encode($user_arr);
         }
+    }
+
+    public function userActivation(Request $res)
+    {
+        $data = $res->all();
+        $id = isset($data['id']) ? $data['id'] : '';
+        $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
+        $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
+
+        $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();
+        if ($user_plan_deatils) {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => 'Defult Plan Added',
+            );
+        } else {
+            $Date = date('Y-m-d h:i:s');
+            $valid = date('Y-m-d h:i:s', strtotime($Date . ' +' . $plan[0]->membership_plan_validity_date . 'days'));
+            //   print_r($valid );
+            // return;
+            $insertdata = DB::table('user_info')->where('user_id', $id)->update([
+                'user_membership_plan_type' => $plan[0]->membership_plan_type,
+                'user_ready_for_active_account' => 0,
+                'user_membership_plan_active' => 1
+            ]);
+            $insertdatain_user_plan_deatils = DB::table('user_plan_deatils')->insert([
+                'user_id' => $id,
+                'user_email' => $userdeatils[0]->user_email,
+                'user_plan_type' => $plan[0]->membership_plan_type,
+                'user_plan_id' => $plan[0]->membership_plan_id,
+                'plan_ending_date' => $valid
+            ]);
+
+            if ($insertdata > 0 && $insertdatain_user_plan_deatils > 0) {
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Update Successfully! ',
+                );
+            } else {
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Not Update Successfully! ',
+                );
+            }
+        }
+        return json_encode($user_arr);
+
+    }
+    public function profileValidation(Request $res)
+    {
+        $data = $res->all();
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $profile_image_table = DB::table('user_profile_images')->where('user_ID', $id)->get();
+
+        $user_info = DB::table('user_info')->where('user_id', $id)->update([
+            'user_profile_image' => $profile_image_table[0]->user_profile_images
+        ]);
+        if ( $user_info > 0) {
+            $user_arr = array(
+                "success" => true,
+                "message" => "Approvaled",
+            );
+        } else {
+            $user_arr = array(
+                "success" => false,
+                "message" => "Not Approvaled",
+            );
+        }
+        return json_encode($user_arr);
+
     }
 
 
