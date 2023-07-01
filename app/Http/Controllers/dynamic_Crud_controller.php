@@ -101,7 +101,6 @@ class dynamic_Crud_controller extends Controller
         //     "data":[],
         //     "whereConditions":[
         //         ["country_name", "INDIA"]
-
         //     ]
         // } Upadte data parametr formate 
         // $requestedData = json_decode(file_get_contents("php://input"));
