@@ -19,7 +19,7 @@ class dynaController extends Controller
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => "We Accept Only Select Query",
+                "message" => "Unauthorized Access",
             );
         } else {
         try {

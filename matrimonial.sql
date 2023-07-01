@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2023 at 07:26 AM
+-- Generation Time: Jun 24, 2023 at 08:02 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48394,6 +48394,42 @@ INSERT INTO `countries` (`id`, `shortname`, `name`, `phonecode`, `status`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `membership_plan`
+--
+
+CREATE TABLE `membership_plan` (
+  `Id` int(11) NOT NULL,
+  `membership_plan_id` varchar(45) NOT NULL,
+  `membership_plan_type` varchar(45) DEFAULT NULL,
+  `membership_plan_amount` int(11) DEFAULT 0,
+  `membership_plan_visibility` varchar(45) DEFAULT NULL,
+  `membership_plan_validity_date` int(11) DEFAULT 0,
+  `membership_plan_no_of_photo` int(11) DEFAULT 0,
+  `membership_plan_of_send_message` int(11) DEFAULT 0,
+  `membership_plan_no_of_horscope` int(11) DEFAULT 0,
+  `membership_plan_no_of_contact` int(11) DEFAULT NULL,
+  `membership_plan_created_date_time` timestamp NULL DEFAULT current_timestamp(),
+  `membership_plan_updated_date_time` datetime DEFAULT NULL,
+  `membership_plan_status` bit(1) DEFAULT b'1',
+  `membership_plan_dicount` int(11) DEFAULT 0,
+  `membership_plan_show_contact_number_other` int(11) DEFAULT 0,
+  `membership_plan_name` varchar(45) DEFAULT NULL,
+  `membership_plan_currency` varchar(45) DEFAULT NULL,
+  `membership_plan_chating` int(11) DEFAULT 0,
+  `membership_plan_default` bit(1) DEFAULT b'0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `membership_plan`
+--
+
+INSERT INTO `membership_plan` (`Id`, `membership_plan_id`, `membership_plan_type`, `membership_plan_amount`, `membership_plan_visibility`, `membership_plan_validity_date`, `membership_plan_no_of_photo`, `membership_plan_of_send_message`, `membership_plan_no_of_horscope`, `membership_plan_no_of_contact`, `membership_plan_created_date_time`, `membership_plan_updated_date_time`, `membership_plan_status`, `membership_plan_dicount`, `membership_plan_show_contact_number_other`, `membership_plan_name`, `membership_plan_currency`, `membership_plan_chating`, `membership_plan_default`) VALUES
+(1, '1687574018539', 'FREEPLAN', 0, '10', 30, 0, 0, 0, 0, '2023-06-24 02:33:39', NULL, b'1', 0, 0, 'free', 'INR', 0, b'0'),
+(2, '1687574059945', 'FREEPLANTWO', 0, '20', 30, 0, 0, 0, 0, '2023-06-24 02:34:20', NULL, b'1', 0, 0, 'freetype2', 'INR', 0, b'1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nakshatra`
 --
 
@@ -52766,12 +52802,12 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`Id`, `user_profileType`, `user_id`, `user_fname`, `user_lname`, `user_email`, `deleted`, `status`, `user_creation_date_time`, `updateon`, `user_has_complete_profile`, `user_dob`, `user_gender`, `user_profile_image`, `user_mother_toungh`, `user_marital_status`, `user_membership_plan_active`, `user_membership_plan_type`, `user_ready_for_active_account`) VALUES
-(15, 'myself', 'PATRABIBAHA3890', 'SURYANARAYAN', 'BISWAL', 'cchiku1999@gmail.com', b'1', b'1', '2023-06-06 17:11:10', '2023-06-08 17:46:46', b'1', '1999-08-09', 'male', '01686677849.jpg', 'Odia', 'Single', b'0', NULL, b'1'),
+(15, 'myself', 'PATRABIBAHA3890', 'SURYANARAYAN', 'BISWAL', 'cchiku1999@gmail.com', b'1', b'1', '2023-06-06 17:11:10', '2023-06-08 17:46:46', b'1', '1999-08-09', 'male', '01686677849.jpg', 'Odia', 'Single', b'1', 'FREEPLANTWO', b'0'),
 (17, 'myself', 'PATRABIBAHA1489', 'Test', 'Demo', 'chikuchiku3942@gmail.com', b'1', b'1', '2023-06-09 01:44:31', NULL, b'0', '1999-8-9', 'male', NULL, '', '', b'0', NULL, b'0'),
 (18, 'myself', 'PATRABIBAHA9477', 'njsdk', ',fdnf', 'demo@123', b'1', b'1', '2023-06-09 01:49:34', NULL, b'0', '1999-8-9', 'male', NULL, '', '', b'0', NULL, b'0'),
 (19, 'myself', 'PATRABIBAHA5059', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:53:34', NULL, b'0', '1999-8-9', 'male', NULL, '', '', b'0', NULL, b'0'),
 (20, 'myself', 'PATRABIBAHA2196', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:53:42', NULL, b'0', '1999-8-9', 'male', NULL, '', '', b'0', NULL, b'0'),
-(21, 'myself', 'PATRABIBAHA2827', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:54:17', NULL, b'1', '2023-06-17', 'male', '01687019632.jpg', 'Assamese', 'Single', b'0', NULL, b'0'),
+(21, 'myself', 'PATRABIBAHA2827', 'snjsn', ' ndnd', 'test@gmail.com', b'1', b'1', '2023-06-09 01:54:17', NULL, b'1', '2023-06-17', 'male', '01687019632.jpg', 'Assamese', 'Single', b'0', NULL, b'1'),
 (22, 'myself', 'PATRABIBAHA8449', 'dd', 'dd', 'chikuchiku3942@gmail.com', b'1', b'1', '2023-06-12 17:57:17', NULL, b'0', '1999-10-9', 'male', NULL, '', '', b'0', NULL, b'0'),
 (23, 'myself', 'PATRABIBAHA1424', 'test', 'test', 'demo@gmai.com', b'1', b'1', '2023-06-20 03:13:26', NULL, b'1', '2023-06-12', 'male', '01687235182.jpg', 'Assamese', 'Single', b'0', NULL, b'1'),
 (24, 'myself', 'PATRABIBAHA1951', 'Demo', 'de', 'test@gmail.com', b'1', b'1', '2023-06-20 03:18:51', NULL, b'0', '1999-8-9', 'male', NULL, '', '', b'0', NULL, b'0'),
@@ -52865,6 +52901,29 @@ INSERT INTO `user_physical_details` (`user_ID`, `user_height`, `user_weight`, `u
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_plan_deatils`
+--
+
+CREATE TABLE `user_plan_deatils` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(45) DEFAULT NULL,
+  `user_email` varchar(45) DEFAULT NULL,
+  `user_plan_type` varchar(45) DEFAULT NULL,
+  `user_plan_id` varchar(45) DEFAULT NULL,
+  `plan_stating_date` timestamp NULL DEFAULT current_timestamp(),
+  `plan_ending_date` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_plan_deatils`
+--
+
+INSERT INTO `user_plan_deatils` (`id`, `user_id`, `user_email`, `user_plan_type`, `user_plan_id`, `plan_stating_date`, `plan_ending_date`) VALUES
+(3, 'PATRABIBAHA3890', 'cchiku1999@gmail.com', 'FREEPLANTWO', '1687574059945', '2023-06-24 17:38:59', '2023-07-24 05:38:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_profile_images`
 --
 
@@ -52873,24 +52932,25 @@ CREATE TABLE `user_profile_images` (
   `user_ID` varchar(45) DEFAULT NULL,
   `user_feature_images` varchar(1000) DEFAULT NULL,
   `user_profile_images` varchar(1000) DEFAULT NULL,
-  `completed` bit(1) DEFAULT b'0'
+  `completed` bit(1) DEFAULT b'0',
+  `user_profile_images_for_approval` bit(1) DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_profile_images`
 --
 
-INSERT INTO `user_profile_images` (`id`, `user_ID`, `user_feature_images`, `user_profile_images`, `completed`) VALUES
-(2, 'PATRABIBAHA3890', '01686676154.jpg', '01686676154.jpg', b'1'),
-(3, 'PATRABIBAHA3890', '01686676875.jpg', '01686676875.jpg', b'1'),
-(4, 'PATRABIBAHA3890', '01686677177.jpg', '01686677177.jpg', b'1'),
-(5, 'PATRABIBAHA3890', '01686677236.jpg', '01686677236.jpg', b'1'),
-(6, 'PATRABIBAHA3890', '01686677254.jpg', '01686677254.jpg', b'1'),
-(7, 'PATRABIBAHA3890', '01686677502.jpg', '01686677502.jpg', b'1'),
-(8, 'PATRABIBAHA3890', '01686677849.jpg', '01686677849.jpg', b'1'),
-(9, 'PATRABIBAHA2827', '01687019516.jpg', '01687019516.jpg', b'1'),
-(10, 'PATRABIBAHA2827', '01687019632.jpg', '01687019632.jpg', b'1'),
-(11, 'PATRABIBAHA1424', '01687235182.jpg', '01687235182.jpg', b'1');
+INSERT INTO `user_profile_images` (`id`, `user_ID`, `user_feature_images`, `user_profile_images`, `completed`, `user_profile_images_for_approval`) VALUES
+(2, 'PATRABIBAHA3890', '01686676154.jpg', '01686676154.jpg', b'1', b'0'),
+(3, 'PATRABIBAHA3890', '01686676875.jpg', '01686676875.jpg', b'1', b'0'),
+(4, 'PATRABIBAHA3890', '01686677177.jpg', '01686677177.jpg', b'1', b'0'),
+(5, 'PATRABIBAHA3890', '01686677236.jpg', '01686677236.jpg', b'1', b'0'),
+(6, 'PATRABIBAHA3890', '01686677254.jpg', '01686677254.jpg', b'1', b'0'),
+(7, 'PATRABIBAHA3890', '01686677502.jpg', '01686677502.jpg', b'1', b'0'),
+(8, 'PATRABIBAHA3890', '01686677849.jpg', '01686677849.jpg', b'1', b'0'),
+(9, 'PATRABIBAHA2827', '01687019516.jpg', '01687019516.jpg', b'1', b'0'),
+(10, 'PATRABIBAHA2827', '01687019632.jpg', '01687019632.jpg', b'1', b'0'),
+(11, 'PATRABIBAHA1424', '01687235182.jpg', '01687235182.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
 
@@ -53000,6 +53060,12 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `membership_plan`
+--
+ALTER TABLE `membership_plan`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `nakshatra`
 --
 ALTER TABLE `nakshatra`
@@ -53084,6 +53150,12 @@ ALTER TABLE `user_physical_details`
   ADD PRIMARY KEY (`user_ID`);
 
 --
+-- Indexes for table `user_plan_deatils`
+--
+ALTER TABLE `user_plan_deatils`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_profile_images`
 --
 ALTER TABLE `user_profile_images`
@@ -53155,6 +53227,12 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
+-- AUTO_INCREMENT for table `membership_plan`
+--
+ALTER TABLE `membership_plan`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `nakshatra`
 --
 ALTER TABLE `nakshatra`
@@ -53195,6 +53273,12 @@ ALTER TABLE `termand_condition`
 --
 ALTER TABLE `user_info`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `user_plan_deatils`
+--
+ALTER TABLE `user_plan_deatils`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_profile_images`
