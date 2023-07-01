@@ -53,7 +53,6 @@ class addItemControler extends Controller
                 "message" => "Exception Error",
             );
         }
-
         return json_encode($user_arr);
     }
 

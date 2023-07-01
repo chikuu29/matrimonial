@@ -63,11 +63,24 @@ class loginController extends Controller
         return json_encode($user_arr);
     }
 
+    public function decrypt_openssl($payload) {
+        $raw = base64_decode($payload);
+        $iv_size = openssl_cipher_iv_length('AES-128-CBC');
+        $iv = substr($raw, 0, $iv_size);
+        $data = substr($raw, $iv_size);
+        $key = '1E99412323A4ED2WAYWALASECRET_KEY';
+        return openssl_decrypt($data, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
+    }
+
     public function userLogin(){
          $data = json_decode(file_get_contents("php://input"));
-        //dd($data);
-        $user = isset($data->userID) ? $data->userID : '' ;
-        $password = isset($data->password) ? $data->password : '' ;
+        // print_r($data->id);
+        $Key='1E99412323A4ED2WAYWALASECRET_KEY';
+        $encrypted =  json_decode(base64_decode($data->id));
+        // print_r($encrypted->userID);
+       // return;
+        $user = isset($encrypted->userID) ? $encrypted->userID : '' ;
+        $password = isset($encrypted->password) ? $encrypted->password : '' ;
         //dd($user);
         if($user == '' || $user == null || $password == '' || $password == null ){
             $user_arr = array(
@@ -121,7 +134,7 @@ class loginController extends Controller
 
         }
 
-        return json_encode($user_arr);
+        return  array("id"=>base64_encode(json_encode($user_arr)));
     }
 
 
