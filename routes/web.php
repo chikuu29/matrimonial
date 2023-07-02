@@ -42,7 +42,7 @@ $router->post("/termandcondition","addItemControler@termandcondition");
 $router->post("/aboutus","addItemControler@aboutus");
 $router->post("/userActivation","userController@userActivation");
 $router->post("/profileValidation","userController@profileValidation");
-$router->post("/dynaQuay","dynaController@dynaQuay");
+$router->post("/getDataFormQuery","dynaController@dynaQuay");
 
 
 
