@@ -7,21 +7,20 @@ use Illuminate\Support\Facades\DB;
 
 class dynamic_Crud_controller extends Controller
 {
-    public function fetch()
+    public function fetch(Request $request)
     {
         // {
         //     "table":"country_table",
         //     "projection":["*"],
-        //     "whereConditions":[
-        //         ["country_name", "INDIA"]
-
-        //     ]
+        //     "whereConditions":{
+        //     "country_name", "INDIA"
+        //     }
+        //  }  
         // } fetch data parametr formate 
-        $data = json_decode(file_get_contents("php://input"));
-        $whereConditions = isset($data->whereConditions) ? $data->whereConditions : [];
-        $table = isset($data->table) ? $data->table : '';
-        $projection = isset($data->projection) ? $data->projection : [];
-
+        $requestedData = $request->all();
+        $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';
+        $projection = isset($requestedData['projection']) ? $requestedData['projection'] : [];
         if (empty($table)) {
             $user_arr = array(
                 "status" => false,
@@ -30,29 +29,18 @@ class dynamic_Crud_controller extends Controller
                 'data' => []
             );
         } else {
-
-            if (empty($whereConditions)) {
+            if (count($whereConditions) == 0) {
                 $fatchdata = DB::table($table)->get($projection);
             } else {
                 $fatchdata = DB::table($table)->where($whereConditions)->get($projection);
             }
-
-            //if (count($fatchdata) > 0) {
             $user_arr = array(
                 "status" => true,
                 "success" => true,
                 "message" => 'Total Fetch Data ' . count($fatchdata),
                 "data" => $fatchdata
             );
-            //} 
-            // else {
-            //     $user_arr = array(
-            //         "status" => false,
-            //         "success" => false,
-            //         "message" => 'Total Fetch Data ' . count($fatchdata),
-            //         "data" => []
-            //     );
-            // }
+            
         }
         return json_encode($user_arr);
     }
