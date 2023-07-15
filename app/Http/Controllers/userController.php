@@ -13,9 +13,11 @@ class userController extends Controller
     public function addUserDataFirstApi(Request $res)
     {
 
+
         $data = json_decode(file_get_contents("php://input"));
+
         $profiletype = !isset($data->profiletype) ? 'myself' : $data->profiletype;
-        $userId = 'PATRABIBAHA' . rand(1000, 9999);
+
         $email = !isset($data->email) ? '' : $data->email;
         $phone = !isset($data->phone) ? '' : $data->phone;
         $password = !isset($data->password) ? '' : md5($data->password);
@@ -24,8 +26,9 @@ class userController extends Controller
         $fname = !isset($data->fname) ? '' : $data->fname; // :'';
         $lname = !isset($data->lname) ? '' : $data->lname; // :'';
         $dob = !isset($data->dob) ? '' : $data->dob;
-        // $profileID = !isset($data->profileID) ? '' : $data->profileID;
-        // $status  = !isset($data->status) ? '' : $data->status;
+        $iddata = DB::table('prefix_id')->get('prefix_id_name');
+        $id = $iddata[0]->prefix_id_name;
+        $userId = $id . rand(1000, 9999);
         if (empty($profiletype) || empty($email) || empty($phone) || empty($password) || empty($gender)) {
             $user_arr = array(
                 "status" => false,
