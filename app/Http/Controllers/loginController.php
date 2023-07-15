@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+
 class loginController extends Controller
 {
     public function adminLogin()
@@ -63,7 +64,8 @@ class loginController extends Controller
         return json_encode($user_arr);
     }
 
-    public function decrypt_openssl($payload) {
+    public function decrypt_openssl($payload)
+    {
         $raw = base64_decode($payload);
         $iv_size = openssl_cipher_iv_length('AES-128-CBC');
         $iv = substr($raw, 0, $iv_size);
@@ -72,17 +74,22 @@ class loginController extends Controller
         return openssl_decrypt($data, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
     }
 
-    public function userLogin(){
-         $data = json_decode(file_get_contents("php://input"));
+    public function userLogin()
+    {
+        $data = json_decode(file_get_contents("php://input"));
         // print_r($data->id);
-        $Key='1E99412323A4ED2WAYWALASECRET_KEY';
-        $encrypted =  json_decode(base64_decode($data->id));
-        // print_r($encrypted->userID);
-       // return;
-        $user = isset($encrypted->userID) ? $encrypted->userID : '' ;
-        $password = isset($encrypted->password) ? $encrypted->password : '' ;
+        $Key = '1E99412323A4ED2WAYWALASECRET_KEY';
+        // $encrypted = json_decode(base64_decode($data->encrypted));
+        $encrypted = json_decode(base64_decode($data->encrypted));
+        //print_r($encrypted);
+        //$value = openssl_decrypt($encrypted, "AES-128-CTR", $Key);
+        // $data1 = $this->decrypt_openssl($data->encrypted);
+    //    echo $value;
+    //     return;
+        $user = isset($encrypted->userID) ? $encrypted->userID : '';
+        $password = isset($encrypted->password) ? $encrypted->password : '';
         //dd($user);
-        if($user == '' || $user == null || $password == '' || $password == null ){
+        if ($user == '' || $user == null || $password == '' || $password == null) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
@@ -94,17 +101,17 @@ class loginController extends Controller
 
         try {
 
-            $logindata = DB::table('auth_user')->orwhere('auth_ID', $user)->orWhere('auth_email',$user)->orWhere('auth_phone_no',$user)->get();
+            $logindata = DB::table('auth_user')->orwhere('auth_ID', $user)->orWhere('auth_email', $user)->orWhere('auth_phone_no', $user)->get();
             if (count($logindata) > 0) {
                 if (md5($password) == $logindata[0]->auth_password) {
 
                     $user_arr = array(
                         "status" => true,
                         "success" => true,
-                        "profile_id"=>$logindata[0]->auth_ID,
-                        "profile_name"=>$logindata[0]->auth_name,
-                        "profile_email"=>$logindata[0]->auth_email,
-                        "profile_phone"=>$logindata[0]->auth_phone_no
+                        "profile_id" => $logindata[0]->auth_ID,
+                        "profile_name" => $logindata[0]->auth_name,
+                        "profile_email" => $logindata[0]->auth_email,
+                        "profile_phone" => $logindata[0]->auth_phone_no
                     );
                 } else {
                     $user_arr = array(
@@ -134,7 +141,7 @@ class loginController extends Controller
 
         }
 
-        return  array("id"=>base64_encode(json_encode($user_arr)));
+        return array("id" => base64_encode(json_encode($user_arr)));
     }
 
 

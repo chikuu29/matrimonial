@@ -43,6 +43,7 @@ $router->post("/aboutus","addItemControler@aboutus");
 $router->post("/userActivation","userController@userActivation");
 $router->post("/profileValidation","userController@profileValidation");
 $router->post("/getDataFormQuery","dynaController@dynaQuay");
+$router->post("/matches","filterController@matches");
 
 
 
