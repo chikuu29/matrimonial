@@ -80,14 +80,14 @@ class loginController extends Controller
         // print_r($data->id);
         $Key = '1E99412323A4ED2WAYWALASECRET_KEY';
         // $encrypted = json_decode(base64_decode($data->encrypted));
-        $encrypted = json_decode(base64_decode($data->encrypted));
+        // $encrypted = json_decode(base64_decode($data->encrypted));
         //print_r($encrypted);
         //$value = openssl_decrypt($encrypted, "AES-128-CTR", $Key);
         // $data1 = $this->decrypt_openssl($data->encrypted);
     //    echo $value;
     //     return;
-        $user = isset($encrypted->userID) ? $encrypted->userID : '';
-        $password = isset($encrypted->password) ? $encrypted->password : '';
+        $user = isset($data->userID) ? $data->userID : '';
+        $password = isset($data->password) ? $data->password : '';
         //dd($user);
         if ($user == '' || $user == null || $password == '' || $password == null) {
             $user_arr = array(
