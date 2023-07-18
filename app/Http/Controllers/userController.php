@@ -247,10 +247,14 @@ class userController extends Controller
     {
         $data = $res->all();
         $id = isset($data['id']) ? $data['id'] : '';
+        // echo $id;
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
+        // var_dump($plan);
         $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
-
         $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();
+        
+        // var_dump($user_plan_deatils);
+
         if ($user_plan_deatils) {
             $user_arr = array(
                 "status" => false,
