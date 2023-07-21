@@ -247,13 +247,12 @@ class userController extends Controller
     {
         $data = $res->all();
         $id = isset($data['id']) ? $data['id'] : '';
-        // echo $id;
+      
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
-        // var_dump($plan);
+      
         $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
         $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();
-        
-        // var_dump($user_plan_deatils);
+
 
         if ($user_plan_deatils) {
             $user_arr = array(
@@ -264,8 +263,7 @@ class userController extends Controller
         } else {
             $Date = date('Y-m-d h:i:s');
             $valid = date('Y-m-d h:i:s', strtotime($Date . ' +' . $plan[0]->membership_plan_validity_date . 'days'));
-            //   print_r($valid );
-            // return;
+        
             $insertdata = DB::table('user_info')->where('user_id', $id)->update([
                 'user_membership_plan_type' => $plan[0]->membership_plan_type,
                 'user_ready_for_active_account' => 0,

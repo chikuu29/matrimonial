@@ -84,8 +84,8 @@ class loginController extends Controller
         //print_r($encrypted);
         //$value = openssl_decrypt($encrypted, "AES-128-CTR", $Key);
         // $data1 = $this->decrypt_openssl($data->encrypted);
-    //    echo $value;
-    //     return;
+        // echo $value;
+        // return;
         $user = isset($data->userID) ? $data->userID : '';
         $password = isset($data->password) ? $data->password : '';
         //dd($user);
