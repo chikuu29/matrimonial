@@ -28,7 +28,7 @@ class userController extends Controller
         $dob = !isset($data->dob) ? '' : $data->dob;
         $iddata = DB::table('prefix_id')->get('prefix_id_name');
         $id = $iddata[0]->prefix_id_name;
-        $userId = $id . rand(1000, 9999);
+        $userId = $id.chr(64+rand(0,26)).rand(0,9).chr(64+rand(0,26)).rand(0,9).chr(64+rand(0,26)).rand(1000, 9999);
         if (empty($profiletype) || empty($email) || empty($phone) || empty($password) || empty($gender)) {
             $user_arr = array(
                 "status" => false,
