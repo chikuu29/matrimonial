@@ -11,6 +11,7 @@ class dynaController extends Controller
     public function dynaQuay()
     {
         $data = cryptoJsAesDecrypt(file_get_contents("php://input"));
+        // $data=file_get_contents("php://input");
         if ($data !== null) {
             $query = $data['query'];
             $match = array("CREATE", "DROP", "UPDATE", "DELETE", 'INSERT', 'TRUNCATE', 'ALTER');

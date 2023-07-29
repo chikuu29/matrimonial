@@ -10,19 +10,19 @@ class filterController extends Controller
     public function matches()
     {
         $data = json_decode(file_get_contents("php://input"));
-        $userId = isset($data->userId) ? $data->userId : '';
-        if ($userId == '') {
+        $user_id = isset($data->user_id) ? $data->user_id : '';
+        if ($user_id == '') {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => (object) [],
+                "message" => "Please enter required parametes",
             );
         } else {
 
-            $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $userId)->get();
+            $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $user_id)->get();
             $user_height = $user_partnerpreference[0]->user_height;
            // dd($user_partnerpreference);
-            $user = DB::table('user_info')->where('user_ID', $userId)->get('user_gender');
+            $user = DB::table('user_info')->where('user_ID', $user_id)->get('user_gender');
             //dd($user);
             $gender = $user[0]->user_gender == "male" ? 'female' : 'male' ;
                 //dd($gender);
@@ -39,13 +39,14 @@ class filterController extends Controller
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
-                    "message" => $alldata,
+                    "data" => $alldata,
+                    "message"=>count($alldata) . ' records Match'
                 );
             }else{
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
-                    "message" => (object) [],
+                    "message" => "No Match Found",
                 );
             }
 
