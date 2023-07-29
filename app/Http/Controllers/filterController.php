@@ -37,7 +37,7 @@ class filterController extends Controller
             LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
             LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
             LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
-            WHERE user_info.user_gender = '$gender';");
+            WHERE user_info.user_gender = '$gender' ;");
                 if (count($alldata) > 0) {
                     $user_arr = array(
                         "status" => true,
