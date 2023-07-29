@@ -267,7 +267,8 @@ class userController extends Controller
             $insertdata = DB::table('user_info')->where('user_id', $id)->update([
                 'user_membership_plan_type' => $plan[0]->membership_plan_type,
                 'user_ready_for_active_account' => 0,
-                'user_membership_plan_active' => 1
+                'user_membership_plan_active' => 1,
+                'user_status'=>'Approved'
             ]);
             $insertdatain_user_plan_deatils = DB::table('user_plan_deatils')->insert([
                 'user_id' => $id,
