@@ -26,6 +26,7 @@ $router->post("/state","addItemControler@state");
 $router->post("/fetch","dynamic_Crud_controller@fetch");
 $router->post("/save","dynamic_Crud_controller@save");
 $router->post("/update","dynamic_Crud_controller@update");
+$router->post("/delete","dynamic_Crud_controller@delete");
 $router->post("/insertData","dynamic_Crud_controller@insertData");
 $router->post("/auth","loginController@userLogin");
 $router->post("/getprofile","userController@fatchAllaDataByUserId");
