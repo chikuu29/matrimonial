@@ -126,31 +126,43 @@ class dynamic_Crud_controller extends Controller
         return json_encode($user_arr);
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
-        $data = json_decode(file_get_contents('php:://input'));
-        $id = empty($data->id) ? '' : $data->id;
-        $table = empty($data->table) ? '' : $data->table;
+         // {
+        //     "table":"country_table",
+        //     "data":[],
+        //     "whereConditions":[
+        //         ["country_name", "INDIA"]
+        //     ]
+        // } Upadte data parametr formate 
+        // $data = json_decode(file_get_contents('php:://input'));
+        $requestedData = $request->all();
+        // $id = empty($data->id) ? '' : $data->id;
+        // $table = empty($data->table) ? '' : $data->table;
 
-        if ($id == '' || $table == '') {
+        $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';;
+        // $data = $requestedData['data'];
+
+        if (count($whereConditions) == 0 || $table == '') {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
                 "message" => 'You Provid Empty data',
             );
         } else {
-            $query = DB::table($table)->where('Id', $id)->delete();
+            $query = DB::table($table)->where($whereConditions)->delete();
             if ($query > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
-                    "message" => 'Data Inserted Successfully!',
+                    "message" => 'Data Deleted Successfully!',
                 );
             } else {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
-                    "message" => 'Data Not Inserted Successfully!',
+                    "message" => 'Data Not Deleted Successfully!',
                 );
             }
         }
