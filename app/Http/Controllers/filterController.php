@@ -29,6 +29,42 @@ class filterController extends Controller
                 //dd($user);
                 $gender = $user[0]->user_gender == "male" ? 'female' : 'male';
                 //dd($gender);
+                $user_activities = DB::table('user_activities')->where('user_id', $user_id)->get('user_block_list');
+                if(count($user_activities) > 0){
+                    $user_block_list = $user_activities[0]->user_block_list;
+
+                
+                $elements = explode(',', $user_block_list);
+                
+                // Enclose each element in double quotes
+                $quotedElements = array_map(function ($element) {
+                    return '"' . $element . '"';
+                }, $elements);
+                
+                // Join the elements with commas
+                $outputString = implode(",", $quotedElements);
+                
+                }else{
+                    $outputString = '""';
+                }
+                
+               // echo $outputString;
+
+                
+                
+
+
+               // dd($user_block_list);
+                // dd("SELECT * FROM user_info  
+                // LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
+                // LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
+                // LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
+                // LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+                // LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+                // LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+                // LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+                // WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved'  AND (user_info.user_id NOT IN ($outputString)) ;");
+
                 $alldata = DB::select("SELECT * FROM user_info  
             LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
             LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
@@ -37,7 +73,17 @@ class filterController extends Controller
             LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
             LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
             LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
-            WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved' ;");
+            WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved'   AND  user_info.user_id NOT IN ($outputString) ;");
+                // dd("SELECT * FROM user_info  
+                // LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
+                // LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
+                // LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
+                // LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+                // LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+                // LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+                // LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+                // WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved'  AND user_info.user_id NOT IN ($user_block_list) ;");
+
                 if (count($alldata) > 0) {
                     $user_arr = array(
                         "status" => true,
@@ -141,4 +187,7 @@ class filterController extends Controller
         }
         return json_encode($user_arr);
     }
+    
+    
+
 }
