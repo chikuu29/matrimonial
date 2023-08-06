@@ -252,13 +252,13 @@ class filterController extends Controller
             $user_arr = array(
                 "status" => true,
                 "success" => true,
-                "message" => round($persent),
+                "matches_Count" => round($persent),
             );
         }catch(Exception $e){
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => [],
+                "matches_Count" => 0,
             );
         }
         return json_encode($user_arr);
