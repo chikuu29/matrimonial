@@ -25,6 +25,7 @@ $router->post("/country","addItemControler@country");
 $router->post("/state","addItemControler@state");
 $router->post("/fetch","dynamic_Crud_controller@fetch");
 $router->post("/save","dynamic_Crud_controller@save");
+$router->post("/delete","dynamic_Crud_controller@delete");
 $router->post("/update","dynamic_Crud_controller@update");
 $router->post("/insertData","dynamic_Crud_controller@insertData");
 $router->post("/auth","loginController@userLogin");
@@ -45,6 +46,8 @@ $router->post("/profileValidation","userController@profileValidation");
 $router->post("/getDataFormQuery","dynaController@dynaQuay");
 $router->post("/matches","filterController@matches");
 $router->post("/matchesforindivisual","filterController@matchesforindivisual");
+$router->post("/matchPersent","filterController@matchPersent");
+
 
 
 
