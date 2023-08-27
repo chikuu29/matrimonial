@@ -157,7 +157,7 @@ class filterController extends Controller
             OR  user_info.user_mother_toungh = '$user_mother_toungh'
             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' )
+            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1  )
             
             ;");
 
@@ -254,12 +254,67 @@ class filterController extends Controller
                 "success" => true,
                 "matches_Count" => round($persent),
             );
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
                 "matches_Count" => 0,
             );
+        }
+        return json_encode($user_arr);
+    }
+
+    public function getplandata(Request $res)
+    {
+        $data = json_decode(file_get_contents("php://input"));
+       // dd($data);
+
+        if ($data == []) {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => 'Come with verifyde sorse',
+                "data" => [],
+            );
+        } else {
+            $loginuserid = $data->loginuserid;
+            if ($loginuserid == '' || $loginuserid == null) {
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Come with verifyde sorse',
+                    "data" => [],
+                );
+            } else {
+                $PLANACTIVEORNOT = DB::table('user_info')->where('user_id', $loginuserid)->where('user_membership_plan_active', 1)->where('deleted', 1)->where('status', 1)->exists();
+                if ($PLANACTIVEORNOT) {
+                    $getdata = DB::table('user_plan_deatils')->where('user_id', $loginuserid)->get('user_plan_id');
+                    $membership_plan_id = $getdata[0]->user_plan_id;
+                    $plandeatils = DB::table('membership_plan')->where('membership_plan_id', $membership_plan_id)->get();
+                    if (count($getdata) > 0) {
+                        $user_arr = array(
+                            "status" => true,
+                            "success" => true,
+                            "message" => 'Done',
+                            "data" => $plandeatils,
+                        );
+                    } else {
+                        $user_arr = array(
+                            "status" => false,
+                            "success" => false,
+                            "message" => 'Contact to admin',
+                            "data" => [],
+                        );
+                    }
+                } else {
+                    $user_arr = array(
+                        "status" => false,
+                        "success" => false,
+                        "message" => 'Contact to admin',
+                        "data" => [],
+                    );
+                }
+            }
         }
         return json_encode($user_arr);
     }

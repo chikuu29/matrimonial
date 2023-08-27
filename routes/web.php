@@ -47,6 +47,7 @@ $router->post("/getDataFormQuery","dynaController@dynaQuay");
 $router->post("/matches","filterController@matches");
 $router->post("/matchesforindivisual","filterController@matchesforindivisual");
 $router->post("/matchPersent","filterController@matchPersent");
+$router->post("/getplandata","filterController@getplandata");
 
 
 
