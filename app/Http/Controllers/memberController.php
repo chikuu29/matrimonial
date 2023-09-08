@@ -8,27 +8,30 @@ use Illuminate\Http\Request;
 
 class memberController extends Controller
 {
-    public function memberpaln(Request $res){
-        $data = json_decode(file_get_contents("php://input"),true);
+    public function memberpaln(Request $res)
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
 
         $addarray = array(
-            'membership_plan_id'=>time().rand(100,999)
+            'membership_plan_id' => time() . rand(100, 999)
         );
-         
+
         // print_r($input);
         // return ;
-        $finalarray = array_merge($data['value'],$addarray);
-        // print_r($finalarray);
-        // return ;
-        try{
+        //dd( $data );
+        $finalarray = array_merge($data['value'], $addarray);
+        try {
             $inputdata = DB::table('membership_plan')->insert($finalarray);
-            if($inputdata > 0){
+            $type = DB::table('type')->where('name', $finalarray['membership_plan_type'])->update([
+                "used" => 1
+            ]);
+            if ($inputdata > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
                     "message" => "Data Inserted Successfully !",
                 );
-            }else{
+            } else {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
@@ -36,52 +39,53 @@ class memberController extends Controller
                 );
             }
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
-                "message" => "Error".$e,
+                "message" => "Error" . $e,
             );
         }
         return json_encode($user_arr);
         // dd($finalarray);
         // dd($input['value']['type']);
-        
+
     }
-    public function getAllData(){
+    public function getAllData()
+    {
         $data = json_decode(file_get_contents("php://input"));
         $id = !isset($data->id) || $data->id == null ? '' : $data->id;
-        if($id == ''){
+        if ($id == '') {
             $alldata = DB::table('membership_plan')->get();
-            if(count($alldata) > 0){
+            if (count($alldata) > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
                     "message" => $alldata,
                 );
-            }else{
+            } else {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
                     "message" => [],
                 );
             }
-        }else{
-            $alldata = DB::table('membership_plan')->where('Id',$id)->get();
-            if(count($alldata) > 0){
+        } else {
+            $alldata = DB::table('membership_plan')->where('Id', $id)->get();
+            if (count($alldata) > 0) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
                     "message" => $alldata,
                 );
-            }else{
+            } else {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
                     "message" => [],
                 );
             }
-        } 
+        }
         return json_encode($user_arr);
     }
 }
