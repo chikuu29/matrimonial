@@ -126,8 +126,8 @@ class memberController extends Controller
                 // dd($plan_expire_in_days);
                 //dd();
                 $user_arr = array(
-                    "status" => false,
-                    "success" => false,
+                    "status" => true,
+                    "success" => true,
                     "message" => "Done",
                     "profile_id" => $userId,
                     "current_active_plan" => $avtiveplan,
