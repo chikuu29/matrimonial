@@ -104,7 +104,14 @@ class loginController extends Controller
             $logindata = DB::table('auth_user')->orwhere('auth_ID', $user)->orWhere('auth_email', $user)->orWhere('auth_phone_no', $user)->get();
             if (count($logindata) > 0) {
                 if (md5($password) == $logindata[0]->auth_password) {
-
+                 DB::table("user_info")->where([
+                        ['user_id', $logindata[0]->auth_ID],
+                        ['user_email',$user]
+                    ])->update(
+                        [
+                            'online_status' => 1
+                        ]
+                    );
                     $user_arr = array(
                         "status" => true,
                         "success" => true,
