@@ -28,7 +28,7 @@ class userController extends Controller
         $dob = !isset($data->dob) ? '' : $data->dob;
         $iddata = DB::table('prefix_id')->get('prefix_id_name');
         $id = $iddata[0]->prefix_id_name;
-        $userId = $id.chr(64+rand(0,26)).rand(0,9).chr(64+rand(0,26)).rand(0,9).chr(64+rand(0,26)).rand(1000, 9999);
+        $userId = $id . chr(64 + rand(0, 26)) . rand(0, 9) . chr(64 + rand(0, 26)) . rand(0, 9) . chr(64 + rand(0, 26)) . rand(1000, 9999);
         if (empty($profiletype) || empty($email) || empty($phone) || empty($password) || empty($gender)) {
             $user_arr = array(
                 "status" => false,
@@ -245,52 +245,72 @@ class userController extends Controller
 
     public function userActivation(Request $res)
     {
+       // dd();
         $data = $res->all();
         $id = isset($data['id']) ? $data['id'] : '';
-      
+
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
-      
-        $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
-        $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();
+
+        $edited_plan_details = DB::table('edited_plan_details')->insert([
+            'User_id' => $id,
+            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+            'chating' => $plan[0]->membership_plan_chating
+        ]);
+        //dd();
+        if ($edited_plan_details) {
+
+            $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
+            $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();
 
 
-        if ($user_plan_deatils) {
-            $user_arr = array(
-                "status" => false,
-                "success" => false,
-                "message" => 'Defult Plan Added',
-            );
-        } else {
-            $Date = date('Y-m-d h:i:s');
-            $valid = date('Y-m-d h:i:s', strtotime($Date . ' +' . $plan[0]->membership_plan_validity_date . 'days'));
-        
-            $insertdata = DB::table('user_info')->where('user_id', $id)->update([
-                'user_membership_plan_type' => $plan[0]->membership_plan_type,
-                'user_ready_for_active_account' => 0,
-                'user_membership_plan_active' => 1,
-                'user_status'=>'Approved'
-            ]);
-            $insertdatain_user_plan_deatils = DB::table('user_plan_deatils')->insert([
-                'user_id' => $id,
-                'user_email' => $userdeatils[0]->user_email,
-                'user_plan_type' => $plan[0]->membership_plan_type,
-                'user_plan_id' => $plan[0]->membership_plan_id,
-                'plan_ending_date' => $valid
-            ]);
-
-            if ($insertdata > 0 && $insertdatain_user_plan_deatils > 0) {
-                $user_arr = array(
-                    "status" => true,
-                    "success" => true,
-                    "message" => 'Update Successfully! ',
-                );
-            } else {
+            if ($user_plan_deatils) {
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
-                    "message" => 'Not Update Successfully! ',
+                    "message" => 'Defult Plan Added',
                 );
+            } else {
+                $Date = date('Y-m-d h:i:s');
+                $valid = date('Y-m-d h:i:s', strtotime($Date . ' +' . $plan[0]->membership_plan_validity_date . 'days'));
+
+                $insertdata = DB::table('user_info')->where('user_id', $id)->update([
+                    'user_membership_plan_type' => $plan[0]->membership_plan_type,
+                    'user_ready_for_active_account' => 0,
+                    'user_membership_plan_active' => 1,
+                    'user_status' => 'Approved'
+                ]);
+                $insertdatain_user_plan_deatils = DB::table('user_plan_deatils')->insert([
+                    'user_id' => $id,
+                    'user_email' => $userdeatils[0]->user_email,
+                    'user_plan_type' => $plan[0]->membership_plan_type,
+                    'user_plan_id' => $plan[0]->membership_plan_id,
+                    'plan_ending_date' => $valid
+                ]);
+
+                if ($insertdata > 0 && $insertdatain_user_plan_deatils > 0) {
+                    $user_arr = array(
+                        "status" => true,
+                        "success" => true,
+                        "message" => 'Update Successfully! ',
+                    );
+                } else {
+                    $user_arr = array(
+                        "status" => false,
+                        "success" => false,
+                        "message" => 'Not Update Successfully! ',
+                    );
+                }
             }
+        }else{
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => 'Not Update Successfully! ',
+            );
         }
         return json_encode($user_arr);
     }

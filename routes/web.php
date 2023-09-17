@@ -49,6 +49,15 @@ $router->post("/matchesforindivisual","filterController@matchesforindivisual");
 $router->post("/matchPersent","filterController@matchPersent");
 $router->post("/getplandata","filterController@getplandata");
 $router->post("/getUserPlan","memberController@getMembersheepPlan");
+$router->post("/callCalculation","planCalculationController@callCalculation");
+$router->post("/sendMessageCalculation","planCalculationController@sendMessageCalculation");
+$router->post("/horscopeCalculation","planCalculationController@horscopeCalculation");
+$router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
+
+
+
+
+
 
 
 
