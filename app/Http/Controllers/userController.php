@@ -252,7 +252,7 @@ class userController extends Controller
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
 
         $edited_plan_details = DB::table('edited_plan_details')->insert([
-            'User_id' => $id,
+            'user_id' => $id,
             'photoviwe' => $plan[0]->membership_plan_no_of_photo,
             'sendmessage' => $plan[0]->membership_plan_of_send_message,
             'horscope' => $plan[0]->membership_plan_no_of_horscope,
@@ -276,7 +276,6 @@ class userController extends Controller
             } else {
                 $Date = date('Y-m-d h:i:s');
                 $valid = date('Y-m-d h:i:s', strtotime($Date . ' +' . $plan[0]->membership_plan_validity_date . 'days'));
-
                 $insertdata = DB::table('user_info')->where('user_id', $id)->update([
                     'user_membership_plan_type' => $plan[0]->membership_plan_type,
                     'user_ready_for_active_account' => 0,
