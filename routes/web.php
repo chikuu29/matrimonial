@@ -53,6 +53,11 @@ $router->post("/callCalculation","planCalculationController@callCalculation");
 $router->post("/sendMessageCalculation","planCalculationController@sendMessageCalculation");
 $router->post("/horscopeCalculation","planCalculationController@horscopeCalculation");
 $router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
+$router->post("/logoUplode","uplodeController@logoUplode");
+$router->post("/bannerUplode","uplodeController@bannerUplode");
+
+
+
 
 
 

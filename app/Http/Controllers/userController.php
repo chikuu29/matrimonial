@@ -38,7 +38,7 @@ class userController extends Controller
         }
         $getAuthUserCount = DB::table('auth_user')
             ->where('auth_email', $email)
-            ->where('auth_phone_no', $phone)
+            ->orWhere('auth_phone_no', $phone)
             ->count();
         if ($getAuthUserCount == 0) {
             $user = DB::table('user_info')->insert([
