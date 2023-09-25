@@ -40,46 +40,86 @@ class dynamic_Crud_controller extends Controller
                 "message" => 'Total Fetch Data ' . count($fatchdata),
                 "data" => $fatchdata
             );
-            
         }
         return json_encode($user_arr);
     }
 
     public function save(Request $request)
     {
-        // {
-        //     "table":"country_table",
-        //     "data":[],
-        // } save data parametr format
+
 
         $requestedData = $request->all();
-        // $data = json_decode(file_get_contents("php://input"), true);
         $data =  $requestedData['data'];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';
-        if (empty($data)) {
-            $user_arr = array(
+        $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
+        $isJsonData = isset($requestedData['isJsonData']) ? $requestedData['isJsonData'] : false;
+        if (empty($data) || empty($table)) {
+            $response = [
                 "status" => false,
                 "success" => false,
-                "message" => "No Data Updated",
-            );
+                "message" => "Invalid request data",
+            ];
+            return response()->json($response, 400);
         }
-       
-        $saveQuery = DB::table($table)->insert($data);
-        if ($saveQuery > 0) {
-            $user_arr = array(
-                "status" => true,
-                "success" => true,
-                "message" => "Save Successfully !",
-            );
-        } else {
-            $user_arr = array(
+        try {
+            // $saveQuery = DB::table($table)->insert($data);
+           
+            if ($isJsonData) {
+                $existingRecord = DB::table($table)->where($whereConditions)->first();
+
+                if ($existingRecord) {
+
+
+                    $firstKey = !empty($jsonDataID) ? array_keys($jsonDataID)[0] : null;
+                    $existingData = json_decode($existingRecord->json_data, true);
+
+                    $updatedData = array_merge($existingData, $data);
+                    $jsonDataID = isset($requestedData['jsonDataID']) ? $requestedData['jsonDataID'] : [];
+
+                    // Extract the first key from $jsonDataID
+
+                    DB::table($table)->where($whereConditions)->update(['json_data' => json_encode($updatedData)]);
+
+
+                    $response = [
+                        "status" => true,
+                        "success" => true,
+                        "message" => "Update Successful",
+                    ];
+                } else {
+
+                    $jsonDataID = isset($requestedData['jsonDataID']) ? $requestedData['jsonDataID'] : [];
+
+                    // Extract the first key from $jsonDataID
+                    $firstKey = !empty($jsonDataID) ? array_keys($jsonDataID)[0] : null;
+                    DB::table($table)->insert([
+                        'json_data' => json_encode($data),
+                        $firstKey => $jsonDataID[$firstKey] // Add the key-value pair
+                    ]);
+
+                    $response = [
+                        "status" => true,
+                        "success" => true,
+                        "message" => "Insert Successful",
+                    ];
+                }
+            } else {
+                DB::table($table)->insert($data);
+                $response = [
+                    "status" => true,
+                    "success" => true,
+                    "message" => "Insert Successful",
+                ];
+            }
+        } catch (\Exception $e) {
+            $response = [
                 "status" => false,
                 "success" => false,
-                "message" => "No Data Save",
-            );
+                "message" => "Error: " . $e->getMessage(),
+            ];
         }
 
-        return json_encode($user_arr);
+        return json_encode($response);
     }
 
     public function update(Request $request)
@@ -128,7 +168,7 @@ class dynamic_Crud_controller extends Controller
 
     public function delete(Request $request)
     {
-         // {
+        // {
         //     "table":"country_table",
         //     "data":[],
         //     "whereConditions":[
