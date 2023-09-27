@@ -150,7 +150,7 @@ class userController extends Controller
             $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $userid)->get();
 
             //dd( @$user_profile_images[0]);
-            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1 && @$user_partnerpreference->completed == 1 && @$user_profile_images[0]->completed == 1) {
+            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1  && @$user_profile_images[0]->completed == 1) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
