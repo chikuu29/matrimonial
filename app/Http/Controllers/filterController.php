@@ -197,25 +197,24 @@ class filterController extends Controller
         try {
 
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $loginuserid)->get();
-            // dd($user_partnerpreference);
-            $user_height = $user_partnerpreference[0]->user_height;
-            $user_religion = $user_partnerpreference[0]->user_religion;
-            $user_country = $user_partnerpreference[0]->user_country;
-            $user_marital_status = $user_partnerpreference[0]->user_marital_status;
-            $user_city = $user_partnerpreference[0]->user_city;
-            $user_employed_In = $user_partnerpreference[0]->user_employed_In;
-            $user_occupation = $user_partnerpreference[0]->user_occupation;
-            $user_mother_toungh = $user_partnerpreference[0]->user_mother_toungh;
-            $user_max_anual_income = $user_partnerpreference[0]->user_max_anual_income;
-            $user_max_anual_income = $user_partnerpreference[0]->user_min_anual_income;
-
+            $user_partnerpreference=json_decode($user_partnerpreference[0]->json_data);
+           
+            $user_height = $user_partnerpreference->user_height;
+            $user_religion = $user_partnerpreference->user_religion;
+            $user_country = $user_partnerpreference->user_country;
+            $user_marital_status = $user_partnerpreference->user_marital_status;
+            $user_city = $user_partnerpreference->user_city;
+            $user_employed_In = $user_partnerpreference->user_employed_In;
+            $user_occupation = $user_partnerpreference->user_occupation;
+            $user_mother_toungh = $user_partnerpreference->user_mother_toungh;
+            $user_max_anual_income = $user_partnerpreference->user_max_anual_income;
+            $user_max_anual_income = $user_partnerpreference->user_min_anual_income;
             $income = array($user_max_anual_income, $user_max_anual_income);
-
-            $user_physical_details = DB::table('user_physical_details')->where('user_ID', $preferenceuserid)->where('user_height', $user_height)->exists();
-            $user_religion = DB::table('user_religion')->where('user_ID', $preferenceuserid)->where('user_caste', $user_religion)->exists();
-            $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->where('user_employed_In', $user_employed_In)->exists();
-            $user_education_occupations1 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->where('user_occupation', $user_occupation)->exists();
-            $user_info = DB::table('user_info')->where('user_ID', $preferenceuserid)->where('user_mother_toungh', $user_mother_toungh)->exists();
+            $user_physical_details = DB::table('user_physical_details')->where('user_ID', $preferenceuserid)->whereIn('user_height', $user_height)->exists();
+            $user_religion = DB::table('user_religion')->where('user_ID', $preferenceuserid)->whereIn('user_caste', $user_religion)->exists();
+            $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_employed_In', $user_employed_In)->exists();
+            $user_education_occupations1 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_occupation', $user_occupation)->exists();
+            $user_info = DB::table('user_info')->where('user_ID', $preferenceuserid)->whereIn('user_mother_toungh', $user_mother_toungh)->exists();
             $user_education_occupations2 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereBetween('user_anual_income', $income)->toSql();
             // dd($user_education_occupations2);
             if ($user_physical_details) {
