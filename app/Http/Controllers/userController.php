@@ -162,7 +162,7 @@ class userController extends Controller
                     "user_family" => $user_family != null ? $user_family : [],
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
-                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
+                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : (object)[],
                     "user_partnerpreference" => $user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_status" => "Completed",
                     "user_plan_deatils" => $user_plan_deatils != null ? $user_plan_deatils : []

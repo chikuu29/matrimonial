@@ -49,8 +49,10 @@ class dynamic_Crud_controller extends Controller
 
 
         $requestedData = $request->all();
+      
         $data =  $requestedData['data'];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';
+
         $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
         $isJsonData = isset($requestedData['isJsonData']) ? $requestedData['isJsonData'] : false;
         if (empty($data) || empty($table)) {
