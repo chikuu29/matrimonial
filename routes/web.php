@@ -55,6 +55,12 @@ $router->post("/horscopeCalculation","planCalculationController@horscopeCalculat
 $router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
 $router->post("/logoUplode","uplodeController@logoUplode");
 $router->post("/bannerUplode","uplodeController@bannerUplode");
+$router->post("/matchByCast","filterController@matchByCast");
+$router->post("/premimusMatches","filterController@premimusMatches");
+$router->post("/getLoginCount","activityController@getLoginCount");
+
+
+
 
 
 
