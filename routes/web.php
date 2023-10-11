@@ -58,6 +58,13 @@ $router->post("/bannerUplode","uplodeController@bannerUplode");
 $router->post("/matchByCast","filterController@matchByCast");
 $router->post("/premimusMatches","filterController@premimusMatches");
 $router->post("/getLoginCount","activityController@getLoginCount");
+$router->post("/getLikeCount","activityController@getLikeCount");
+$router->post("/secondPass","forgetPasswordController@secondPass");
+$router->post("/firstPass","forgetPasswordController@firstPass");
+$router->post("/passwordresetbyadmin","forgetPasswordController@passwordresetbyadmin");
+
+
+
 
 
 
