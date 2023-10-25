@@ -260,7 +260,6 @@ class userController extends Controller
             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
             'chating' => $plan[0]->membership_plan_chating
         ]);
-        //dd();
         if ($edited_plan_details) {
 
             $userdeatils = DB::table('user_info')->where('user_id', $id)->get();

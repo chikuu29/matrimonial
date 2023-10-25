@@ -45,4 +45,9 @@ class activityController extends Controller
         }
         return json_encode($user_arr);
     }
+    public function getUserBlockList(){
+        $data = DB::table('user_activities')->get();
+        dd($data);
+
+    }
 }

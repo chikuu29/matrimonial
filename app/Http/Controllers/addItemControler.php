@@ -18,7 +18,7 @@ class addItemControler extends Controller
         $twitter_link = !isset($data->tw) ? '' : $data->tw;
         $youtub_link = !isset($data->yo) ? '' : $data->yo;
         $linkedin_link = !isset($data->li) ? '' : $data->li;
-
+        $application_link = !isset($data->ai) ? '' : $data->ai;
         // dd($facebook_link);
 
         try {
@@ -29,6 +29,7 @@ class addItemControler extends Controller
                 'twitter_link' => $twitter_link,
                 'linkedin_link' => $linkedin_link,
                 'youtub_link' => $youtub_link,
+                'application_link' => $application_link
                 //'updatedon' => date();
 
             ]);

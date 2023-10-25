@@ -62,6 +62,9 @@ $router->post("/getLikeCount","activityController@getLikeCount");
 $router->post("/secondPass","forgetPasswordController@secondPass");
 $router->post("/firstPass","forgetPasswordController@firstPass");
 $router->post("/passwordresetbyadmin","forgetPasswordController@passwordresetbyadmin");
+$router->post("/updateEditedPlanDetails","memberController@updateEditedPlanDetails");
+$router->post("/getUserBlockList","activityController@getUserBlockList");
+
 
 
 
