@@ -537,6 +537,7 @@ class filterController extends Controller
                 $user_arr = array(
                     "status" => false,
                     "success" => false,
+                    "data" => [],
                     "message" => "No Match Found",
                 );
             }
@@ -695,7 +696,7 @@ class filterController extends Controller
             AND
             ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_membership_plan_type <> 'FREE_PLAN');");
 
-            dd($alldata);
+            // dd($alldata);
             if (count($alldata) > 0) {
                 $user_arr = array(
                     "status" => true,

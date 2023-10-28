@@ -55,8 +55,8 @@ $router->post("/horscopeCalculation","planCalculationController@horscopeCalculat
 $router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
 $router->post("/logoUplode","uplodeController@logoUplode");
 $router->post("/bannerUplode","uplodeController@bannerUplode");
-$router->post("/matchByCast","filterController@matchByCast");
-$router->post("/premimusMatches","filterController@premimusMatches");
+$router->post("/cast_matches","filterController@matchByCast");
+$router->post("/premium_matches","filterController@premimusMatches");
 $router->post("/getLoginCount","activityController@getLoginCount");
 $router->post("/getLikeCount","activityController@getLikeCount");
 $router->post("/secondPass","forgetPasswordController@secondPass");
