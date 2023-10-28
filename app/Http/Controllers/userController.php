@@ -148,9 +148,9 @@ class userController extends Controller
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $userid)->first();
             $user_profile_images = DB::table('user_profile_images')->where('user_ID', $userid)->get();
             $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $userid)->get();
-            $user_horoscope_deatils = DB::table('user_horoscope')->where('user_id', $userid)->get()->first();
+            $user_horoscope_deatils = DB::table('user_horoscope')->where('user_id', $userid)->first();
             //dd( @$user_profile_images[0]);
-            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1  && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils[0]->completed) {
+            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1  && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils->completed) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
@@ -166,7 +166,7 @@ class userController extends Controller
                     "user_partnerpreference" => $user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_status" => "Completed",
                     "user_plan_deatils" => $user_plan_deatils != null ? $user_plan_deatils : [],
-                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils : []
+                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils :  (object) []
                 );
             } else {
                 $user_arr = array(
@@ -184,7 +184,7 @@ class userController extends Controller
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
                     "user_profile_status" => "Not Completed",
                     "user_plan_deatils" => $user_plan_deatils != null ? $user_plan_deatils : [],
-                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils : []
+                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils : (object) []
                 );
             }
         } catch (Exception $e) {
