@@ -216,7 +216,7 @@ class memberController extends Controller
                         'planactiveted_mode' => $paymentType
                     ]);
 
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $insertdata) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
 
                         $user_arr = array(
                             "status" => true,
@@ -286,7 +286,7 @@ class memberController extends Controller
                     ]);
 
 
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $insertdata) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
 
                         $user_arr = array(
                             "status" => true,
@@ -360,7 +360,7 @@ class memberController extends Controller
                         'plan_ending_date' => $finalexfitydate,
                         'planactiveted_mode' => $paymentType
                     ]);
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $insertdata) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
 
                         $user_arr = array(
                             "status" => true,
