@@ -65,6 +65,8 @@ $router->post("/passwordresetbyadmin","forgetPasswordController@passwordresetbya
 $router->post("/updateEditedPlanDetails","memberController@updateEditedPlanDetails");
 $router->post("/getUserBlockList","activityController@getUserBlockList");
 $router->post("/waterMark","uplodeController@waterMark");
+$router->post("/barCode","uplodeController@barCode");
+
 
 
 
