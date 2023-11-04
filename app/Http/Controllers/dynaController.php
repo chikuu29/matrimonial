@@ -34,8 +34,8 @@ class dynaController extends Controller
                         );
                     } else {
                         $user_arr = array(
-                            "status" => false,
-                            "success" => false,
+                            "status" => true,
+                            "success" => true,
                             "data" => [],
                         );
                     }
@@ -43,7 +43,8 @@ class dynaController extends Controller
                     $user_arr = array(
                         "status" => false,
                         "success" => false,
-                        "data" => (object)$e,
+                        "data" => [],
+                        "message" => (object)$e,
                     );
                 }
             }
