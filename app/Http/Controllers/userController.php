@@ -260,7 +260,8 @@ class userController extends Controller
             'horscope' => $plan[0]->membership_plan_no_of_horscope,
             'contact_view' => $plan[0]->membership_plan_no_of_contact,
             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
-            'chating' => $plan[0]->membership_plan_chating
+            'chating' => $plan[0]->membership_plan_chating,
+            'profile_viwe' => $plan[0]->membership_plan_visibility
         ]);
         if ($edited_plan_details) {
 

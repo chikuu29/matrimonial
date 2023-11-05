@@ -188,7 +188,8 @@ class memberController extends Controller
                             'horscope' => $plan[0]->membership_plan_no_of_horscope,
                             'contact_view' => $plan[0]->membership_plan_no_of_contact,
                             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
-                            'chating' => $plan[0]->membership_plan_chating
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
                         ]);
                     } else {
                         $edited_plan_details = DB::table('edited_plan_details')->insert([
@@ -198,7 +199,8 @@ class memberController extends Controller
                             'horscope' => $plan[0]->membership_plan_no_of_horscope,
                             'contact_view' => $plan[0]->membership_plan_no_of_contact,
                             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
-                            'chating' => $plan[0]->membership_plan_chating
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
                         ]);
                     }
 
@@ -242,7 +244,7 @@ class memberController extends Controller
                 $curentdateinstring = strtotime($curenttim);
                 $expirydate = strtotime($plan_end_date);
                 $plan_expire_in_days = $expirydate - $curentdateinstring;
-                //dd(round($plan_expire_in_days / 86400));
+                return round($plan_expire_in_days / 86400);
                 if (round($plan_expire_in_days / 86400) < 0) {
                     //dd('1');
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
@@ -257,7 +259,8 @@ class memberController extends Controller
                             'horscope' => $plan[0]->membership_plan_no_of_horscope,
                             'contact_view' => $plan[0]->membership_plan_no_of_contact,
                             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
-                            'chating' => $plan[0]->membership_plan_chating
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
                         ]);
                     } else {
                         $edited_plan_details = DB::table('edited_plan_details')->insert([
@@ -267,7 +270,8 @@ class memberController extends Controller
                             'horscope' => $plan[0]->membership_plan_no_of_horscope,
                             'contact_view' => $plan[0]->membership_plan_no_of_contact,
                             'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
-                            'chating' => $plan[0]->membership_plan_chating
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
                         ]);
                     }
 
@@ -302,7 +306,7 @@ class memberController extends Controller
                     }
 
                 } else {
-                    //dd('2');
+                   // return 'e';
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
                     $ispresent = DB::table('edited_plan_details')->where('User_id', $id)->exists();
                     $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->get();
@@ -313,6 +317,7 @@ class memberController extends Controller
                     $final_contact_view = $edited_plan_details[0]->contact_view + $plan[0]->membership_plan_no_of_contact;
                     $final_contact_view_other = $edited_plan_details[0]->contact_view_other + $plan[0]->membership_plan_show_contact_number_other;
                     $final_chating = $edited_plan_details[0]->chating + $plan[0]->membership_plan_chating;
+                    $finalprofile_viwe = $edited_plan_details[0]->profile_viwe + $plan[0]->membership_plan_visibility;
                     $plan_end_date = $avtiveplan->plan_ending_date;
 
                     if ($ispresent) {
@@ -322,7 +327,8 @@ class memberController extends Controller
                             'horscope' => $final_horscope,
                             'contact_view' => $final_contact_view,
                             'contact_view_other' => $final_contact_view_other,
-                            'chating' => $final_chating
+                            'chating' => $final_chating,
+                            'profile_viwe' => $finalprofile_viwe
                         ]);
                     } else {
                         $edited_plan_details = DB::table('edited_plan_details')->insert([
@@ -332,7 +338,8 @@ class memberController extends Controller
                             'horscope' => $final_horscope,
                             'contact_view' => $final_contact_view,
                             'contact_view_other' => $final_contact_view_other,
-                            'chating' => $final_chating
+                            'chating' => $final_chating,
+                            'profile_viwe' => $finalprofile_viwe
                         ]);
                     }
                     $Date = date('Y-m-d h:i:s');
