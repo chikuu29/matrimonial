@@ -252,7 +252,7 @@ class userController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
 
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
-
+        
         $edited_plan_details = DB::table('edited_plan_details')->insert([
             'user_id' => $id,
             'photoviwe' => $plan[0]->membership_plan_no_of_photo,
@@ -263,7 +263,17 @@ class userController extends Controller
             'chating' => $plan[0]->membership_plan_chating,
             'profile_viwe' => $plan[0]->membership_plan_visibility
         ]);
-        if ($edited_plan_details) {
+        $plan_details = DB::table('plan_details')->insert([
+            'user_id' => $id,
+            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+            'chating' => $plan[0]->membership_plan_chating,
+            'profile_viwe' => $plan[0]->membership_plan_visibility
+        ]);
+        if ($edited_plan_details && $plan_details) {
 
             $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
             $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $id)->exists();

@@ -173,6 +173,7 @@ class memberController extends Controller
             $planId = $input['planId'] == null ? '' : $input['planId'];
             $membership_plan_table = DB::table('membership_plan')->where('membership_plan_default', 1)->first();
             $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
+            $ispresentplan = DB::table('plan_details')->where('User_id', $id)->exists();
             if ($membership_plan_table->membership_plan_type == $curentplan) {
                 //if user is free user then direct all active plan updated in edited_plan_details
                 $activecurentplan = DB::table('user_plan_deatils')->where('user_id', $id)->update([
@@ -181,6 +182,28 @@ class memberController extends Controller
                 if ($activecurentplan) {
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
                     $ispresent = DB::table('edited_plan_details')->where('User_id', $id)->exists();
+                    if ($ispresentplan) {
+                        $plan_details = DB::table('plan_details')->where('User_id', $id)->update([
+                            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+                            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+                            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+                            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+                            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
+                        ]);
+                    } else {
+                        $plan_details = DB::table('plan_details')->insert([
+                            'user_id' => $id,
+                            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+                            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+                            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+                            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+                            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
+                        ]);
+                    }
                     if ($ispresent) {
                         $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->update([
                             'photoviwe' => $plan[0]->membership_plan_no_of_photo,
@@ -218,7 +241,7 @@ class memberController extends Controller
                         'planactiveted_mode' => $paymentType
                     ]);
 
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $ispresentplan) {
 
                         $user_arr = array(
                             "status" => true,
@@ -249,9 +272,32 @@ class memberController extends Controller
                     //dd('1');
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
                     $ispresent = DB::table('edited_plan_details')->where('User_id', $id)->exists();
+                    $ispresentplan = DB::table('plan_details')->where('User_id', $id)->exists();
                     $activecurentplan = DB::table('user_plan_deatils')->where('user_id', $id)->update([
                         'active_status' => 0
                     ]);
+                    if ($ispresentplan) {
+                        $plan_details = DB::table('plan_details')->where('User_id', $id)->update([
+                            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+                            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+                            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+                            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+                            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
+                        ]);
+                    } else {
+                        $plan_details = DB::table('plan_details')->insert([
+                            'user_id' => $id,
+                            'photoviwe' => $plan[0]->membership_plan_no_of_photo,
+                            'sendmessage' => $plan[0]->membership_plan_of_send_message,
+                            'horscope' => $plan[0]->membership_plan_no_of_horscope,
+                            'contact_view' => $plan[0]->membership_plan_no_of_contact,
+                            'contact_view_other' => $plan[0]->membership_plan_show_contact_number_other,
+                            'chating' => $plan[0]->membership_plan_chating,
+                            'profile_viwe' => $plan[0]->membership_plan_visibility
+                        ]);
+                    }
                     if ($ispresent) {
                         $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->update([
                             'photoviwe' => $plan[0]->membership_plan_no_of_photo,
@@ -290,7 +336,7 @@ class memberController extends Controller
                     ]);
 
 
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $ispresentplan) {
 
                         $user_arr = array(
                             "status" => true,
@@ -310,6 +356,7 @@ class memberController extends Controller
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
                     $ispresent = DB::table('edited_plan_details')->where('User_id', $id)->exists();
                     $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->get();
+                    $ispresentplan = DB::table('plan_details')->where('User_id', $id)->exists();
 
                     $final_photoviwe = $edited_plan_details[0]->photoviwe + $plan[0]->membership_plan_no_of_photo;
                     $final_sendmessage = $edited_plan_details[0]->sendmessage + $plan[0]->membership_plan_of_send_message;
@@ -319,7 +366,28 @@ class memberController extends Controller
                     $final_chating = $edited_plan_details[0]->chating + $plan[0]->membership_plan_chating;
                     $finalprofile_viwe = $edited_plan_details[0]->profile_viwe + $plan[0]->membership_plan_visibility;
                     $plan_end_date = $avtiveplan->plan_ending_date;
-
+                    if ($ispresentplan) {
+                        $edited_plan_details = DB::table('plan_details')->where('User_id', $id)->update([
+                            'photoviwe' => $final_photoviwe,
+                            'sendmessage' => $final_sendmessage,
+                            'horscope' => $final_horscope,
+                            'contact_view' => $final_contact_view,
+                            'contact_view_other' => $final_contact_view_other,
+                            'chating' => $final_chating,
+                            'profile_viwe' => $finalprofile_viwe
+                        ]);
+                    } else {
+                        $edited_plan_details = DB::table('plan_details')->insert([
+                            'user_id' => $id,
+                            'photoviwe' => $final_photoviwe,
+                            'sendmessage' => $final_sendmessage,
+                            'horscope' => $final_horscope,
+                            'contact_view' => $final_contact_view,
+                            'contact_view_other' => $final_contact_view_other,
+                            'chating' => $final_chating,
+                            'profile_viwe' => $finalprofile_viwe
+                        ]);
+                    }
                     if ($ispresent) {
                         $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->update([
                             'photoviwe' => $final_photoviwe,
@@ -367,7 +435,7 @@ class memberController extends Controller
                         'plan_ending_date' => $finalexfitydate,
                         'planactiveted_mode' => $paymentType
                     ]);
-                    if ($edited_plan_details && $insertdatain_user_plan_deatils) {
+                    if ($edited_plan_details && $insertdatain_user_plan_deatils && $ispresentplan) {
 
                         $user_arr = array(
                             "status" => true,
