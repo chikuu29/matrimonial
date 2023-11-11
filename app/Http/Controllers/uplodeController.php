@@ -146,4 +146,34 @@ class uplodeController extends Controller
         }
         return json_encode($user_arr);
     }
+    public function homeLogoUplode(Request $res)
+    {
+
+        $input = $res->all();
+        $date = $input['date'];
+        $image = explode(';base64,', $input['image']);
+        $image_base64 = base64_decode($image[1]);
+        $extention = explode('/', $image[0]);
+        $path = storage_path() . '/logo_image/';
+        $uniqid = uniqid();
+        $file = $path . $uniqid . '.' . $extention[1];
+        if (file_put_contents($file, $image_base64)) {
+            $data = DB::table('homepage_icon')->insert([
+                'image' => $uniqid . '.' . $extention[1],
+                'created_At' => $date
+            ]);
+            if ($data) {
+                $user_arr = array(
+                    "success" => true,
+                    "message" => "File Uploaded Successfully",
+                );
+            }
+        } else {
+            $user_arr = array(
+                "success" => false,
+                "message" => "Error",
+            );
+        }
+        return json_encode($user_arr);
+    }
 }

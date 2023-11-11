@@ -54,6 +54,7 @@ $router->post("/sendMessageCalculation","planCalculationController@sendMessageCa
 $router->post("/horscopeCalculation","planCalculationController@horscopeCalculation");
 $router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
 $router->post("/logoUplode","uplodeController@logoUplode");
+$router->post("/homeLogoUplode","uplodeController@homeLogoUplode");
 $router->post("/bannerUplode","uplodeController@bannerUplode");
 $router->post("/cast_matches","filterController@matchByCast");
 $router->post("/premium_matches","filterController@premimusMatches");
