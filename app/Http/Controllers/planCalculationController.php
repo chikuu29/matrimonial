@@ -147,7 +147,7 @@ class planCalculationController extends Controller
         $data = $res->all();
         $loginuserid = isset($data['loginuserid']) ? $data['loginuserid'] : '';
         $viewuserid = isset($data['viewuserid']) ? $data['viewuserid'] : '';
-        $viwe = DB::table('user_activities_for_view_profile')->where('user_activities_for_view_profile',$loginuserid)->where('viewed_profile_id',$viewuserid)->exists();
+        $viwe = DB::table('user_activities_for_view_profile')->where('profile_view_by_profile_id',$loginuserid)->where('viewed_profile_id',$viewuserid)->exists();
         if(!$viwe){
             $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $loginuserid)->first();
             if ($edited_plan_details->profile_viwe > 0) {
@@ -176,6 +176,12 @@ class planCalculationController extends Controller
                     "message" => "Used"
                 );
             }
+        }else{
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => "Used"
+            );
         }
         // $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $loginuserid)->first();
         // //dd($edited_plan_details->contact_view_other > 0);
