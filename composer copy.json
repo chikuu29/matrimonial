@@ -13,7 +13,7 @@
         "laravel/lumen-framework": "^8.3.1",
         "laravelista/lumen-vendor-publish": "8.0",
         "league/flysystem": " ~1.0",
-        "swiftmailer/swiftmailer": "^6.3",
+        "swiftmailer/swiftmailer": "*",
         "symfony/http-client": "*",
         "symfony/mailgun-mailer": "*"
     },
@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "classmap": [
-            
+            "tests/"
         ]
     },
     "config": {
