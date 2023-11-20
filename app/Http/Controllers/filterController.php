@@ -562,6 +562,8 @@ class filterController extends Controller
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $user_id)->get();
             $user_partnerpreference = json_decode($user_partnerpreference[0]->json_data);
             //dd($user_partnerpreference);
+            $membership_plan = DB::table('membership_plan')->where('membership_plan_default',1)->get(['membership_plan_type']);
+            $membership_plan_type = $membership_plan[0]->membership_plan_type;
             $user_min_height = $user_partnerpreference->user_min_height;
             $user_max_height = $user_partnerpreference->user_max_height;
             $user_max_anual_income = $user_partnerpreference->user_max_anual_income;
@@ -694,7 +696,7 @@ class filterController extends Controller
              OR  user_info.user_mother_toungh IN ($user_mother_toungh)
              OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_membership_plan_type <> 'FREE_PLAN');");
+            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_membership_plan_type <> '$membership_plan_type');");
 
             // dd($alldata);
             if (count($alldata) > 0) {

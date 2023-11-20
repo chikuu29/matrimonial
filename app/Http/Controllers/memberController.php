@@ -174,6 +174,7 @@ class memberController extends Controller
             $membership_plan_table = DB::table('membership_plan')->where('membership_plan_default', 1)->first();
             $userdeatils = DB::table('user_info')->where('user_id', $id)->get();
             $ispresentplan = DB::table('plan_details')->where('User_id', $id)->exists();
+           
             if ($membership_plan_table->membership_plan_type == $curentplan) {
                 //if user is free user then direct all active plan updated in edited_plan_details
                 $activecurentplan = DB::table('user_plan_deatils')->where('user_id', $id)->update([
@@ -356,6 +357,8 @@ class memberController extends Controller
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
                     $ispresent = DB::table('edited_plan_details')->where('User_id', $id)->exists();
                     $edited_plan_details = DB::table('edited_plan_details')->where('User_id', $id)->get();
+                    
+                    //return  $edited_plan_details;
                     $ispresentplan = DB::table('plan_details')->where('User_id', $id)->exists();
 
                     $final_photoviwe = $edited_plan_details[0]->photoviwe + $plan[0]->membership_plan_no_of_photo;

@@ -68,6 +68,9 @@ $router->post("/getUserBlockList","activityController@getUserBlockList");
 $router->post("/waterMark","uplodeController@waterMark");
 $router->post("/barCode","uplodeController@barCode");
 $router->post("/profileView","planCalculationController@profileView");
+$router->post("/sendEmail","mailcontroller@sendEmail");
+
+
 
 
 
