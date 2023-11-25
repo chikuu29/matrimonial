@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b47f47b2b2bc326a2604cd701cf54cc",
+    "content-hash": "f92faed452d4710169b6d39d6cfa2fa7",
     "packages": [
         {
             "name": "brick/math",
@@ -2940,63 +2940,6 @@
                 "source": "https://github.com/laravel/serializable-closure"
             },
             "time": "2022-09-08T13:45:54+00:00"
-        },
-        {
-            "name": "laravelista/lumen-vendor-publish",
-            "version": "8.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravelista/lumen-vendor-publish.git",
-                "reference": "0ca682e0d236f8b085e6ac2cf33912ddb4702f52"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravelista/lumen-vendor-publish/zipball/0ca682e0d236f8b085e6ac2cf33912ddb4702f52",
-                "reference": "0ca682e0d236f8b085e6ac2cf33912ddb4702f52",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^8.0",
-                "illuminate/filesystem": "^8.0",
-                "illuminate/support": "^8.0",
-                "league/flysystem": "^1.0.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Laravelista\\LumenVendorPublish\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mario Bašić",
-                    "email": "mario@laravelista.hr"
-                }
-            ],
-            "description": "vendor:publish for Lumen framework.",
-            "keywords": [
-                "command",
-                "console",
-                "lumen",
-                "publish",
-                "vendor"
-            ],
-            "support": {
-                "issues": "https://github.com/laravelista/lumen-vendor-publish/issues",
-                "source": "https://github.com/laravelista/lumen-vendor-publish/tree/8.0.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.patreon.com/laravelista",
-                    "type": "patreon"
-                }
-            ],
-            "abandoned": true,
-            "time": "2020-10-29T13:38:49+00:00"
         },
         {
             "name": "league/commonmark",

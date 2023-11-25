@@ -115,7 +115,6 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
             'League\\Flysystem\\' => 17,
             'League\\Config\\' => 14,
             'League\\CommonMark\\' => 18,
-            'Laravelista\\LumenVendorPublish\\' => 31,
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Lumen\\' => 14,
         ),
@@ -397,10 +396,6 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Laravelista\\LumenVendorPublish\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravelista/lumen-vendor-publish/src',
-        ),
         'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
@@ -645,6 +640,7 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'App\\Http\\Controllers\\filterController' => __DIR__ . '/../..' . '/app/Http/Controllers/filterController.php',
         'App\\Http\\Controllers\\forgetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/forgetPasswordController.php',
         'App\\Http\\Controllers\\loginController' => __DIR__ . '/../..' . '/app/Http/Controllers/loginController.php',
+        'App\\Http\\Controllers\\mailcontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/mailcontroller.php',
         'App\\Http\\Controllers\\memberController' => __DIR__ . '/../..' . '/app/Http/Controllers/memberController.php',
         'App\\Http\\Controllers\\planCalculationController' => __DIR__ . '/../..' . '/app/Http/Controllers/planCalculationController.php',
         'App\\Http\\Controllers\\registerController' => __DIR__ . '/../..' . '/app/Http/Controllers/registerController.php',
@@ -657,6 +653,7 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'App\\Jobs\\ExampleJob' => __DIR__ . '/../..' . '/app/Jobs/ExampleJob.php',
         'App\\Jobs\\Job' => __DIR__ . '/../..' . '/app/Jobs/Job.php',
         'App\\Listeners\\ExampleListener' => __DIR__ . '/../..' . '/app/Listeners/ExampleListener.php',
+        'App\\Mail\\MyMail' => __DIR__ . '/../..' . '/app/Mail/MyMail.php',
         'App\\Models\\Addmanagemodel' => __DIR__ . '/../..' . '/app/Models/Addmanagemodel.php',
         'App\\Models\\Passwordmodel' => __DIR__ . '/../..' . '/app/Models/Passwordmodel.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -2909,7 +2906,6 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'Laravel\\SerializableClosure\\Support\\ClosureStream' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Support/ClosureStream.php',
         'Laravel\\SerializableClosure\\Support\\ReflectionClosure' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Support/ReflectionClosure.php',
         'Laravel\\SerializableClosure\\Support\\SelfReference' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Support/SelfReference.php',
-        'Laravelista\\LumenVendorPublish\\VendorPublishCommand' => __DIR__ . '/..' . '/laravelista/lumen-vendor-publish/src/VendorPublishCommand.php',
         'League\\CommonMark\\CommonMarkConverter' => __DIR__ . '/..' . '/league/commonmark/src/CommonMarkConverter.php',
         'League\\CommonMark\\ConverterInterface' => __DIR__ . '/..' . '/league/commonmark/src/ConverterInterface.php',
         'League\\CommonMark\\Delimiter\\Delimiter' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Delimiter.php',
