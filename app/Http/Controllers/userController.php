@@ -150,7 +150,7 @@ class userController extends Controller
             $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $userid)->get();
             $user_horoscope_deatils = DB::table('user_horoscope')->where('user_id', $userid)->first();
             //dd( @$user_profile_images[0]);
-            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1  && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils->completed) {
+            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1 && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils->completed) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
@@ -162,11 +162,11 @@ class userController extends Controller
                     "user_family" => $user_family != null ? $user_family : [],
                     "user_locations" => $user_locations != null ? $user_locations : [],
                     "user_physical_details" => $user_physical_details != null ? $user_physical_details : [],
-                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : (object)[],
+                    "user_profile_images" => $user_profile_images != null ? $user_profile_images : (object) [],
                     "user_partnerpreference" => $user_partnerpreference != null ? $user_partnerpreference : [],
                     "user_profile_status" => "Completed",
                     "user_plan_deatils" => $user_plan_deatils != null ? $user_plan_deatils : [],
-                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils :  (object) []
+                    "user_horoscope_deatils" => $user_horoscope_deatils != null ? $user_horoscope_deatils : (object) []
                 );
             } else {
                 $user_arr = array(
@@ -184,7 +184,7 @@ class userController extends Controller
                     "user_profile_images" => $user_profile_images != null ? $user_profile_images : [],
                     "user_profile_status" => "Not Completed",
                     "user_plan_deatils" => $user_plan_deatils != null ? $user_plan_deatils : [],
-                    "user_horoscope_deatils"=>$user_horoscope_deatils != null ? $user_horoscope_deatils : (object) []
+                    "user_horoscope_deatils" => $user_horoscope_deatils != null ? $user_horoscope_deatils : (object) []
                 );
             }
         } catch (Exception $e) {
@@ -247,12 +247,12 @@ class userController extends Controller
 
     public function userActivation(Request $res)
     {
-       // dd();
+        // dd();
         $data = $res->all();
         $id = isset($data['id']) ? $data['id'] : '';
 
         $plan = DB::table('membership_plan')->where('membership_plan_default', 1)->get();
-        
+
         $edited_plan_details = DB::table('edited_plan_details')->insert([
             'user_id' => $id,
             'photoviwe' => $plan[0]->membership_plan_no_of_photo,
@@ -316,7 +316,7 @@ class userController extends Controller
                     );
                 }
             }
-        }else{
+        } else {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
@@ -344,6 +344,38 @@ class userController extends Controller
             $user_arr = array(
                 "success" => false,
                 "message" => "Not Approvaled",
+            );
+        }
+        return json_encode($user_arr);
+    }
+    public function getAllDataById(Request $res)
+    {
+        $data = $res->all();
+        $id = isset($data['id']) ? $data['id'] : '';
+
+        $alldata = DB::select("SELECT * FROM user_info  
+        LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID 
+        LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID 
+        LEFT JOIN user_family ON user_info.user_id = user_family.user_ID 
+        LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+        LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+        LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+        LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+        LEFT JOIN auth_user ON user_info.user_id = auth_user.auth_ID
+        LEFT JOIN user_horoscope ON  user_info.user_id = user_horoscope.user_id
+        WHERE user_info.user_id = '$id'");
+         if (count($alldata) > 0) {
+            $user_arr = array(
+                "status" => true,
+                "success" => true,
+                "data" => $alldata,
+                "message" => count($alldata) . ' records Match'
+            );
+        } else {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => "No Match Found",
             );
         }
         return json_encode($user_arr);

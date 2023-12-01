@@ -183,7 +183,7 @@ class dynamic_Crud_controller extends Controller
         // $table = empty($data->table) ? '' : $data->table;
 
         $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
-        $table = isset($requestedData['table']) ? $requestedData['table'] : '';;
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';
         // $data = $requestedData['data'];
 
         if (count($whereConditions) == 0 || $table == '') {
@@ -209,6 +209,40 @@ class dynamic_Crud_controller extends Controller
             }
         }
 
+        return json_encode($user_arr);
+    }
+    public function makeActinForMultipulData(Request $request){
+        $requestedData = $request->all();
+
+        $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
+       // return gettype($whereConditions);
+        $table = isset($requestedData['table']) ? $requestedData['table'] : '';
+        $type = isset($requestedData['type']) ? $requestedData['type'] : '';
+        $data = $requestedData['data'];
+        if (count($whereConditions) == 0 || $table == '') {
+            $user_arr = array(
+                "status" => false,
+                "success" => false,
+                "message" => 'You Provid Empty data',
+            );
+        }else{
+            $query = DB::table($table)->whereIn('Id',$whereConditions)->update(
+                $data
+            );
+            if ($query > 0) {
+                $user_arr = array(
+                    "status" => true,
+                    "success" => true,
+                    "message" => 'Data '.$type.' Successfully!',
+                );
+            } else {
+                $user_arr = array(
+                    "status" => false,
+                    "success" => false,
+                    "message" => 'Data Not '.$type.' Successfully!',
+                );
+            }
+        }
         return json_encode($user_arr);
     }
 }

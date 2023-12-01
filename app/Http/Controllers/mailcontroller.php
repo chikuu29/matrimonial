@@ -10,26 +10,12 @@ class mailcontroller extends Controller
 {
     public function sendEmail()
     {
+        $fadata['name'] = 'gyana';
 
-
-        $to = 'grnpati143@gmail.com';
-        $subject = 'message';
-        $messageContent = 'hello';
-
-        // You can pass data to the Blade view using the second parameter
-        $data = [
-            'subject' => $subject,
-            'messageContent' => $messageContent,
-        ];
-
-        // Use the 'view' method to render the Blade view
-        $content = view('name', $data)->render();
-
-        // Send the email with the rendered content
-        Mail::raw($content, function ($mail) use ($to, $subject) {
-            $mail->to($to)
-                ->subject($subject);
-        });
+       Mail::send('name',$fadata,function($message) use ($fadata) {
+        $message->from('choicemarriage.com','choicemarriage');
+        $message->to('grnpati143@gmail.com','gyana')->subject($fadata['name']);
+       });
 
         return response()->json(['message' => 'Email sent successfully']);
 

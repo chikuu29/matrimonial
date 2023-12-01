@@ -24,6 +24,7 @@ $router->post("/getsocialMediaLink","addItemControler@getsocialMediaLink");
 $router->post("/country","addItemControler@country");
 $router->post("/state","addItemControler@state");
 $router->post("/fetch","dynamic_Crud_controller@fetch");
+$router->post("/makeActinForMultipulData","dynamic_Crud_controller@makeActinForMultipulData");
 $router->post("/save","dynamic_Crud_controller@save");
 $router->post("/delete","dynamic_Crud_controller@delete");
 $router->post("/update","dynamic_Crud_controller@update");
@@ -69,6 +70,12 @@ $router->post("/waterMark","uplodeController@waterMark");
 $router->post("/barCode","uplodeController@barCode");
 $router->post("/profileView","planCalculationController@profileView");
 $router->post("/sendEmail","mailcontroller@sendEmail");
+$router->post("/getAllDataById","userController@getAllDataById");
+$router->post("/filterData","filterController@filterData");
+
+
+
+
 
 
 
