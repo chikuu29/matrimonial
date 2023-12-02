@@ -46,7 +46,7 @@ class filterController extends Controller
             LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
             LEFT JOIN auth_user ON user_info.user_id = auth_user.auth_ID
             LEFT JOIN user_horoscope ON  user_info.user_id = user_horoscope.user_id
-            WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved'   AND  user_info.user_id NOT IN ($outputString) AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.marriage_status = 0 ;");
+            WHERE user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved'   AND  user_info.user_id NOT IN ($outputString) AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.marriage_status = 0 AND user_info.user_has_complete_profile = 1 ;");
             if (count($alldata) > 0) {
                 $user_arr = array(
                     "status" => true,
