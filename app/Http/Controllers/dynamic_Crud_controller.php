@@ -21,6 +21,8 @@ class dynamic_Crud_controller extends Controller
         $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';
         $projection = isset($requestedData['projection']) ? $requestedData['projection'] : [];
+        $offset = isset($requestedData['offset']) ? $requestedData['offset'] : 0;
+        $limit = isset($requestedData['limit']) ? $requestedData['limit'] : 1000;
         if (empty($table)) {
             $user_arr = array(
                 "status" => false,
@@ -29,14 +31,26 @@ class dynamic_Crud_controller extends Controller
                 'data' => []
             );
         } else {
+
+
+            // Get the total count of rows
+
             if (count($whereConditions) == 0) {
-                $fatchdata = DB::table($table)->get($projection);
+                $fatchdata = DB::table($table)->skip($offset)
+                    ->take($limit)->get($projection);
             } else {
-                $fatchdata = DB::table($table)->where($whereConditions)->get($projection);
+                $fatchdata = DB::table($table)->where($whereConditions)->skip($offset)
+                    ->take($limit)->get($projection);
+               
             }
+            $query = DB::table($table)
+            ->get($projection);
+            $totalRows = $query->count();
             $user_arr = array(
                 "status" => true,
                 "success" => true,
+                "totalCount"=>$totalRows,
+                "count"=>count($fatchdata),
                 "message" => 'Total Fetch Data ' . count($fatchdata),
                 "data" => $fatchdata
             );
@@ -49,7 +63,7 @@ class dynamic_Crud_controller extends Controller
 
 
         $requestedData = $request->all();
-      
+
         $data =  $requestedData['data'];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';
 
@@ -65,7 +79,7 @@ class dynamic_Crud_controller extends Controller
         }
         try {
             // $saveQuery = DB::table($table)->insert($data);
-           
+
             if ($isJsonData) {
                 $existingRecord = DB::table($table)->where($whereConditions)->first();
 
