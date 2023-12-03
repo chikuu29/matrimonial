@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 use function FastRoute\TestFixtures\empty_options_cached;
 
@@ -22,6 +23,7 @@ class userController extends Controller
         $phone = !isset($data->phone) ? '' : $data->phone;
         $password = !isset($data->password) ? '' : md5($data->password);
         $gender = !isset($data->gender) ? '' : $data->gender;
+        $url = !isset($data->url) ? '' : $data->url;
 
         $fname = !isset($data->fname) ? '' : $data->fname; // :'';
         $lname = !isset($data->lname) ? '' : $data->lname; // :'';
@@ -62,6 +64,15 @@ class userController extends Controller
             ]);
 
             if ($user > 0 && $authuser > 0) {
+                $fadata['user_email'] = $email;
+                $fadata['name'] = $fname;
+                $fadata['url'] =$url;
+
+                $fadata['Subject'] = 'Registration Successfull';
+                   Mail::send('mail.registation_alert',$fadata,function($message) use ($fadata) {
+                    $message->from('info@choicemarriage.com','choicemarriage');
+                    $message->to($fadata['user_email'],$fadata['name'])->subject($fadata['Subject']);
+                   });
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
@@ -150,7 +161,7 @@ class userController extends Controller
             $user_plan_deatils = DB::table('user_plan_deatils')->where('user_id', $userid)->get();
             $user_horoscope_deatils = DB::table('user_horoscope')->where('user_id', $userid)->first();
             //dd( @$user_profile_images[0]);
-            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1 && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils->completed) {
+            if (@$user_info->user_has_complete_profile == 1 && @$user_education_occupations->completed == 1 && @$user_religion->completed == 1 && @$user_about->completed == 1 && @$user_diet_hobbies->completed == 1 && @$user_family->completed == 1 && @$user_locations->completed == 1 && @$user_physical_details->completed == 1 && @$user_profile_images[0]->completed == 1 && @$user_horoscope_deatils->completed == 1) {
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
