@@ -268,7 +268,7 @@ class memberController extends Controller
                 $curentdateinstring = strtotime($curenttim);
                 $expirydate = strtotime($plan_end_date);
                 $plan_expire_in_days = $expirydate - $curentdateinstring;
-                //return round($plan_expire_in_days / 86400);
+                // return round($plan_expire_in_days / 86400);
                 if (round($plan_expire_in_days / 86400) < 0) {
                     //dd('1');
                     $plan = DB::table('membership_plan')->where('membership_plan_id', $planId)->get();
