@@ -43,6 +43,7 @@ class userController extends Controller
             ->orWhere('auth_phone_no', $phone)
             ->count();
         if ($getAuthUserCount == 0) {
+            DB::transaction();
             $user = DB::table('user_info')->insert([
                 'user_id' => $userId,
                 'user_profileType' => $profiletype,
@@ -66,19 +67,23 @@ class userController extends Controller
             if ($user > 0 && $authuser > 0) {
                 $fadata['user_email'] = $email;
                 $fadata['name'] = $fname;
-                $fadata['url'] =$url;
-
-                $fadata['Subject'] = 'Registration Successfull';
-                   Mail::send('mail.registation_alert',$fadata,function($message) use ($fadata) {
-                    $message->from('info@choicemarriage.com','choicemarriage');
-                    $message->to($fadata['user_email'],$fadata['name'])->subject($fadata['Subject']);
-                   });
+                $fadata['url'] = $url;
+                try {
+                    $fadata['Subject'] = 'Registration Successfull';
+                        Mail::send('mail.registation_alert', $fadata, function ($message) use ($fadata) {
+                        $message->from('info@choicemarriage.com', 'choicemarriage');
+                        $message->to($fadata['user_email'], $fadata['name'])->subject($fadata['Subject']);
+                    });
+                } catch (Exception $e) {
+                    DB::rollBack();
+                }
                 $user_arr = array(
                     "status" => true,
                     "success" => true,
                     "profileID" => $userId,
                     "message" => "Congratulation! Your Registration Done",
                 );
+                DB::commit();
             } else {
                 $user_arr = array(
                     "status" => false,
@@ -258,7 +263,6 @@ class userController extends Controller
 
     public function userActivation(Request $res)
     {
-        // dd();
         $data = $res->all();
         $id = isset($data['id']) ? $data['id'] : '';
 
@@ -375,7 +379,7 @@ class userController extends Controller
         LEFT JOIN auth_user ON user_info.user_id = auth_user.auth_ID
         LEFT JOIN user_horoscope ON  user_info.user_id = user_horoscope.user_id
         WHERE user_info.user_id = '$id'");
-         if (count($alldata) > 0) {
+        if (count($alldata) > 0) {
             $user_arr = array(
                 "status" => true,
                 "success" => true,
