@@ -276,7 +276,7 @@ class filterController extends Controller
              OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
              OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0);");
+            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_all_table_complited = 1);");
 
             dd($alldata);
             if (count($alldata) > 0) {
@@ -448,6 +448,8 @@ class filterController extends Controller
         } else {
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $user_id)->get();
             $user_partnerpreference = json_decode($user_partnerpreference[0]->json_data);
+            $user_min_height = $user_partnerpreference->user_min_height;
+            $user_max_height = $user_partnerpreference->user_max_height;
             $user_max_anual_income = $user_partnerpreference->user_max_anual_income;
             $user_min_anual_income = $user_partnerpreference->user_min_anual_income;
             $user = DB::table('user_info')->where('user_ID', $user_id)->get('user_gender');
@@ -630,6 +632,7 @@ class filterController extends Controller
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
              OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
+             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
             AND
             ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_religion.user_caste = '$user_religion');");
 
