@@ -43,53 +43,57 @@ class userController extends Controller
             ->orWhere('auth_phone_no', $phone)
             ->count();
         if ($getAuthUserCount == 0) {
-            DB::transaction();
-            $user = DB::table('user_info')->insert([
-                'user_id' => $userId,
-                'user_profileType' => $profiletype,
-                'user_gender' => $gender,
-                'user_email' => $email,
-                'user_fname' => $fname,
-                'user_lname' => $lname,
-                'user_dob' => $dob,
-                'status' => 1,
-                'deleted' => 1,
-            ]);
-            $authuser = DB::table('auth_user')->insert([
-                'auth_ID' => $userId,
-                'auth_email' => $email,
-                'auth_password' => $password,
-                'auth_phone_no' => $phone,
-                'auth_name' => $fname . " " . $lname
 
-            ]);
+            try {
+                DB::transaction(function () use ($userId, $profiletype, $gender, $email, $fname, $lname, $dob, $password, $phone, $url) {
+                    DB::table('auth_user')->insert([
+                        'auth_ID' => $userId,
+                        'auth_email' => $email,
+                        'auth_password' => $password,
+                        'auth_phone_no' => $phone,
+                        'auth_name' => $fname . " " . $lname,
+                    ]);
 
-            if ($user > 0 && $authuser > 0) {
-                $fadata['user_email'] = $email;
-                $fadata['name'] = $fname;
-                $fadata['url'] = $url;
+                    DB::table('user_info')->insert([
+                        'user_id' => $userId,
+                        'user_profileType' => $profiletype,
+                        'user_gender' => $gender,
+                        'user_email' => $email,
+                        'user_fname' => $fname,
+                        'user_lname' => $lname,
+                        'user_dob' => $dob,
+                        'status' => 1,
+                        'deleted' => 1,
+                    ]);
+                });
                 try {
+                    $fadata['user_email'] = $email;
+                    $fadata['name'] = $fname;
+                    $fadata['url'] = $url;
                     $fadata['Subject'] = 'Registration Successfull';
-                        Mail::send('mail.registation_alert', $fadata, function ($message) use ($fadata) {
+                    Mail::send('mail.registation_alert', $fadata, function ($message) use ($fadata) {
                         $message->from('info@choicemarriage.com', 'choicemarriage');
                         $message->to($fadata['user_email'], $fadata['name'])->subject($fadata['Subject']);
                     });
                 } catch (Exception $e) {
                     DB::rollBack();
                 }
-                $user_arr = array(
+
+                $user_arr = [
                     "status" => true,
                     "success" => true,
                     "profileID" => $userId,
-                    "message" => "Congratulation! Your Registration Done",
-                );
+                    "message" => "Congratulations! Your Registration Done",
+                ];
                 DB::commit();
-            } else {
-                $user_arr = array(
+            } catch (\Exception $e) {
+                // Handle the exception
+                DB::rollback();
+                $user_arr = [
                     "status" => false,
                     "success" => false,
-                    "message" => "Data not Inserted Successfully !",
-                );
+                    "message" => "An error occurred during registration: " . $e->getMessage(),
+                ];
             }
         } else {
             $user_arr = array(
