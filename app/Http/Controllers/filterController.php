@@ -274,12 +274,40 @@ class filterController extends Controller
              OR  user_horoscope.user_nakhyatra IN ($nakshatra)
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
-             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
-             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
+             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income'
+             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height')
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_all_table_complited = 1);");
+            ( user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_all_table_complited = 1);");
 
-            // dd($alldata);
+            //  return "SELECT * FROM user_info
+            //  LEFT JOIN user_religion ON user_info.user_id = user_religion.user_ID
+            //  LEFT JOIN user_locations ON user_info.user_id = user_locations.user_ID
+            //  LEFT JOIN user_family ON user_info.user_id = user_family.user_ID
+            //  LEFT JOIN user_physical_details ON user_info.user_id = user_physical_details.user_ID
+            //  LEFT JOIN user_about ON user_info.user_id = user_about.user_ID
+            //  LEFT JOIN user_diet_hobbies ON user_info.user_id = user_diet_hobbies.user_ID
+            //  LEFT JOIN user_education_occupations ON user_info.user_id = user_education_occupations.user_ID
+            //  LEFT JOIN auth_user ON user_info.user_id = auth_user.auth_ID
+            //  LEFT JOIN user_horoscope ON  user_info.user_id = user_horoscope.user_id
+            //  WHERE
+            //  (
+            //   user_religion.user_religion IN ($user_religion)
+
+            //   OR  user_info.user_marital_status IN ($user_marital_status)
+            //   OR  user_education_occupations.user_employed_In IN  ($user_employed_In)
+            //   OR  user_locations.user_country IN ($user_country)
+            //   OR  user_locations.user_city IN ($user_city)
+            //   OR  user_locations.user_state IN ($user_state)
+            //   OR  user_education_occupations.user_occupation IN ($user_occupation)
+            //   OR  user_info.user_mother_toungh IN ($user_mother_toungh)
+            //   OR  user_horoscope.user_zodiacs IN ($zodiacs)
+            //   OR  user_horoscope.user_nakhyatra IN ($nakshatra)
+            //   OR  user_horoscope.user_gotra IN ($gotra)
+            //   OR  user_education_occupations.user_employed_In  IN ($employed_In)
+            //   OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
+            //   OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
+            //  AND
+            //  ( user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_all_table_complited = 1);";
             if (count($alldata) > 0) {
                 $user_arr = array(
                     "status" => true,
@@ -413,7 +441,7 @@ class filterController extends Controller
                 "status" => true,
                 "success" => true,
                 "matches_Count" =>  round($matchPercentage),
-           
+
             );
         } catch (Exception $e) {
             $user_arr = array(
@@ -432,7 +460,7 @@ class filterController extends Controller
     {
         // Define weights for each category
         $weights = [
-           
+
             'user_min_height' => 1,
             'user_max_height' => 1,
             'user_religion' => 5,
@@ -466,7 +494,7 @@ class filterController extends Controller
             if (is_array($user1->$category) && is_array($user2->$category)) {
                 // Check if there are common elements in the arrays
                 $commonElements = array_intersect($user1->$category, $user2->$category);
-            
+
                 // If there are common elements, add the weight to the total score
                 if (!empty($commonElements)) {
                     $totalScore += $weight;
@@ -735,10 +763,10 @@ class filterController extends Controller
              OR  user_horoscope.user_nakhyatra IN ($nakshatra)
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
-             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
-             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
+             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income'
+             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height')
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_religion.user_caste = '$user_religion');");
+            ( user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_religion.user_caste = '$user_religion' AND user_info.user_all_table_complited = 1);");
 
             if (count($alldata) > 0) {
                 $user_arr = array(
@@ -959,10 +987,10 @@ class filterController extends Controller
              OR  user_horoscope.user_nakhyatra IN ($nakshatra)
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
-             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
-             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
+             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income'
+             OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height')
             AND
-            ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_membership_plan_type <> '$membership_plan_type');");
+            ( user_info.user_gender = '$gender'  AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_membership_plan_type <> '$membership_plan_type' AND user_info.user_all_table_complited = 1);");
 
             // dd($alldata);
             if (count($alldata) > 0) {
@@ -1196,7 +1224,8 @@ class filterController extends Controller
              OR  user_horoscope.user_nakhyatra IN ($nakshatra)
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
-             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')");
+             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income'
+             AND user_info.user_id <> '$user_id')");
 
             // dd($alldata);
             if (count($alldata) > 0) {
