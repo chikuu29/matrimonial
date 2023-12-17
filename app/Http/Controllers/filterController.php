@@ -312,100 +312,176 @@ class filterController extends Controller
         try {
             $user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $loginuserid)->get();
 
-            $user_partnerpreference = json_decode($user_partnerpreference[0]->json_data);
-            //dd($user_partnerpreference);
-            $user_min_height = $user_partnerpreference->user_min_height;
-            $user_max_height = $user_partnerpreference->user_max_height;
-            //dd($user_height);
-            $user_religion = $user_partnerpreference->user_religion;
-            $user_country = $user_partnerpreference->user_country;
-            $user_marital_status = $user_partnerpreference->user_marital_status;
-            $user_city = $user_partnerpreference->user_city;
-            $user_state = $user_partnerpreference->user_state;
-            $user_employed_In = $user_partnerpreference->user_employed_In;
-            $user_occupation = $user_partnerpreference->user_occupation;
-            $user_mother_toungh = $user_partnerpreference->user_mother_toungh;
-            $user_max_anual_income = $user_partnerpreference->user_max_anual_income;
-            $user_max_anual_income = $user_partnerpreference->user_min_anual_income;
-            $income = array($user_max_anual_income, $user_max_anual_income);
-            $hight = array($user_min_height, $user_max_height);
-            $user_physical_details = DB::table('user_physical_details')->where('user_ID', $preferenceuserid)->whereBetween('user_height', $hight)->exists();
-            //dd($user_physical_details);
-            $user_religion = DB::table('user_religion')->where('user_ID', $preferenceuserid)->whereIn('user_caste', $user_religion)->exists();
-            $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_employed_In', $user_employed_In)->exists();
-            $user_education_occupations1 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_occupation', $user_occupation)->exists();
-            $user_info = DB::table('user_info')->where('user_ID', $preferenceuserid)->whereIn('user_mother_toungh', $user_mother_toungh)->exists();
-            $user_education_occupations2 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereBetween('user_anual_income', $income)->exists();
-            $datafromstate = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_state', $user_state)->exists();
-            $datafromcity = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_city', $user_city)->exists();
-            $datafromcountry = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_country', $user_country)->exists();
-            $user_marital_present = DB::table('user_info')->where('user_id', $preferenceuserid)->whereIn('user_marital_status', $user_marital_status)->exists();
-            if ($user_physical_details) {
-                $one = 1;
-            } else {
-                $one = 0;
-            }
-            if ($user_religion) {
-                $two = 1;
-            } else {
-                $two = 0;
-            }
-            if ($user_education_occupations) {
-                $three = 1;
-            } else {
-                $three = 0;
-            }
-            if ($user_education_occupations1) {
-                $foure = 1;
-            } else {
-                $foure = 0;
-            }
-            if ($user_info) {
-                $five = 1;
-            } else {
-                $five = 0;
-            }
-            if ($user_education_occupations2) {
-                $six = 1;
-            } else {
-                $six = 0;
-            }
+            $other_user_partnerpreference = DB::table('user_partnerpreference')->where('user_ID', $preferenceuserid)->get();
 
-            if ($datafromstate) {
-                $seven = 1;
-            } else {
-                $seven = 0;
-            }
-            if ($datafromcity) {
-                $eight = 1;
-            } else {
-                $eight = 0;
-            }
-            if ($datafromcountry) {
-                $nine = 1;
-            } else {
-                $nine = 0;
-            }
-            if ($user_marital_present) {
-                $ten = 1;
-            } else {
-                $ten = 0;
-            }
-            $persent = ($one + $two + $three + $foure + $five + $six + $seven + $eight + $nine + $ten) / 10 * 100;
+            $user_partnerpreference = json_decode($user_partnerpreference[0]->json_data);
+            $other_user_partnerpreference = json_decode($other_user_partnerpreference[0]->json_data);
+
+            // print_r($user_partnerpreference);
+            // print_r($other_user_partnerpreference);
+            $matchPercentage =$this->calculateMatchPercentage($user_partnerpreference, $other_user_partnerpreference);
+            //dd($user_partnerpreference);
+            // $user_min_height = $user_partnerpreference->user_min_height;
+            // $user_max_height = $user_partnerpreference->user_max_height;
+            // //dd($user_height);
+            // $user_religion = $user_partnerpreference->user_religion;
+            // $user_country = $user_partnerpreference->user_country;
+            // $user_marital_status = $user_partnerpreference->user_marital_status;
+            // $user_city = $user_partnerpreference->user_city;
+            // $user_state = $user_partnerpreference->user_state;
+            // $user_employed_In = $user_partnerpreference->user_employed_In;
+            // $user_occupation = $user_partnerpreference->user_occupation;
+            // $user_mother_toungh = $user_partnerpreference->user_mother_toungh;
+            // $user_max_anual_income = $user_partnerpreference->user_max_anual_income;
+            // $user_max_anual_income = $user_partnerpreference->user_min_anual_income;
+            // $income = array($user_max_anual_income, $user_max_anual_income);
+            // $hight = array($user_min_height, $user_max_height);
+
+            // $user_physical_details = DB::table('user_physical_details')->where('user_ID', $preferenceuserid)->whereBetween('user_height', $hight)->exists();
+            // //dd($user_physical_details);
+            // $user_religion = DB::table('user_religion')->where('user_ID', $preferenceuserid)->whereIn('user_caste', $user_religion)->exists();
+            // $user_education_occupations = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_employed_In', $user_employed_In)->exists();
+            // $user_education_occupations1 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereIn('user_occupation', $user_occupation)->exists();
+            // $user_info = DB::table('user_info')->where('user_ID', $preferenceuserid)->whereIn('user_mother_toungh', $user_mother_toungh)->exists();
+            // $user_education_occupations2 = DB::table('user_education_occupations')->where('user_ID', $preferenceuserid)->whereBetween('user_anual_income', $income)->exists();
+            // $datafromstate = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_state', $user_state)->exists();
+            // $datafromcity = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_city', $user_city)->exists();
+            // $datafromcountry = DB::table('user_locations')->where('user_ID', $preferenceuserid)->whereIn('user_country', $user_country)->exists();
+            // $user_marital_present = DB::table('user_info')->where('user_id', $preferenceuserid)->whereIn('user_marital_status', $user_marital_status)->exists();
+
+            // if ($user_physical_details) {
+            //     $one = 1;
+            // } else {
+            //     $one = 0;
+            // }
+            // if ($user_religion) {
+            //     $two = 1;
+            // } else {
+            //     $two = 0;
+            // }
+            // if ($user_education_occupations) {
+            //     $three = 1;
+            // } else {
+            //     $three = 0;
+            // }
+            // if ($user_education_occupations1) {
+            //     $foure = 1;
+            // } else {
+            //     $foure = 0;
+            // }
+            // if ($user_info) {
+            //     $five = 1;
+            // } else {
+            //     $five = 0;
+            // }
+            // if ($user_education_occupations2) {
+            //     $six = 1;
+            // } else {
+            //     $six = 0;
+            // }
+
+            // if ($datafromstate) {
+            //     $seven = 1;
+            // } else {
+            //     $seven = 0;
+            // }
+            // if ($datafromcity) {
+            //     $eight = 1;
+            // } else {
+            //     $eight = 0;
+            // }
+            // if ($datafromcountry) {
+            //     $nine = 1;
+            // } else {
+            //     $nine = 0;
+            // }
+            // if ($user_marital_present) {
+            //     $ten = 1;
+            // } else {
+            //     $ten = 0;
+            // }
+            // $persent = ($one + $two + $three + $foure + $five + $six + $seven + $eight + $nine + $ten) / 10 * 100;
+            // $user_arr = array(
+            //     "status" => true,
+            //     "success" => true,
+            //     "matches_Count" => round($persent),
+            // );
+            // echo "Match Percentage: " . $matchPercentage . "%";
             $user_arr = array(
                 "status" => true,
                 "success" => true,
-                "matches_Count" => round($persent),
+                "matches_Count" =>  round($matchPercentage),
+           
             );
         } catch (Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
                 "matches_Count" => 0,
+                 "message"=> $e
             );
         }
         return json_encode($user_arr);
     }
+
+
+    // Function to calculate match percentage
+    function calculateMatchPercentage($user1, $user2)
+    {
+        // Define weights for each category
+        $weights = [
+           
+            'user_min_height' => 1,
+            'user_max_height' => 1,
+            'user_religion' => 5,
+            'user_country' => 2,
+            'user_marital_status' => 4,
+            'user_state' => 2,
+            'user_city' => 2,
+            'user_employed_In' => 2,
+            'user_occupation' => 2,
+            'user_mother_toungh' => 5,
+            'user_min_anual_income' => 5,
+            'user_max_anual_income' => 0,
+            'user_nakshatra' => 5,
+            'user_zodiacs' => 5,
+            'user_gotra' => 5
+
+            // Add other categories with appropriate weights
+        ];
+
+        // Initialize total score and max possible score
+        $totalScore = 0;
+        $maxPossibleScore = 0;
+
+        // Calculate scores for each category
+        foreach ($weights as $category => $weight) {
+            $maxPossibleScore += $weight;
+            // Compare user preferences and assign scores
+            // if ($user1->$category === $user2->$category) {
+            //     $totalScore += $weight;
+            // }
+            if (is_array($user1->$category) && is_array($user2->$category)) {
+                // Check if there are common elements in the arrays
+                $commonElements = array_intersect($user1->$category, $user2->$category);
+            
+                // If there are common elements, add the weight to the total score
+                if (!empty($commonElements)) {
+                    $totalScore += $weight;
+                }
+            } elseif ($user1->$category === $user2->$category) {
+                // If not arrays, check if the values are equal
+                $totalScore += $weight;
+            }
+        }
+
+        // Calculate match percentage
+        $matchPercentage = ($totalScore / $maxPossibleScore) * 100;
+
+        return $matchPercentage;
+    }
+
+
     public function getplandata(Request $res)
     {
         $data = json_decode(file_get_contents("php://input"));
