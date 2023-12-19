@@ -22,6 +22,7 @@ class successStoryConlroller extends Controller
         $ring_exchange_date = isset($data->ring_exchange_date) ? $data->ring_exchange_date : '';
         $the_proposal = isset($data->the_proposal) ? $data->the_proposal : '';
         $wedding_photo = isset($data->wedding_photo) ? $data->wedding_photo : '';
+        $login_id = isset($data->login_id) ? $data->login_id : '';
         if ($id == '') {
             $image = explode(';base64,',  $wedding_photo);
             $image_base64 = base64_decode($image[1]);
@@ -39,7 +40,8 @@ class successStoryConlroller extends Controller
                     'ring_exchange_date' => $ring_exchange_date,
                     'the_proposal' => $the_proposal,
                     'how_we_met' => $how_we_met,
-                    'wedding_photo' => $uniqid . '.' . $extention[1]
+                    'wedding_photo' => $uniqid . '.' . $extention[1],
+                    'login_id' => $login_id
                 ]);
                 if ($insert) {
                     $user_arr = array(
@@ -54,7 +56,7 @@ class successStoryConlroller extends Controller
                 }
             }
         } else {
-            if ($wedding_photo == '') {
+            if (strpos($wedding_photo, '.') !== false) {
                 $insert = DB::table('success_story_by_user')->insert([
                     'life_after_marriage' => $life_after_marriage,
                     'login_name' => $login_name,
