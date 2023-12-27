@@ -75,6 +75,7 @@ $router->post("/filterData","filterController@filterData");
 $router->post("/sendEmail","mailcontroller@sendEmail");
 $router->post("/sendData","mailcontroller@sendData");
 $router->post("/getAllDataById","userController@getAllDataById");
+$router->post("/successStory","successStoryConlroller@successStory");
 
 
 
