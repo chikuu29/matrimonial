@@ -274,8 +274,9 @@ class filterController extends Controller
              OR  user_horoscope.user_nakhyatra IN ($nakshatra)
              OR  user_horoscope.user_gotra IN ($gotra)
              OR  user_education_occupations.user_employed_In  IN ($employed_In)
-             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income')
+             OR  user_education_occupations.user_anual_income BETWEEN '$user_min_anual_income' AND '$user_max_anual_income'
              OR  user_physical_details.user_height BETWEEN '$user_min_height' AND '$user_max_height'
+            )
             AND
             ( user_info.user_gender = '$gender' AND user_info.user_status = 'Approved' AND user_info.deleted = 1 AND user_info.status = 1 AND user_info.user_id NOT IN ($outputString)  AND user_info.marriage_status = 0 AND user_info.user_all_table_complited = 1);");
 
