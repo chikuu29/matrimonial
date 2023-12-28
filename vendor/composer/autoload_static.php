@@ -156,6 +156,7 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'F' => 
         array (
             'Flipbox\\LumenGenerator\\' => 23,
+            'Firebase\\JWT\\' => 13,
             'FastRoute\\' => 10,
             'Faker\\' => 6,
         ),
@@ -526,6 +527,10 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         array (
             0 => __DIR__ . '/..' . '/flipbox/lumen-generator/src/LumenGenerator',
         ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
@@ -644,6 +649,7 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'App\\Http\\Controllers\\memberController' => __DIR__ . '/../..' . '/app/Http/Controllers/memberController.php',
         'App\\Http\\Controllers\\planCalculationController' => __DIR__ . '/../..' . '/app/Http/Controllers/planCalculationController.php',
         'App\\Http\\Controllers\\registerController' => __DIR__ . '/../..' . '/app/Http/Controllers/registerController.php',
+        'App\\Http\\Controllers\\successStoryConlroller' => __DIR__ . '/../..' . '/app/Http/Controllers/successStoryConlroller.php',
         'App\\Http\\Controllers\\uplodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/uplodeController.php',
         'App\\Http\\Controllers\\userController' => __DIR__ . '/../..' . '/app/Http/Controllers/userController.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -1847,6 +1853,14 @@ class ComposerStaticInit52e4e710eee7d7545569dc5ed6d98e34
         'FastRoute\\RouteCollector' => __DIR__ . '/..' . '/nikic/fast-route/src/RouteCollector.php',
         'FastRoute\\RouteParser' => __DIR__ . '/..' . '/nikic/fast-route/src/RouteParser.php',
         'FastRoute\\RouteParser\\Std' => __DIR__ . '/..' . '/nikic/fast-route/src/RouteParser/Std.php',
+        'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
+        'Firebase\\JWT\\CachedKeySet' => __DIR__ . '/..' . '/firebase/php-jwt/src/CachedKeySet.php',
+        'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
+        'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
+        'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
+        'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
+        'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
+        'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
         'Flipbox\\LumenGenerator\\Console\\CastMakeCommand' => __DIR__ . '/..' . '/flipbox/lumen-generator/src/LumenGenerator/Console/CastMakeCommand.php',
         'Flipbox\\LumenGenerator\\Console\\ChannelMakeCommand' => __DIR__ . '/..' . '/flipbox/lumen-generator/src/LumenGenerator/Console/ChannelMakeCommand.php',
         'Flipbox\\LumenGenerator\\Console\\ClearCompiledCommand' => __DIR__ . '/..' . '/flipbox/lumen-generator/src/LumenGenerator/Console/ClearCompiledCommand.php',

@@ -82,7 +82,7 @@ class addItemControler extends Controller
 
 
 
-        } catch (Exeption $e) {
+        } catch (\Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,

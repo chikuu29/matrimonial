@@ -83,13 +83,16 @@ $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 */
 
 $app->middleware([
-    App\Http\Middleware\ExampleMiddleware::class
+    App\Http\Middleware\ExampleMiddleware::class,
+    App\Http\Middleware\CorsMiddleware::class
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'XSS' => \App\Http\Middleware\XSS::class,
+    'jwt.auth' => \App\Http\Middleware\JwtMiddleware::class
 ]);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -127,8 +130,9 @@ $app->router->group([
     require __DIR__ . '/../config/constant.php';
     require __DIR__ . '/../config/common_functions.php';
 });
-$app->middleware([
-    App\Http\Middleware\CorsMiddleware::class
-]);
+
+
+
+
 
 return $app;
