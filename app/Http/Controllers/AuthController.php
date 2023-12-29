@@ -77,27 +77,20 @@ class AuthController extends Controller
     public function userLogin(Request $request)
     {
         $requestedData = $request->all();
-        // $data = json_decode(file_get_contents("php://input"));
-        // print_r($data->id);
-        // $Key = '1E99412323A4ED2WAYWALASECRET_KEY';
-        // $encrypted = json_decode(base64_decode($data->encrypted));
-        // $encrypted = json_decode(base64_decode($data->encrypted));
-        //print_r($encrypted);
-        //$value = openssl_decrypt($encrypted, "AES-128-CTR", $Key);
-        // $data1 = $this->decrypt_openssl($data->encrypted);
-        // echo $value;
-        // return;
+
         $user = $requestedData['userID'];
         $password = $requestedData['password'];
+        $loginDateTime = $requestedData['login_date_time'];
         //dd($user);
         if ($user == '' || $user == null || $password == '' || $password == null) {
-            $user_arr = array(
+
+            return response()->json(array(
                 "status" => false,
                 "success" => false,
                 "id" => '',
                 "name" => '',
                 "message" => "Please Enter Your Credentials",
-            );
+            ), 401);
         }
 
         try {
@@ -105,14 +98,22 @@ class AuthController extends Controller
             $logindata = DB::table('auth_user')->orwhere('auth_ID', $user)->orWhere('auth_email', $user)->orWhere('auth_phone_no', $user)->get();
             if (count($logindata) > 0) {
                 if (md5($password) == $logindata[0]->auth_password) {
-                 DB::table("user_info")->where([
+                    DB::table("user_info")->where([
                         ['user_id', $logindata[0]->auth_ID],
-                        ['user_email',$user]
+                        ['user_email', $user]
                     ])->update(
                         [
                             'online_status' => 1
                         ]
                     );
+
+                    // DB::table("login_activity")->insert(
+                    //     [
+                    //         'current_login_states' => 1,
+                    //         'login_date_time' => $loginDateTime,
+                    //         'user_id' => $logindata[0]->auth_ID
+                    //     ]
+                    // );
                     $expiration = Carbon::now()->addHours(12)->timestamp;
                     // If credentials are valid, generate JWT
                     $key = env('JWT_SECRET');  // Secret key from .env or configuration
@@ -139,36 +140,36 @@ class AuthController extends Controller
                         "token" => $jwt,
                         "message" => "Login Successfully !",
                     );
-                   
+                    return response()->json($user_arr);
                 } else {
-                    $user_arr = array(
+
+                    return response()->json(array(
                         "status" => false,
                         "success" => false,
                         "message" => "Password not match !",
-                    );
+                    ));
                 }
             } else {
-
-                $user_arr = array(
+                return response()->json(array(
                     "status" => false,
                     "success" => false,
                     "id" => '',
                     "name" => '',
                     "message" => "User Id not match !",
-                );
+                ));
             }
         } catch (\Exception $e) {
-            $user_arr = array(
+
+            return response()->json(array(
                 "status" => false,
                 "success" => false,
                 "id" => '',
                 "name" => '',
-                "message" => "Something Wrong Happened!",
-            );
-
+                "message" => "Unauthorize Access!",
+            ), 401);
         }
 
-        return array("id" => base64_encode(json_encode($user_arr)));
+        // return array("id" => base64_encode(json_encode($user_arr)));
     }
 
     public function decrypt_openssl($payload)

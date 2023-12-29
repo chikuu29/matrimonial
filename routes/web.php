@@ -81,7 +81,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post("/successStory", "successStoryConlroller@successStory");
 });
 Route::get("/setting", "AppController@settings");
-
 Route::post("/adminLogin", "AuthController@adminLogin");
 Route::post("/auth", "AuthController@userLogin");
 Route::post("/addUserDataFirstApi", "userController@addUserDataFirstApi");
