@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\addItemController; // Ensure you import the controller at the top
@@ -26,129 +27,62 @@ use App\Http\Controllers\addItemController; // Ensure you import the controller 
 
 
 Route::group(['middleware' => 'jwt.auth'], function () {
-    Route::get('/protected', function (Request $request) {
-        $user = $request->attributes->get('auth_user');
-        return response()->json(['user' => $user]);
-    });
+
     Route::post('/annual_income', 'addItemControler@annual_income');
-    Route::post("/fetch","dynamic_Crud_controller@fetch");
-    Route::post("/save","dynamic_Crud_controller@save");
-    Route::post("/delete","dynamic_Crud_controller@delete");
-    Route::post("/update","dynamic_Crud_controller@update");
-    Route::post("/getDataFormQuery","dynaController@dynaQuay");
+    Route::post("/fetch", "dynamic_Crud_controller@fetch");
+    Route::post("/save", "dynamic_Crud_controller@save");
+    Route::post("/delete", "dynamic_Crud_controller@delete");
+    Route::post("/update", "dynamic_Crud_controller@update");
+    Route::post("/getDataFormQuery", "dynaController@dynaQuay");
+    Route::post("/makeActinForMultipulData", "dynamic_Crud_controller@makeActinForMultipulData");
+
+    Route::post("/insertData", "dynamic_Crud_controller@insertData");
+    Route::post("/getprofile", "userController@fatchAllaDataByUserId");
+    Route::post("/zodiacs", "addItemControler@zodiacs");
+    Route::post("/nakshatra", "addItemControler@nakshatra");
+    Route::post("/upload", "userController@uploadImage");
+    Route::post("/memberpaln", "memberController@memberpaln");
+    Route::post("/getAllData", "memberController@getAllData");
+    Route::post("/privacypolicy", "addItemControler@privacypolicy");
+    Route::post("/contactus", "addItemControler@contactus");
+    Route::post("/termandcondition", "addItemControler@termandcondition");
+    Route::post("/aboutus", "addItemControler@aboutus");
+    Route::post("/userActivation", "userController@userActivation");
+    Route::post("/profileValidation", "userController@profileValidation");
+    Route::post("/getDataFormQuery", "dynaController@dynaQuay");
+    Route::post("/matches", "filterController@matches");
+    Route::post("/matchesforindivisual", "filterController@matchesforindivisual");
+    Route::post("/matchPersent", "filterController@matchPersent");
+    Route::post("/getplandata", "filterController@getplandata");
+    Route::post("/getUserPlan", "memberController@getMembersheepPlan");
+    Route::post("/callCalculation", "planCalculationController@callCalculation");
+    Route::post("/sendMessageCalculation", "planCalculationController@sendMessageCalculation");
+    Route::post("/horscopeCalculation", "planCalculationController@horscopeCalculation");
+    Route::post("/contactViewOtherCalculation", "planCalculationController@contactViewOtherCalculation");
+    Route::post("/logoUplode", "uplodeController@logoUplode");
+    Route::post("/homeLogoUplode", "uplodeController@homeLogoUplode");
+    Route::post("/bannerUplode", "uplodeController@bannerUplode");
+    Route::post("/cast_matches", "filterController@matchByCast");
+    Route::post("/premium_matches", "filterController@premimusMatches");
+    Route::post("/getLoginCount", "activityController@getLoginCount");
+    Route::post("/getLikeCount", "activityController@getLikeCount");
+    Route::post("/secondPass", "forgetPasswordController@secondPass");
+    Route::post("/firstPass", "forgetPasswordController@firstPass");
+    Route::post("/passwordresetbyadmin", "forgetPasswordController@passwordresetbyadmin");
+    Route::post("/updateEditedPlanDetails", "memberController@updateEditedPlanDetails");
+    Route::post("/getUserBlockList", "activityController@getUserBlockList");
+    Route::post("/waterMark", "uplodeController@waterMark");
+    Route::post("/barCode", "uplodeController@barCode");
+    Route::post("/profileView", "planCalculationController@profileView");
+    Route::post("/sendEmail", "mailcontroller@sendEmail");
+    Route::post("/getAllDataById", "userController@getAllDataById");
+    Route::post("/filterData", "filterController@filterData");
+    Route::post("/sendData", "mailcontroller@sendData");
+    Route::post("/successStory", "successStoryConlroller@successStory");
 });
+Route::get("/setting", "AppController@settings");
 
-$router->post("/adminLogin","AuthController@adminLogin");
-$router->post("/auth","loginController@userLogin");
-
-
-$router->post("/addUserDataFirstApi","userController@addUserDataFirstApi");
-$router->post("/addUserDataSecondApi","userController@addUserDataSecondApi");
-$router->post("/socialMediaLink","addItemControler@socialMediaLink");
-$router->post("/getsocialMediaLink","addItemControler@getsocialMediaLink");
-$router->post("/country","addItemControler@country");
-$router->post("/state","addItemControler@state");
-
-// $router->post("/fetch","dynamic_Crud_controller@fetch");
-// $router->post("/save","dynamic_Crud_controller@save");
-// $router->post("/delete","dynamic_Crud_controller@delete");
-// $router->post("/update","dynamic_Crud_controller@update");
-// $router->post("/getDataFormQuery","dynaController@dynaQuay");
-
-
-$router->post("/makeActinForMultipulData","dynamic_Crud_controller@makeActinForMultipulData");
-
-
-$router->post("/insertData","dynamic_Crud_controller@insertData");
-
-$router->post("/getprofile","userController@fatchAllaDataByUserId");
-$router->post("/zodiacs","addItemControler@zodiacs");
-$router->post("/nakshatra","addItemControler@nakshatra");
-$router->post("/upload","userController@uploadImage");
-// $router->post("/annual_income","addItemControler@annual_income");
-$router->post("/memberpaln","memberController@memberpaln");
-$router->post("/getAllData","memberController@getAllData");
-// $router->post("/city","addItemControler@city");
-$router->post("/privacypolicy","addItemControler@privacypolicy");
-$router->post("/contactus","addItemControler@contactus");
-$router->post("/termandcondition","addItemControler@termandcondition");
-$router->post("/aboutus","addItemControler@aboutus");
-$router->post("/userActivation","userController@userActivation");
-$router->post("/profileValidation","userController@profileValidation");
-$router->post("/getDataFormQuery","dynaController@dynaQuay");
-$router->post("/matches","filterController@matches");
-$router->post("/matchesforindivisual","filterController@matchesforindivisual");
-$router->post("/matchPersent","filterController@matchPersent");
-$router->post("/getplandata","filterController@getplandata");
-$router->post("/getUserPlan","memberController@getMembersheepPlan");
-$router->post("/callCalculation","planCalculationController@callCalculation");
-$router->post("/sendMessageCalculation","planCalculationController@sendMessageCalculation");
-$router->post("/horscopeCalculation","planCalculationController@horscopeCalculation");
-$router->post("/contactViewOtherCalculation","planCalculationController@contactViewOtherCalculation");
-$router->post("/logoUplode","uplodeController@logoUplode");
-$router->post("/homeLogoUplode","uplodeController@homeLogoUplode");
-$router->post("/bannerUplode","uplodeController@bannerUplode");
-$router->post("/cast_matches","filterController@matchByCast");
-$router->post("/premium_matches","filterController@premimusMatches");
-$router->post("/getLoginCount","activityController@getLoginCount");
-$router->post("/getLikeCount","activityController@getLikeCount");
-$router->post("/secondPass","forgetPasswordController@secondPass");
-$router->post("/firstPass","forgetPasswordController@firstPass");
-$router->post("/passwordresetbyadmin","forgetPasswordController@passwordresetbyadmin");
-$router->post("/updateEditedPlanDetails","memberController@updateEditedPlanDetails");
-$router->post("/getUserBlockList","activityController@getUserBlockList");
-$router->post("/waterMark","uplodeController@waterMark");
-$router->post("/barCode","uplodeController@barCode");
-$router->post("/profileView","planCalculationController@profileView");
-$router->post("/sendEmail","mailcontroller@sendEmail");
-$router->post("/getAllDataById","userController@getAllDataById");
-$router->post("/filterData","filterController@filterData");
-$router->post("/sendEmail","mailcontroller@sendEmail");
-$router->post("/sendData","mailcontroller@sendData");
-$router->post("/getAllDataById","userController@getAllDataById");
-$router->post("/successStory","successStoryConlroller@successStory");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::post("/adminLogin", "AuthController@adminLogin");
+Route::post("/auth", "AuthController@userLogin");
+Route::post("/addUserDataFirstApi", "userController@addUserDataFirstApi");
+Route::post("/addUserDataSecondApi", "userController@addUserDataSecondApi");

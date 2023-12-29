@@ -39,7 +39,7 @@ class dynaController extends Controller
                             "data" => [],
                         );
                     }
-                } catch (Expeption $e) {
+                } catch (\Exception $e) {
                     $user_arr = array(
                         "status" => false,
                         "success" => false,

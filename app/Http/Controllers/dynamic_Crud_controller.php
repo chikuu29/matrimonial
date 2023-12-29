@@ -151,7 +151,7 @@ class dynamic_Crud_controller extends Controller
         $requestedData = $request->all();
         $whereConditions = isset($requestedData['whereConditions']) ? $requestedData['whereConditions'] : [];
         $table = isset($requestedData['table']) ? $requestedData['table'] : '';;
-        $data = $requestedData['data'];
+        $data = isset($requestedData['data'])?$requestedData['data']:'';
         if (count($whereConditions) == 0 || $table == '') {
             $user_arr = array(
                 "status" => false,

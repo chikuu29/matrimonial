@@ -50,7 +50,7 @@ class loginController extends Controller
                     "message" => "User Id not match !",
                 );
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
@@ -137,7 +137,7 @@ class loginController extends Controller
                     "message" => "User Id not match !",
                 );
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $user_arr = array(
                 "status" => false,
                 "success" => false,
